@@ -1,4 +1,4 @@
-name: RareItems
+name: RareItems4
 main: com.lonelymc.ri4.bukkit.RareItems4Plugin
 version: '4.0a'
 load: STARTUP
