@@ -1,0 +1,7 @@
+#EXAMPLE
+#Backstab:
+#  displayName: Backy Stabby
+#  description: Stabby in the backy
+#  cost: 10
+#  # FOOD, HEALTHER, EXPERIENCE, COOLDOWN, PASSIVE, AUTOMATIC
+#  costType: EXPERIENCE

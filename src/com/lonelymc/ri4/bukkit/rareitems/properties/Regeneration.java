@@ -1,0 +1,33 @@
+package com.lonelymc.ri4.bukkit.rareitems.properties;
+
+import com.lonelymc.ri4.bukkit.rareitems.RareItemProperty;
+import com.lonelymc.ri4.api.ItemPropertyRarity;
+import com.lonelymc.ri4.api.PropertyCostType;
+import org.bukkit.Effect;
+import org.bukkit.entity.Player;
+
+public class Regeneration extends RareItemProperty {
+    public Regeneration() {
+        super(
+                "Regeneration",
+                "While worn as armor or a helmet regenerates 1 HP per lvl every 5 seconds",
+                ItemPropertyRarity.LEGENDARY,
+                PropertyCostType.AUTOMATIC,
+                5.0D,
+                5
+        );
+    }
+
+    @Override
+    public void applyEffectToPlayer(Player p, int level) {
+        if (p.getHealth() < 20.0D) {
+            double iNewHP = p.getHealth() + level;
+            if (iNewHP > 20.0D) {
+                iNewHP = 20.0D;
+            }
+            p.setHealth(iNewHP);
+
+            p.getLocation().getWorld().playEffect(p.getLocation(), Effect.INSTANT_SPELL, 1);
+        }
+    }
+}

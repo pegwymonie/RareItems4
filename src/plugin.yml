@@ -1,0 +1,17 @@
+name: RareItems
+main: com.lonelymc.ri4.bukkit.RareItems4Plugin
+version: '4.0a'
+load: STARTUP
+database: false
+softdepend: [Vault]
+description: Rare Items 4
+commands:
+    ri:
+      description: RareItems commands
+    hat:
+      description: put an item on your head
+permissions: 
+# All
+  rih.tester:
+    description: Permission to test ALL the things
+    default: false

@@ -1,0 +1,21 @@
+# Rare Items
+RAREITEM_HEADER:    "&DARK_GRAYRare Item &GRAY#!id"
+
+RAREITEM_COMMON:    "&AQUA!property &DARK_AQUA!level"
+RAREITEM_UNCOMMON:  "&GREEN!property &DARK_GREEN!level"
+RAREITEM_RARE:      "&RED!property &DARK_RED!level"
+RAREITEM_LEGENDARY: "&GOLD!property &DARK_RED!level"
+RAREITEM_STRANGE:   "&LIGHT_PURPLE!property &DARK_PURPLE!level"
+
+# Essences
+ESSENCE_BLANK:      "&DARK_GRAY(Empty)"
+ESSENCE_FILLED:     "&DARK_GRAY(Filled with !property&DARK_GRAY)"
+
+ESSENCE_COMMON:     "&GRAYCommon Essence"
+ESSENCE_UNCOMMON:   "&AQUAUncommon Essence"
+ESSENCE_RARE:       "&GREENRare Essence"
+ESSENCE_LEGENDARY:  "&GOLDLegendary Essence"
+ESSENCE_STRANGE:    "&LIGHT_PURPLEStrange Essence"
+
+ESSENCE_FOOTER_1:   "&DARK_GRAYAn essence of power &BLACK!id"
+ESSENCE_FOOTER_2:   "&GRAY/ri about &DARK_GRAYfor more info"
