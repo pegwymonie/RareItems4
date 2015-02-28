@@ -1,6 +1,7 @@
 package com.lonelymc.ri4.bukkit.rareitems;
 
 import com.lonelymc.ri4.api.*;
+import com.lonelymc.ri4.bukkit.RareItems4Plugin;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -21,15 +22,22 @@ public class RareItemsManager implements IRareItems4API {
     private final IRareItemsPersistence persistence;
     private final RareItemPropertiesManager propertiesManager;
 
-    public RareItemsManager(JavaPlugin plugin, IRareItemsPersistence persistence) {
+    public RareItemsManager(RareItems4Plugin plugin, IRareItemsPersistence persistence) {
         this.activeEffects = new HashMap<>();
         
-        this.propertiesManager = new RareItemPropertiesManager(this);
+        this.propertiesManager = new RareItemPropertiesManager(plugin,this);
 
         this.persistence = persistence;
         this.persistence.setAPI(this);
 
-
+        // Saving
+        plugin.getServer().getScheduler().runTaskTimerAsynchronously(plugin, new Runnable() {
+            @Override
+            public void run() {
+                save();
+            }
+        }, plugin.getConfig().getInt("save-interval"), plugin.getConfig().getInt("save-interval"));
+        
         // Garbage collection
         plugin.getServer().getScheduler().runTaskTimer(plugin, new Runnable() {
             @Override
@@ -99,8 +107,8 @@ public class RareItemsManager implements IRareItems4API {
     }
 
     @Override
-    public IRareItemProperty getItemPropertyByDisplayName(String propertyName) {
-        return this.propertiesManager.getItemPropertyByDisplayName(propertyName);
+    public IRareItemProperty getItemPropertyByDisplayName(String propertyDisplayName) {
+        return this.propertiesManager.getItemPropertyByDisplayName(propertyDisplayName);
     }
 
     @Override
@@ -238,6 +246,7 @@ public class RareItemsManager implements IRareItems4API {
     @Override
     public void save() {
         this.persistence.save();
+        this.propertiesManager.save();
     }
 
     @Override

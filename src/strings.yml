@@ -24,3 +24,4 @@ ESSENCE_FOOTER_2:   "&GRAY/ri about &DARK_GRAYfor more info"
 
 # Log messages
 LOG_RAREITEM_DISABLED: "!property not loaded because enable=false in rareitems.yml"
+LOG_UNABLE_TO_SAVE_FILE: "!file could not be saved!"

@@ -1,0 +1,4 @@
+# In ticks how often to save (Note: only saves when there are changes)
+# 1200 = 60 seconds
+save-interval: 1200
+

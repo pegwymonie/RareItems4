@@ -12,6 +12,9 @@ commands:
       description: put an item on your head
 permissions: 
 # All
-  rih.tester:
+  ri4.tester:
     description: Permission to test ALL the things
+    default: false
+  ri4.admin.logs:
+    description: Will see error summaries in-game
     default: false

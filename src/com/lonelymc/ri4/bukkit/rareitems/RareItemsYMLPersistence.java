@@ -34,13 +34,6 @@ public class RareItemsYMLPersistence implements IRareItemsPersistence {
         this.cachedRareItems = new HashMap<>();
 
         load();
-
-        plugin.getServer().getScheduler().runTaskTimerAsynchronously(plugin, new Runnable() {
-            @Override
-            public void run() {
-                save();
-            }
-        }, 20 * 60 * 5, 20 * 60 * 5);
     }
 
     @Override

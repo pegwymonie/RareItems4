@@ -16,6 +16,7 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.lang.reflect.Field;
+import java.util.logging.Level;
 
 /* TODO: 
 * Before launch here's what needs to be done:
@@ -37,8 +38,15 @@ public class RareItems4Plugin extends JavaPlugin{
     @Override
     public void onEnable(){
         this.getDataFolder().mkdirs();
+
+// Load default config w/ comments
+        File configFile = new File(this.getDataFolder(),"config.yml");
+
+        if(!configFile.exists()){
+            this.copy(this.getResource("config.yml"),configFile);
+        }
         
-// Load localized strings        
+// Load localized strings w/ comments
         File stringsFile = new File(this.getDataFolder(),"strings.yml");
 
         if(!stringsFile.exists()){
@@ -164,6 +172,21 @@ public class RareItems4Plugin extends JavaPlugin{
 
     public IRareItems4API getAPI() {
         return api;
+    }
+    
+// Logger that also notifies permed players ingame
+    public void log(Level level, String msg){
+        log(level,msg,null);
+    }
+    
+    public void log(Level level, String msg, Exception ex){
+        this.getLogger().log(level,msg);
+        
+        this.getServer().broadcast(msg,"ri4.admin.logs");
+        
+        if(ex != null){
+            ex.printStackTrace();
+        }
     }
 
 // Helper method    

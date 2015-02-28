@@ -127,4 +127,5 @@ public class RI4Strings {
     
 // Log messages
     public static String LOG_RAREITEM_DISABLED;
+    public static String LOG_UNABLE_TO_SAVE_FILE;
 }
