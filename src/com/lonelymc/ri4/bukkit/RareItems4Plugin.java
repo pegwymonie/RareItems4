@@ -1,17 +1,34 @@
 package com.lonelymc.ri4.bukkit;
 
 import com.lonelymc.ri4.api.IRareItems4API;
+import com.lonelymc.ri4.api.RI4Strings;
 import com.lonelymc.ri4.bukkit.commands.*;
 import com.lonelymc.ri4.bukkit.listeners.PlayerListener;
 import com.lonelymc.ri4.bukkit.rareitems.RareItemsManager;
 import com.lonelymc.ri4.bukkit.rareitems.RareItemsYMLPersistence;
 import com.lonelymc.ri4.bukkit.rareitems.properties.*;
+import net.md_5.bungee.api.ChatColor;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.lang.reflect.Field;
+
+/* TODO: 
+* Before launch here's what needs to be done:
+* Add crafting
+* Add recipe loading from YML
+* Add enable: true|false to allow disabling rare item properties
+* Add automatic loading of all rare item properties with default values to rareItems.yml* *
+* Add /ri wi [property_name]
+* Add /ri revoke <rid>
+* Add /ri clone <rid>
+* Add /ri rinfo <rid>
+* Add /ri einfo <eid>
+* * * */
 
 public class RareItems4Plugin extends JavaPlugin{
     private BasicCommandExecutor commandExecutor;
@@ -20,26 +37,46 @@ public class RareItems4Plugin extends JavaPlugin{
     @Override
     public void onEnable(){
         this.getDataFolder().mkdirs();
-
-        RareItemsYMLPersistence persistence = new RareItemsYMLPersistence(this,this.getDataFolder());
-
-        File riCustomizationsFile = new File(this.getDataFolder(),"rareItemCustomizations.yml");
-
-        if(!riCustomizationsFile.exists()){
-            this.copy(this.getResource("rareItemCustomizations.yml"),riCustomizationsFile);
-        }
-
-        this.api = new RareItemsManager(this,persistence);
-
+        
+// Load localized strings        
         File stringsFile = new File(this.getDataFolder(),"strings.yml");
 
         if(!stringsFile.exists()){
             this.copy(this.getResource("strings.yml"),stringsFile);
         }
+        
+        this.loadLanguageStrings(stringsFile);
 
-        this.api.loadStrings(stringsFile);
+// Create a persistence manager        
+        RareItemsYMLPersistence persistence = new RareItemsYMLPersistence(this,this.getDataFolder());
+
+// Create an API instance and feed it the persistence        
+        this.api = new RareItemsManager(this,persistence);
 
 // Register properties
+        this.addStockProperties();
+
+// Register "/hat" to act as an additional equip/unequip listener
+        this.getCommand("hat").setExecutor(new HatCommandExecutor(this));
+
+// Register subcommands
+        this.commandExecutor = new BasicCommandExecutor(this);
+
+        this.getCommand("ri").setExecutor(commandExecutor);
+        
+        this.registerSubCommand(new CommandEssence(this.api));
+        this.registerSubCommand(new CommandCraft(this.api));
+
+// Register listeners
+        this.getServer().getPluginManager().registerEvents(new PlayerListener(this,this.api),this);
+    }
+
+    @Override
+    public void onDisable(){
+        this.api.save();
+    }
+    
+    public void addStockProperties(){
         this.api.addItemProperty(new Backstab());
         this.api.addItemProperty(new Blinding());
         this.api.addItemProperty(new Burst());
@@ -94,27 +131,42 @@ public class RareItems4Plugin extends JavaPlugin{
         this.api.addItemProperty(new RainbowFuryFX());
         this.api.addItemProperty(new ToughLove());
         this.api.addItemProperty(new WitchFX());
+    }
+    
+    public void loadLanguageStrings(File stringsFile){
+        RI4Strings.RAREITEM_CCPASS = ChatColor.COLOR_CHAR + "r" + ChatColor.COLOR_CHAR + "i";
+        RI4Strings.ESSENCE_CCPASS = ChatColor.COLOR_CHAR + "e" + ChatColor.COLOR_CHAR + "s";
 
-// Register "/hat" to act as an equip/unequip listener
-        this.getCommand("hat").setExecutor(new HatCommandExecutor(this.api));
+        YamlConfiguration yml = YamlConfiguration.loadConfiguration(stringsFile);
 
-        this.commandExecutor = new BasicCommandExecutor(this);
+        for (String ri4StrKey : yml.getKeys(false)) {
+            try {
+                Field field = RI4Strings.class.getField(ri4StrKey);
 
-        this.getCommand("ri").setExecutor(commandExecutor);
+                String ri4Str = yml.getString(ri4StrKey);
 
-// Register subcommands
-        this.registerSubCommand(new CommandEssence(this.api));
-        this.registerSubCommand(new CommandCraft(this.api));
+                for (ChatColor cc : ChatColor.values()) {
+                    ri4Str = ri4Str.replace("&" + cc.name().toUpperCase(), cc.toString());
+                }
 
-// Register listeners
-        this.getServer().getPluginManager().registerEvents(new PlayerListener(this,this.api),this);
+                field.set(null, ri4Str);
+            } catch (IllegalAccessException | NoSuchFieldException e) {
+                System.out.println("Invalid RI4 String: " + ri4StrKey);
+                e.printStackTrace();
+            }
+        }
+    }
+    
+// Hooks
+    public void registerSubCommand(BasicCommand command){
+        this.commandExecutor.registerSubCommand(command);
     }
 
-    @Override
-    public void onDisable(){
-        this.api.save();
+    public IRareItems4API getAPI() {
+        return api;
     }
 
+// Helper method    
     private void copy(InputStream in, File file) {
         try {
             OutputStream out = new FileOutputStream(file);
@@ -128,13 +180,5 @@ public class RareItems4Plugin extends JavaPlugin{
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    public void registerSubCommand(BasicCommand command){
-        this.commandExecutor.registerSubCommand(command);
-    }
-
-    public IRareItems4API getAPI() {
-        return api;
     }
 }

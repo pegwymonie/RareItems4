@@ -13,29 +13,29 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
 import java.lang.reflect.Field;
-import java.security.InvalidParameterException;
 import java.util.*;
+import java.util.logging.Level;
 
 public class RareItemsManager implements IRareItems4API {
-    private final Map<String, IRareItemProperty> properties;
-    private final Map<String, IRareItemProperty> propertiesLookup;
     private final HashMap<UUID, Map<IRareItemProperty, Integer>> activeEffects;
     private final IRareItemsPersistence persistence;
+    private final RareItemPropertiesManager propertiesManager;
 
     public RareItemsManager(JavaPlugin plugin, IRareItemsPersistence persistence) {
-        this.propertiesLookup = new HashMap<>();
-        this.properties = new HashMap<>();
         this.activeEffects = new HashMap<>();
+        
+        this.propertiesManager = new RareItemPropertiesManager(this);
 
         this.persistence = persistence;
         this.persistence.setAPI(this);
+
 
         // Garbage collection
         plugin.getServer().getScheduler().runTaskTimer(plugin, new Runnable() {
             @Override
             public void run() {
                 // Clear out any cooldowns that have passed
-                for (IRareItemProperty rip : propertiesLookup.values()) {
+                for (IRareItemProperty rip : propertiesManager.getAllProperties()) {
                     rip.refreshCooldowns();
                 }
             }
@@ -86,39 +86,21 @@ public class RareItemsManager implements IRareItems4API {
                 }
             }
         }, 20L, 20L);
-
-        this.customizationsYml = YamlConfiguration.loadConfiguration(new File(plugin.getDataFolder(), "rareItemCustomizations.yml"));
     }
 
     @Override
     public void addItemProperty(IRareItemProperty property) {
-        String displayName = property.getDisplayName();
-
-        if(this.propertiesLookup.containsKey(displayName)){
-            throw new InvalidParameterException(property.getDisplayName()+" is already added as a property!");
-        }
-
-        this.loadCustomizationsFor(property);
-
-        //If the name changed then we need to check again
-        if(!displayName.equals(property.getDisplayName())) {
-            if (this.propertiesLookup.containsKey(property.getDisplayName())) {
-                throw new InvalidParameterException(property.getDisplayName() + " is already added as a property!");
-            }
-        }
-
-        this.properties.put(property.getName().toLowerCase(),property);
-        this.propertiesLookup.put(property.getDisplayName().toLowerCase(), property);
+        this.propertiesManager.addItemProperty(property);
     }
 
     @Override
     public IRareItemProperty getItemProperty(String propertyName) {
-        return this.properties.get(propertyName.toLowerCase());
+        return this.propertiesManager.getItemProperty(propertyName);
     }
 
     @Override
     public IRareItemProperty getItemPropertyByDisplayName(String propertyName) {
-        return this.propertiesLookup.get(propertyName.toLowerCase());
+        return this.propertiesManager.getItemPropertyByDisplayName(propertyName);
     }
 
     @Override
@@ -319,57 +301,5 @@ public class RareItemsManager implements IRareItems4API {
     @Override
     public void setRareItemProperties(UUID modifier, int rareItemId, Map<IRareItemProperty, Integer> riProperties) {
         this.persistence.setRareItemProperties(modifier, rareItemId, riProperties);
-    }
-
-    @Override
-    public void loadStrings(File stringsFile) {
-        RI4Strings.RAREITEM_CCPASS = ChatColor.COLOR_CHAR + "r" + ChatColor.COLOR_CHAR + "i";
-        RI4Strings.ESSENCE_CCPASS = ChatColor.COLOR_CHAR + "e" + ChatColor.COLOR_CHAR + "s";
-
-        YamlConfiguration yml = YamlConfiguration.loadConfiguration(stringsFile);
-
-        for (String ri4StrKey : yml.getKeys(false)) {
-            try {
-                Field field = RI4Strings.class.getField(ri4StrKey);
-
-                String ri4Str = yml.getString(ri4StrKey);
-
-                for (ChatColor cc : ChatColor.values()) {
-                    ri4Str = ri4Str.replace("&" + cc.name().toUpperCase(), cc.toString());
-                }
-
-                field.set(null, ri4Str);
-            } catch (IllegalAccessException | NoSuchFieldException e) {
-                System.out.println("Invalid RI4 String: " + ri4StrKey);
-                e.printStackTrace();
-            }
-        }
-    }
-
-    private YamlConfiguration customizationsYml;
-    private void loadCustomizationsFor(IRareItemProperty rip) {
-        ConfigurationSection riSection = customizationsYml.getConfigurationSection(rip.getName());
-
-        if (riSection != null) {
-            String sDisplayName = riSection.getString("displayName", null);
-            if (sDisplayName != null) {
-                rip.setDisplayName(sDisplayName);
-            }
-
-            String sDescription = riSection.getString("description", null);
-            if (sDescription != null) {
-                rip.setDescription(sDescription);
-            }
-
-            double cost = riSection.getDouble("cost", -1);
-            if (cost != -1) {
-                rip.setCost(cost);
-            }
-
-            String sCostType = riSection.getString("costType", null);
-            if (sCostType != null) {
-                rip.setCostType(PropertyCostType.valueOf(sCostType));
-            }
-        }
     }
 }

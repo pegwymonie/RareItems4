@@ -52,8 +52,4 @@ public interface IRareItems4API {
     void unEquipRareItem(Player player, IRareItem ri);
 
     void removeActiveEffects(Player player);
-
-    // Loads string values for use throughout ri4
-    // You could ignore stringsFile if you wanted to load from a database
-    void loadStrings(File stringsFile);
 }

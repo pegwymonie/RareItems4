@@ -124,4 +124,7 @@ public class RI4Strings {
 
         return lore;
     }
+    
+// Log messages
+    public static String LOG_RAREITEM_DISABLED;
 }

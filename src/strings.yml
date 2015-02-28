@@ -19,3 +19,8 @@ ESSENCE_STRANGE:    "&LIGHT_PURPLEStrange Essence"
 
 ESSENCE_FOOTER_1:   "&DARK_GRAYAn essence of power &BLACK!id"
 ESSENCE_FOOTER_2:   "&GRAY/ri about &DARK_GRAYfor more info"
+
+
+
+# Log messages
+LOG_RAREITEM_DISABLED: "!property not loaded because enable=false in rareitems.yml"

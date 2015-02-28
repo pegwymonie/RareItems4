@@ -1,6 +1,7 @@
 package com.lonelymc.ri4.bukkit.commands;
 
 import com.lonelymc.ri4.api.IRareItems4API;
+import com.lonelymc.ri4.bukkit.RareItems4Plugin;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
@@ -13,8 +14,8 @@ import org.bukkit.inventory.PlayerInventory;
 public class HatCommandExecutor implements CommandExecutor{
     private final IRareItems4API api;
 
-    public HatCommandExecutor(IRareItems4API api) {
-        this.api = api;
+    public HatCommandExecutor(RareItems4Plugin plugin) {
+        this.api = plugin.getAPI();
     }
 
     @Override
