@@ -22,8 +22,6 @@ import java.util.logging.Level;
 * Before launch here's what needs to be done:
 * Add crafting
 * Add recipe loading from YML
-* Add enable: true|false to allow disabling rare item properties
-* Add automatic loading of all rare item properties with default values to rareItems.yml* *
 * Add /ri wi [property_name]
 * Add /ri revoke <rid>
 * Add /ri clone <rid>

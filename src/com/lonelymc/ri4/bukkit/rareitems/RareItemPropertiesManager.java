@@ -44,7 +44,8 @@ public class RareItemPropertiesManager {
             this.customizationsDirty = true;
         } else {
             if (!riSection.getBoolean("enabled")) {
-                plugin.getLogger().log(Level.INFO, RI4Strings.LOG_RAREITEM_DISABLED.replace("!property", rip.getName()));
+                plugin.getLogger().log(Level.INFO, 
+                        RI4Strings.LOG_RAREITEM_DISABLED.replace("!property", rip.getName()));
 
                 return;
             }

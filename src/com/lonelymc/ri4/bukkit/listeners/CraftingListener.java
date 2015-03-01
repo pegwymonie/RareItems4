@@ -1,11 +1,7 @@
 package com.lonelymc.ri4.bukkit.listeners;
 
-import com.lonelymc.ri4.api.IEssence;
-import com.lonelymc.ri4.api.IRareItem;
-import com.lonelymc.ri4.api.IRareItemProperty;
-import com.lonelymc.ri4.api.IRareItems4API;
+import com.lonelymc.ri4.api.*;
 import com.lonelymc.ri4.bukkit.RareItems4Plugin;
-import com.lonelymc.ri4.rareitems.EssenceStatus;
 import net.minecraft.server.v1_8_R1.EntityPlayer;
 import net.minecraft.server.v1_8_R1.PacketPlayOutSetSlot;
 import org.bukkit.Bukkit;
@@ -116,7 +112,7 @@ public class CraftingListener implements Listener {
 
                     ItemMeta meta = isRareItem.getItemMeta();
 
-                    meta.setLore(ri.getLore());
+                    meta.setLore(RI4Strings.getLore(ri));
 
                     isRareItem.setItemMeta(meta);
 
@@ -138,7 +134,7 @@ public class CraftingListener implements Listener {
 
                     ItemMeta meta = isDummyRareItem.getItemMeta();
 
-                    meta.setLore(dummyRi.getLore());
+                    meta.setLore(RI4Strings.getLore(dummyRi));
 
                     isDummyRareItem.setItemMeta(meta);
 
