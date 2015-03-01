@@ -23,7 +23,7 @@ public class RareItemPropertiesManager {
     public RareItemPropertiesManager(RareItems4Plugin plugin, IRareItems4API api) {
         this.plugin = plugin;
 
-        this.customizationsYml = YamlConfiguration.loadConfiguration(new File(plugin.getDataFolder(), "rareItems.yml"));
+        this.customizationsYml = YamlConfiguration.loadConfiguration(new File(plugin.getDataFolder(), "properties.yml"));
         this.properties = new HashMap<>();
     }
 
@@ -96,13 +96,13 @@ public class RareItemPropertiesManager {
     public void save() {
         if (this.customizationsDirty) {
             try {
-                this.customizationsYml.save(new File(plugin.getDataFolder(), "rareItems.yml"));
+                this.customizationsYml.save(new File(plugin.getDataFolder(), "properties.yml"));
 
                 this.customizationsDirty = false;
             } catch (IOException ex) {
                 plugin.log(
                         Level.WARNING,
-                        RI4Strings.LOG_UNABLE_TO_SAVE_FILE.replace("!file", "rareItems.yml"),
+                        RI4Strings.LOG_UNABLE_TO_SAVE_FILE.replace("!file", "properties.yml"),
                         ex
                 );
             }

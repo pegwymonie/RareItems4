@@ -22,6 +22,8 @@ import java.util.logging.Level;
 * Before launch here's what needs to be done:
 * Add crafting
 * Add recipe loading from YML
+* Add recipe editing in game*
+* Add default recipes for stock rare items*
 * Add /ri wi [property_name]
 * Add /ri revoke <rid>
 * Add /ri clone <rid>
@@ -51,6 +53,15 @@ public class RareItems4Plugin extends JavaPlugin{
             this.copy(this.getResource("strings.yml"),stringsFile);
         }
         
+        this.loadLanguageStrings(stringsFile);
+
+// Copy default properties file
+        File propertiesFile = new File(this.getDataFolder(),"properties.yml");
+
+        if(!propertiesFile.exists()){
+            this.copy(this.getResource("properties.yml"),propertiesFile);
+        }
+
         this.loadLanguageStrings(stringsFile);
 
 // Create a persistence manager        
