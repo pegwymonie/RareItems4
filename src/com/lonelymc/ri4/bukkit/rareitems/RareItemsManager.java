@@ -161,7 +161,7 @@ public class RareItemsManager implements IRareItems4API {
     public void equipRareItem(Player player, ItemStack is) {
         IRareItem ri = this.getRareItem(is);
 
-        if (ri != null) {
+        if (ri != null && ri.getStatus() != RareItemStatus.REVOKED) {
             Map<IRareItemProperty, Integer> playerActiveEffects = this.activeEffects.get(player.getUniqueId());
 
             if (playerActiveEffects == null) {
@@ -199,7 +199,7 @@ public class RareItemsManager implements IRareItems4API {
     public void unEquipRareItem(Player player, ItemStack is) {
         IRareItem ri = this.getRareItem(is);
 
-        if (ri != null) {
+        if (ri != null) {// allow revoked items to unequip
             Map<IRareItemProperty, Integer> playerActiveEffects = this.activeEffects.get(player.getUniqueId());
 
             if (playerActiveEffects != null) {

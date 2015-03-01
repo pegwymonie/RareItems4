@@ -3,6 +3,7 @@ package com.lonelymc.ri4.bukkit.listeners;
 import com.lonelymc.ri4.api.IRareItem;
 import com.lonelymc.ri4.api.IRareItemProperty;
 import com.lonelymc.ri4.api.IRareItems4API;
+import com.lonelymc.ri4.api.RareItemStatus;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -41,7 +42,7 @@ public class PlayerListener implements Listener {
             Player p = e.getPlayer();
             IRareItem ri = this.api.getRareItem(e.getItem());
 
-            if (ri != null) {
+            if (ri != null && ri.getStatus() != RareItemStatus.REVOKED) {
                 for (Map.Entry<IRareItemProperty, Integer> entry : ri.getProperties().entrySet()) {
                     IRareItemProperty rip = entry.getKey();
                     int level = entry.getValue();
@@ -61,7 +62,7 @@ public class PlayerListener implements Listener {
         Player p = e.getPlayer();
         IRareItem ri = this.api.getRareItem(p.getItemInHand());
 
-        if (ri != null) {
+        if (ri != null && ri.getStatus() != RareItemStatus.REVOKED) {
             for (Map.Entry<IRareItemProperty, Integer> entry : ri.getProperties().entrySet()) {
                 IRareItemProperty rip = entry.getKey();
                 int level = entry.getValue();
@@ -108,7 +109,7 @@ public class PlayerListener implements Listener {
 
             IRareItem ri = this.api.getRareItem(is);
 
-            if (ri != null) {
+            if (ri != null && ri.getStatus() != RareItemStatus.REVOKED) {
                 for (Map.Entry<IRareItemProperty, Integer> entry : ri.getProperties().entrySet()) {
                     IRareItemProperty rip = entry.getKey();
                     Integer level = entry.getValue();
@@ -160,7 +161,7 @@ public class PlayerListener implements Listener {
             if (bow != null) {
                 IRareItem ri = this.api.getRareItem(bow);
 
-                if (ri != null) {
+                if (ri != null && ri.getStatus() != RareItemStatus.REVOKED) {
                     //Mark which bow shot the arrow
                     Arrow arrow = (Arrow) e.getProjectile();
 
@@ -208,6 +209,7 @@ public class PlayerListener implements Listener {
     public void onPlayerPlaceRareItem(BlockPlaceEvent e) {
         IRareItem ri = this.api.getRareItem(e.getItemInHand());
 
+        // Purposely allowing revoked here
         if (ri != null) {
             e.setCancelled(true);
         }
@@ -218,7 +220,7 @@ public class PlayerListener implements Listener {
     public void onPlayerBreakRareItem(PlayerItemBreakEvent e) {
         IRareItem ri = this.api.getRareItem(e.getBrokenItem());
 
-        if (ri != null) {
+        if (ri != null && ri.getStatus() != RareItemStatus.REVOKED) {
             e.getBrokenItem().setAmount(1);
 
             // repair the item but also disable the passive effects it has
