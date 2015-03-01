@@ -1,8 +1,8 @@
 package com.lonelymc.ri4.bukkit.rareitems.properties;
 
-import com.lonelymc.ri4.bukkit.rareitems.RareItemProperty;
 import com.lonelymc.ri4.api.ItemPropertyRarity;
 import com.lonelymc.ri4.api.PropertyCostType;
+import com.lonelymc.ri4.bukkit.rareitems.RareItemProperty;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageEvent;
 
@@ -14,13 +14,24 @@ public class Hardy extends RareItemProperty {
                 ItemPropertyRarity.LEGENDARY,
                 PropertyCostType.PASSIVE,
                 0.0D,
-                3
+                3,
+                new String[]{
+                        "type=DIAMOND_BLOCK;amount=1;",
+                        "type=ANVIL;amount=1;",
+                        "type=DIAMOND_BLOCK;amount=1;",
+                        "type=ANVIL;amount=1;",
+                        "ESSENCE_ITEM",
+                        "type=ANVIL;amount=1;",
+                        "type=DIAMOND_BLOCK;amount=1;",
+                        "type=NETHER_STAR;amount=1;",
+                        "type=DIAMOND_BLOCK;amount=1;"
+                }
         );
     }
 
     @Override
     public boolean onDamaged(Player pDamaged, EntityDamageEvent e, int level) {
-        e.setDamage(e.getDamage()-level);
+        e.setDamage(e.getDamage() - level);
 
         return true;
     }

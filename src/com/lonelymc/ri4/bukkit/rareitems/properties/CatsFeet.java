@@ -18,7 +18,18 @@ public class CatsFeet extends RareItemProperty {
                 ItemPropertyRarity.UNCOMMON,
                 PropertyCostType.EXPERIENCE,
                 1.0D,
-                30
+                30,
+                new String[]{
+                        "type=POTION;dura=8258;amount=1;",
+                        "type=FEATHER;amount=1;",
+                        "type=POTION;dura=8258;amount=1;",
+                        "type=GLOWSTONE;amount=1;",
+                        "ESSENCE_ITEM",
+                        "type=GLOWSTONE;amount=1;",
+                        "type=POTION;dura=8258;amount=1;",
+                        "type=FEATHER;amount=1;",
+                        "type=POTION;dura=8258;amount=1;"
+                }
         );
     }
 

@@ -1,8 +1,8 @@
 package com.lonelymc.ri4.bukkit.rareitems.properties;
 
-import com.lonelymc.ri4.bukkit.rareitems.RareItemProperty;
 import com.lonelymc.ri4.api.ItemPropertyRarity;
 import com.lonelymc.ri4.api.PropertyCostType;
+import com.lonelymc.ri4.bukkit.rareitems.RareItemProperty;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityShootBowEvent;
@@ -18,7 +18,18 @@ public class Multishot extends RareItemProperty {
                 ItemPropertyRarity.RARE,
                 PropertyCostType.FOOD,
                 1.0D,
-                8
+                8,
+                new String[]{
+                        "type=ARROW;amount=64;",
+                        "type=POTION;dura=16425;amount=1;",
+                        "type=ARROW;amount=64;",
+                        "type=TRIPWIRE_HOOK;amount=1;",
+                        "!RARE_ESSENCE",
+                        "type=TRIPWIRE_HOOK;amount=1;",
+                        "type=LEASH;amount=1;",
+                        "type=POTION;dura=16425;amount=1;",
+                        "type=LEASH;amount=1;"
+                }
         );
     }
 

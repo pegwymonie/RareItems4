@@ -1,8 +1,8 @@
 package com.lonelymc.ri4.bukkit.rareitems.properties;
 
-import com.lonelymc.ri4.bukkit.rareitems.RareItemProperty;
 import com.lonelymc.ri4.api.ItemPropertyRarity;
 import com.lonelymc.ri4.api.PropertyCostType;
+import com.lonelymc.ri4.bukkit.rareitems.RareItemProperty;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -15,7 +15,18 @@ public class Durability extends RareItemProperty {
                 ItemPropertyRarity.RARE,
                 PropertyCostType.AUTOMATIC,
                 10.0D,
-                8
+                8,
+                new String[]{
+                        "type=POTION;dura=8257;amount=1;",
+                        "type=IRON_BLOCK;amount=1;",
+                        "type=POTION;dura=8257;amount=1;",
+                        "type=IRON_BLOCK;amount=1;",
+                        "!RARE_ESSENCE",
+                        "type=IRON_BLOCK;amount=1;",
+                        "type=POTION;dura=8257;amount=1;",
+                        "type=IRON_BLOCK;amount=1;",
+                        "type=POTION;dura=8257;amount=1;"
+                }
         );
     }
 

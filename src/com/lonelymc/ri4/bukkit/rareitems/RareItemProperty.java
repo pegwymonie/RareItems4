@@ -18,17 +18,17 @@ import java.util.List;
 import java.util.Map;
 
 public class RareItemProperty implements IRareItemProperty {
+    private final ItemPropertyRarity rarity;
+    private final int maxLevel;
     private final String name;
+    private String[] recipe;
     private String displayName;
     private String description;
-    private final ItemPropertyRarity rarity;
     private HashMap<String, Long> cooldowns;
     private PropertyCostType costType;
     private double cost;
-    private final int maxLevel;
-    private List<String> recipe;
 
-    public RareItemProperty(String name, String description, ItemPropertyRarity rarity, PropertyCostType defaultCostType, double defaultCost, int maxLevel) {
+    public RareItemProperty(String name, String description, ItemPropertyRarity rarity, PropertyCostType defaultCostType, double defaultCost, int maxLevel, String[] defaultRecipe) {
         this.name = name;
         this.description = description;
         this.rarity = rarity;
@@ -41,6 +41,12 @@ public class RareItemProperty implements IRareItemProperty {
         } else {
             this.cooldowns = null;
         }
+        
+        this.recipe = defaultRecipe;
+    }
+    
+    public RareItemProperty(String name, String description, ItemPropertyRarity rarity, PropertyCostType defaultCostType, double defaultCost, int maxLevel) {
+        this(name,description,rarity,defaultCostType,defaultCost,maxLevel,null);
     }
 
     @Override
@@ -90,6 +96,16 @@ public class RareItemProperty implements IRareItemProperty {
         return this.costType;
     }
 
+    @Override
+    public String[] getRecipe() {
+        return this.recipe;
+    }
+
+    @Override
+    public void setRecipe(String[] recipe) {
+        this.recipe = recipe;
+    }
+    
     @Override
     public boolean onInteracted(Player pInteracted, PlayerInteractEvent e, int level) {
         return false;

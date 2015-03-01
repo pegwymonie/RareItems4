@@ -31,44 +31,35 @@ import java.util.logging.Level;
 * Add /ri einfo <eid>
 * * * */
 
-public class RareItems4Plugin extends JavaPlugin{
+public class RareItems4Plugin extends JavaPlugin {
     private BasicCommandExecutor commandExecutor;
     private IRareItems4API api;
 
     @Override
-    public void onEnable(){
+    public void onEnable() {
         this.getDataFolder().mkdirs();
 
 // Load default config w/ comments
-        File configFile = new File(this.getDataFolder(),"config.yml");
+        File configFile = new File(this.getDataFolder(), "config.yml");
 
-        if(!configFile.exists()){
-            this.copy(this.getResource("config.yml"),configFile);
+        if (!configFile.exists()) {
+            this.copy(this.getResource("config.yml"), configFile);
         }
-        
+
 // Load localized strings w/ comments
-        File stringsFile = new File(this.getDataFolder(),"strings.yml");
+        File stringsFile = new File(this.getDataFolder(), "strings.yml");
 
-        if(!stringsFile.exists()){
-            this.copy(this.getResource("strings.yml"),stringsFile);
-        }
-        
-        this.loadLanguageStrings(stringsFile);
-
-// Copy default properties file
-        File propertiesFile = new File(this.getDataFolder(),"properties.yml");
-
-        if(!propertiesFile.exists()){
-            this.copy(this.getResource("properties.yml"),propertiesFile);
+        if (!stringsFile.exists()) {
+            this.copy(this.getResource("strings.yml"), stringsFile);
         }
 
         this.loadLanguageStrings(stringsFile);
 
 // Create a persistence manager        
-        RareItemsYMLPersistence persistence = new RareItemsYMLPersistence(this,this.getDataFolder());
+        RareItemsYMLPersistence persistence = new RareItemsYMLPersistence(this, this.getDataFolder());
 
 // Create an API instance and feed it the persistence        
-        this.api = new RareItemsManager(this,persistence);
+        this.api = new RareItemsManager(this, persistence);
 
 // Register properties
         this.addStockProperties();
@@ -80,20 +71,20 @@ public class RareItems4Plugin extends JavaPlugin{
         this.commandExecutor = new BasicCommandExecutor(this);
 
         this.getCommand("ri").setExecutor(commandExecutor);
-        
+
         this.registerSubCommand(new CommandEssence(this.api));
         this.registerSubCommand(new CommandCraft(this.api));
 
 // Register listeners
-        this.getServer().getPluginManager().registerEvents(new PlayerListener(this,this.api),this);
+        this.getServer().getPluginManager().registerEvents(new PlayerListener(this, this.api), this);
     }
 
     @Override
-    public void onDisable(){
+    public void onDisable() {
         this.api.save();
     }
-    
-    public void addStockProperties(){
+
+    public void addStockProperties() {
         this.api.addItemProperty(new Backstab());
         this.api.addItemProperty(new Blinding());
         this.api.addItemProperty(new Burst());
@@ -149,8 +140,8 @@ public class RareItems4Plugin extends JavaPlugin{
         this.api.addItemProperty(new ToughLove());
         this.api.addItemProperty(new WitchFX());
     }
-    
-    public void loadLanguageStrings(File stringsFile){
+
+    public void loadLanguageStrings(File stringsFile) {
         RI4Strings.RAREITEM_CCPASS = ChatColor.COLOR_CHAR + "r" + ChatColor.COLOR_CHAR + "i";
         RI4Strings.ESSENCE_CCPASS = ChatColor.COLOR_CHAR + "e" + ChatColor.COLOR_CHAR + "s";
 
@@ -173,39 +164,39 @@ public class RareItems4Plugin extends JavaPlugin{
             }
         }
     }
-    
-// Hooks
-    public void registerSubCommand(BasicCommand command){
+
+    // Hooks
+    public void registerSubCommand(BasicCommand command) {
         this.commandExecutor.registerSubCommand(command);
     }
 
     public IRareItems4API getAPI() {
         return api;
     }
-    
-// Logger that also notifies permed players ingame
-    public void log(Level level, String msg){
-        log(level,msg,null);
+
+    // Logger that also notifies permed players ingame
+    public void log(Level level, String msg) {
+        log(level, msg, null);
     }
-    
-    public void log(Level level, String msg, Exception ex){
-        this.getLogger().log(level,msg);
-        
-        this.getServer().broadcast(msg,"ri4.admin.logs");
-        
-        if(ex != null){
+
+    public void log(Level level, String msg, Exception ex) {
+        this.getLogger().log(level, msg);
+
+        this.getServer().broadcast(msg, "ri4.admin.logs");
+
+        if (ex != null) {
             ex.printStackTrace();
         }
     }
 
-// Helper method    
+    // Helper method
     private void copy(InputStream in, File file) {
         try {
             OutputStream out = new FileOutputStream(file);
             byte[] buf = new byte[1024];
             int len;
-            while((len=in.read(buf))>0){
-                out.write(buf,0,len);
+            while ((len = in.read(buf)) > 0) {
+                out.write(buf, 0, len);
             }
             out.close();
             in.close();

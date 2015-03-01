@@ -15,7 +15,18 @@ public class Spore extends RareItemProperty {
                 ItemPropertyRarity.COMMON,
                 PropertyCostType.COOLDOWN,
                 1.0D,
-                1
+                1,
+                new String[]{
+                        "type=SEEDS;amount=1;",
+                        "type=COBBLESTONE;amount=1;",
+                        "type=SEEDS;amount=1;",
+                        "type=COBBLESTONE;amount=1;",
+                        "!COMMON_ESSENCE",
+                        "type=COBBLESTONE;amount=1;",
+                        "type=SEEDS;amount=1;",
+                        "type=COBBLESTONE;amount=1;",
+                        "type=SEEDS;amount=1;"
+                }
         );
     }
 

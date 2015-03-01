@@ -1,8 +1,8 @@
 package com.lonelymc.ri4.bukkit.rareitems.properties;
 
-import com.lonelymc.ri4.bukkit.rareitems.RareItemProperty;
 import com.lonelymc.ri4.api.ItemPropertyRarity;
 import com.lonelymc.ri4.api.PropertyCostType;
+import com.lonelymc.ri4.bukkit.rareitems.RareItemProperty;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageEvent;
 
@@ -14,13 +14,24 @@ public class WaterBreathing extends RareItemProperty {
                 ItemPropertyRarity.UNCOMMON,
                 PropertyCostType.PASSIVE,
                 0.0D,
-                1
+                1,
+                new String[]{
+                        "type=POTION;dura=8266;amount=1;",
+                        "type=WATER_LILY;amount=1;",
+                        "type=POTION;dura=8266;amount=1;",
+                        "type=WATER_LILY;amount=1;",
+                        "!UNCOMMON_ESSENCE",
+                        "type=WATER_LILY;amount=1;",
+                        "type=POTION;dura=8266;amount=1;",
+                        "type=WATER_LILY;amount=1;",
+                        "type=POTION;dura=8266;amount=1;"
+                }
         );
     }
 
     @Override
-    public boolean onDamaged(Player pDamaged, EntityDamageEvent e, int level){
-        if(e.getCause().equals(EntityDamageEvent.DamageCause.DROWNING)){
+    public boolean onDamaged(Player pDamaged, EntityDamageEvent e, int level) {
+        if (e.getCause().equals(EntityDamageEvent.DamageCause.DROWNING)) {
             e.setCancelled(true);
 
             return true;

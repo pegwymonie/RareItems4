@@ -20,7 +20,18 @@ public class CallLightning extends RareItemProperty {
                 ItemPropertyRarity.LEGENDARY,
                 PropertyCostType.FOOD,
                 4.0D,
-                5
+                5,
+                new String[]{
+                        "type=IRON_BLOCK;amount=1;",
+                        "type=IRON_BLOCK;amount=1;",
+                        "type=IRON_BLOCK;amount=1;",
+                        "type=IRON_BLOCK;amount=1;",
+                        "ESSENCE_ITEM",
+                        "type=IRON_BLOCK;amount=1;",
+                        "type=IRON_BLOCK;amount=1;",
+                        "type=BEACON;amount=1;",
+                        "type=IRON_BLOCK;amount=1;"
+                }
         );
     }
 

@@ -16,7 +16,18 @@ public class PaintWool extends RareItemProperty {
                 ItemPropertyRarity.COMMON,
                 PropertyCostType.COOLDOWN,
                 0.5D,
-                1
+                1,
+                new String[]{
+                    "type=WOOL;dura=11;amount=1;",
+                    "type=WOOL;amount=1;",
+                    "type=WOOL;amount=1;",
+                    "type=WOOL;dura=11;amount=1;",
+                    "!COMMON_ESSENCE",
+                    "type=WOOL;dura=14;amount=1;",
+                    "type=WOOL;dura=15;amount=1;",
+                    "type=WOOL;dura=15;amount=1;",
+                    "type=WOOL;dura=14;amount=1;"
+                }
         );
     }
 

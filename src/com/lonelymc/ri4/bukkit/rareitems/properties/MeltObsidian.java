@@ -15,7 +15,18 @@ public class MeltObsidian extends RareItemProperty {
                 ItemPropertyRarity.COMMON,
                 PropertyCostType.COOLDOWN,
                 1.0D,
-                1
+                1,
+                new String[]{
+                        "type=OBSIDIAN;amount=1;",
+                        "type=LAVA_BUCKET;amount=1;",
+                        "type=OBSIDIAN;amount=1;",
+                        "type=LAVA_BUCKET;amount=1;",
+                        "ESSENCE_ITEM",
+                        "type=LAVA_BUCKET;amount=1;",
+                        "type=OBSIDIAN;amount=1;",
+                        "type=LAVA_BUCKET;amount=1;",
+                        "type=OBSIDIAN;amount=1;"
+                }
         );
     }
 

@@ -14,7 +14,18 @@ public class Regeneration extends RareItemProperty {
                 ItemPropertyRarity.LEGENDARY,
                 PropertyCostType.AUTOMATIC,
                 5.0D,
-                5
+                5,
+                new String[]{
+                        "type=POTION;dura=8257;amount=1;",
+                        "type=GOLDEN_APPLE;dura=1;amount=1;",
+                        "type=POTION;dura=8257;amount=1;",
+                        "type=GOLDEN_APPLE;dura=1;amount=1;",
+                        "!LEGENDARY_ESSENCE",
+                        "type=GOLDEN_APPLE;dura=1;amount=1;",
+                        "type=POTION;dura=8257;amount=1;",
+                        "type=GOLDEN_APPLE;dura=1;amount=1;",
+                        "type=POTION;dura=8257;amount=1;"
+                }
         );
     }
 

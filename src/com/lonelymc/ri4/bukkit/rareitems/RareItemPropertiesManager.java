@@ -42,7 +42,8 @@ public class RareItemPropertiesManager {
             customizationsYml.set(rip.getName() + ".costType", rip.getCostType());
 
             this.customizationsDirty = true;
-        } else {
+        } 
+        else {
             if (!riSection.getBoolean("enabled")) {
                 plugin.getLogger().log(Level.INFO, 
                         RI4Strings.LOG_RAREITEM_DISABLED.replace("!property", rip.getName()));

@@ -25,7 +25,18 @@ public class GreaterBurst extends RareItemProperty {
                 ItemPropertyRarity.UNCOMMON,
                 PropertyCostType.FOOD,
                 5.0D,
-                5
+                5,
+                new String[]{
+                        "type=TNT;amount=1;",
+                        "type=EYE_OF_ENDER;amount=1;",
+                        "type=TNT;amount=1;",
+                        "type=EYE_OF_ENDER;amount=1;",
+                        "ESSENCE_ITEM",
+                        "type=EYE_OF_ENDER;amount=1;",
+                        "type=TNT;amount=1;",
+                        "type=SKULL_ITEM;dura=1;amount=1;",
+                        "type=TNT;amount=1;"
+                }
         );
 
         this.fireworks = new FireworkVisualEffect();

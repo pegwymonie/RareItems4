@@ -15,7 +15,18 @@ public class Backstab extends RareItemProperty {
                 ItemPropertyRarity.RARE,
                 PropertyCostType.FOOD, //Cost type
                 2.0D, // Default cost
-                8   // Max level
+                8,   // Max level
+                new String[]{
+                        "type=DEAD_BUSH;amount=1;",
+                        "type=ENDER_PORTAL_FRAME;amount=1;",
+                        "type=DEAD_BUSH;amount=1;",
+                        "type=ENDER_PORTAL_FRAME;amount=1;",
+                        "ESSENCE_ITEM",
+                        "type=ENDER_PORTAL_FRAME;amount=1;",
+                        "type=DEAD_BUSH;amount=1;",
+                        "type=ENDER_PORTAL_FRAME;amount=1;",
+                        "type=DEAD_BUSH;amount=1;"
+                }
         );
     }
 

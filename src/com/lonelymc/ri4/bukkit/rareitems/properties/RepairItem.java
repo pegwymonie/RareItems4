@@ -1,8 +1,8 @@
 package com.lonelymc.ri4.bukkit.rareitems.properties;
 
-import com.lonelymc.ri4.bukkit.rareitems.RareItemProperty;
 import com.lonelymc.ri4.api.ItemPropertyRarity;
 import com.lonelymc.ri4.api.PropertyCostType;
+import com.lonelymc.ri4.bukkit.rareitems.RareItemProperty;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -16,7 +16,18 @@ public class RepairItem extends RareItemProperty {
                 ItemPropertyRarity.RARE,
                 PropertyCostType.EXPERIENCE,
                 1.0D,
-                100
+                100,
+                new String[]{
+                        "type=POTION;dura=8225;amount=1;",
+                        "type=ANVIL;amount=1;",
+                        "type=POTION;dura=8225;amount=1;",
+                        "type=ANVIL;amount=1;",
+                        "!RARE_ESSENCE",
+                        "type=ANVIL;amount=1;",
+                        "type=POTION;dura=8225;amount=1;",
+                        "type=IRON_BLOCK;amount=1;",
+                        "type=POTION;dura=8225;amount=1;"
+                }
         );
     }
 

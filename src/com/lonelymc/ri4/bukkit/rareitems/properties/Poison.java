@@ -1,8 +1,8 @@
 package com.lonelymc.ri4.bukkit.rareitems.properties;
 
-import com.lonelymc.ri4.bukkit.rareitems.RareItemProperty;
 import com.lonelymc.ri4.api.ItemPropertyRarity;
 import com.lonelymc.ri4.api.PropertyCostType;
+import com.lonelymc.ri4.bukkit.rareitems.RareItemProperty;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
@@ -19,7 +19,18 @@ public class Poison extends RareItemProperty {
                 ItemPropertyRarity.UNCOMMON,
                 PropertyCostType.FOOD,
                 2.0D,
-                6
+                6,
+                new String[]{
+                        "type=POTION;dura=16420;amount=1;",
+                        "type=POISONOUS_POTATO;amount=1;",
+                        "type=POTION;dura=16420;amount=1;",
+                        "type=POISONOUS_POTATO;amount=1;",
+                        "!UNCOMMON_ESSENCE",
+                        "type=POISONOUS_POTATO;amount=1;",
+                        "type=POTION;dura=16420;amount=1;",
+                        "type=POISONOUS_POTATO;amount=1;",
+                        "type=POTION;dura=16420;amount=1;"
+                }
         );
     }
 
@@ -42,6 +53,6 @@ public class Poison extends RareItemProperty {
 
     @Override
     public boolean onArrowHitEntity(Player shooter, EntityDamageByEntityEvent e, int level) {
-        return onDamagedOther(shooter,e,level);
+        return onDamagedOther(shooter, e, level);
     }
 }

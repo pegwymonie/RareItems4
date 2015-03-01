@@ -1,8 +1,8 @@
 package com.lonelymc.ri4.bukkit.rareitems.properties;
 
-import com.lonelymc.ri4.bukkit.rareitems.RareItemProperty;
 import com.lonelymc.ri4.api.ItemPropertyRarity;
 import com.lonelymc.ri4.api.PropertyCostType;
+import com.lonelymc.ri4.bukkit.rareitems.RareItemProperty;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -15,7 +15,18 @@ public class Smelt extends RareItemProperty {
                 ItemPropertyRarity.COMMON,
                 PropertyCostType.COOLDOWN,
                 1.0D,
-                1
+                1,
+                new String[]{
+                        "type=FURNACE;amount=1;",
+                        "type=FURNACE;amount=1;",
+                        "type=FURNACE;amount=1;",
+                        "type=FURNACE;amount=1;",
+                        "!COMMON_ESSENCE",
+                        "type=FURNACE;amount=1;",
+                        "type=FURNACE;amount=1;",
+                        "type=FURNACE;amount=1;",
+                        "type=FURNACE;amount=1;"
+                }
         );
     }
 

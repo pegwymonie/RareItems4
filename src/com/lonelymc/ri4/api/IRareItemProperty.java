@@ -15,6 +15,8 @@ public interface IRareItemProperty {
 
     String getDescription();
 
+    String[] getRecipe();
+
     void setDescription(String sDescription);
 
     public int getMaxLevel();
@@ -30,6 +32,8 @@ public interface IRareItemProperty {
     boolean onDamaged(Player pDamaged, EntityDamageEvent e, int level);
 
     boolean onDamagedOther(Player pAttacker, EntityDamageByEntityEvent e, int level);
+
+    void setRecipe(String[] recipe);
 
     boolean onInteracted(Player pInteracted, PlayerInteractEvent e, int level);
 
