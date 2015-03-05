@@ -30,7 +30,7 @@ public class Burst extends RareItemProperty {
                         "type=EYE_OF_ENDER;amount=1;",
                         "type=TNT;amount=1;",
                         "type=EYE_OF_ENDER;amount=1;",
-                        "ESSENCE_ITEM",
+                        "!UNCOMMON_ESSENCE",
                         "type=EYE_OF_ENDER;amount=1;",
                         "type=TNT;amount=1;",
                         "type=WATCH;amount=1;",

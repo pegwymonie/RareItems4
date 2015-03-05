@@ -26,7 +26,7 @@ public class CallLightning extends RareItemProperty {
                         "type=IRON_BLOCK;amount=1;",
                         "type=IRON_BLOCK;amount=1;",
                         "type=IRON_BLOCK;amount=1;",
-                        "ESSENCE_ITEM",
+                        "!LEGENDARY_ESSENCE",
                         "type=IRON_BLOCK;amount=1;",
                         "type=IRON_BLOCK;amount=1;",
                         "type=BEACON;amount=1;",

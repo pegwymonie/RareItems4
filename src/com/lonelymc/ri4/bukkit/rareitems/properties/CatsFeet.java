@@ -24,7 +24,7 @@ public class CatsFeet extends RareItemProperty {
                         "type=FEATHER;amount=1;",
                         "type=POTION;dura=8258;amount=1;",
                         "type=GLOWSTONE;amount=1;",
-                        "ESSENCE_ITEM",
+                        "!UNCOMMON_ESSENCE",
                         "type=GLOWSTONE;amount=1;",
                         "type=POTION;dura=8258;amount=1;",
                         "type=FEATHER;amount=1;",

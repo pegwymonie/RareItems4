@@ -21,7 +21,7 @@ public class MeltObsidian extends RareItemProperty {
                         "type=LAVA_BUCKET;amount=1;",
                         "type=OBSIDIAN;amount=1;",
                         "type=LAVA_BUCKET;amount=1;",
-                        "ESSENCE_ITEM",
+                        "!COMMON_ESSENCE",
                         "type=LAVA_BUCKET;amount=1;",
                         "type=OBSIDIAN;amount=1;",
                         "type=LAVA_BUCKET;amount=1;",

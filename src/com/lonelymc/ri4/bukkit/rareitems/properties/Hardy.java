@@ -20,7 +20,7 @@ public class Hardy extends RareItemProperty {
                         "type=ANVIL;amount=1;",
                         "type=DIAMOND_BLOCK;amount=1;",
                         "type=ANVIL;amount=1;",
-                        "ESSENCE_ITEM",
+                        "!LEGENDARY_ESSENCE",
                         "type=ANVIL;amount=1;",
                         "type=DIAMOND_BLOCK;amount=1;",
                         "type=NETHER_STAR;amount=1;",

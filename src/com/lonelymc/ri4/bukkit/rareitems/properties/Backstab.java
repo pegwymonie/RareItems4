@@ -21,7 +21,7 @@ public class Backstab extends RareItemProperty {
                         "type=ENDER_PORTAL_FRAME;amount=1;",
                         "type=DEAD_BUSH;amount=1;",
                         "type=ENDER_PORTAL_FRAME;amount=1;",
-                        "ESSENCE_ITEM",
+                        "!RARE_ESSENCE",
                         "type=ENDER_PORTAL_FRAME;amount=1;",
                         "type=DEAD_BUSH;amount=1;",
                         "type=ENDER_PORTAL_FRAME;amount=1;",

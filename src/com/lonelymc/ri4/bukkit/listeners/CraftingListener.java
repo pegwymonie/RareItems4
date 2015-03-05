@@ -145,7 +145,7 @@ public class CraftingListener implements Listener {
     }
 
     public void fakeClientInventorySlot(List<HumanEntity> viewers, ItemStack is, int slot) {
-        // Generally it's actually just the player
+        // Generally it's just the one player
         for(HumanEntity viewer : viewers) {
             if (viewer instanceof CraftPlayer) {
                 Bukkit.getServer().getScheduler().runTaskLater(this.plugin, new Runnable() {

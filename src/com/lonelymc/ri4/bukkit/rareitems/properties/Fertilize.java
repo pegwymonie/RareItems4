@@ -21,7 +21,7 @@ public class Fertilize extends RareItemProperty {
                         "type=DIRT;amount=1;",
                         "type=SEEDS;amount=1;",
                         "type=DIRT;amount=1;",
-                        "ESSENCE_ITEM",
+                        "!COMMON_ESSENCE",
                         "type=DIRT;amount=1;",
                         "type=SEEDS;amount=1;",
                         "type=DIRT;amount=1;",
