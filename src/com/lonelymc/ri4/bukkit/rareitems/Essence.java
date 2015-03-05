@@ -79,7 +79,11 @@ public class Essence implements IEssence {
 
     @Override
     public String getMaterial() {
-        switch (this.getRarity()) {
+        return Essence.getMaterialByRarity(this.getRarity());
+    }
+
+    public static String getMaterialByRarity(ItemPropertyRarity rarity) {
+        switch (rarity) {
             default: //case COMMON:
                 return "CLAY_BALL";
             case UNCOMMON:
