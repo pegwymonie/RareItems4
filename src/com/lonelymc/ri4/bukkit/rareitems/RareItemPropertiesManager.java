@@ -3,7 +3,7 @@ package com.lonelymc.ri4.bukkit.rareitems;
 import com.lonelymc.ri4.api.*;
 import com.lonelymc.ri4.bukkit.RareItems4Plugin;
 import com.lonelymc.ri4.util.ItemStackConvertor;
-import net.md_5.bungee.api.ChatColor;
+import com.lonelymc.ri4.util.MetaStringEncoder;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
@@ -44,16 +44,15 @@ public class RareItemPropertiesManager {
             customizationsYml.set(rip.getName() + ".description", rip.getDescription());
             customizationsYml.set(rip.getName() + ".cost", rip.getCost());
             customizationsYml.set(rip.getName() + ".costType", rip.getCostType());
-            
-            if(rip.getRecipe() != null){
+
+            if (rip.getRecipe() != null) {
                 customizationsYml.set(rip.getName() + ".recipe", rip.getRecipe());
             }
 
             this.customizationsDirty = true;
-        } 
-        else {
+        } else {
             if (!riSection.getBoolean("enabled")) {
-                plugin.getLogger().log(Level.INFO, 
+                plugin.getLogger().log(Level.INFO,
                         RI4Strings.LOG_RAREITEM_DISABLED.replace("!property", rip.getName()));
 
                 return;
@@ -75,59 +74,65 @@ public class RareItemPropertiesManager {
             }
 
             String sCostType = riSection.getString("costType", rip.getCostType().name());
-            
+
             PropertyCostType costType = PropertyCostType.valueOf(sCostType);
-            
+
             if (costType != rip.getCostType()) {
                 rip.setCostType(PropertyCostType.valueOf(sCostType));
             }
 
             List<String> recipe = riSection.getStringList("recipe");
-            if(recipe != null){
+            if (recipe != null) {
                 customizationsYml.set(rip.getName() + ".recipe", recipe);
             }
         }
 
         this.properties.put(rip.getDisplayName().toLowerCase(), rip);
 
-        Iterator<Recipe> it = plugin.getServer().recipeIterator();
-        
-        String recipeName = ChatColor.COLOR_CHAR+"#"+rip.getName();
-        
+        RareItemPropertiesManager.refreshServerRecipe(rip);
+    }
+
+    public static void refreshServerRecipe(IRareItemProperty rip) {
+        Iterator<Recipe> it = Bukkit.getServer().recipeIterator();
+
+        String recipeName = MetaStringEncoder.encode(rip.getName(), "rir");
+
         while (it.hasNext()) {
             Recipe r = it.next();
 
             ItemStack result = r.getResult();
-            
+
             if (result.getType().equals(Material.DIRT) && result.hasItemMeta()) {
                 ItemMeta meta = result.getItemMeta();
-                
 
+                if (meta.getDisplayName().equals(recipeName)) {
+                    it.remove();
+
+                    break;
+                }
             }
         }
-        
-        // AFAIK there's no recipe for dirt, so it makes a good early conditional
         ItemStack isPlaceholder = new ItemStack(Material.DIRT);
 
         ItemMeta meta = isPlaceholder.getItemMeta();
 
         meta.setDisplayName(recipeName);
-        
+
         isPlaceholder.setItemMeta(meta);
-        
+
         ShapedRecipe recipe = new ShapedRecipe(isPlaceholder);
 
         String[] ripRecipe = rip.getRecipe();
 
-        char[] availableRecipeChars = new char[]{'A','B','C','D','E','F','G','H','I'};
+        char[] availableRecipeChars = new char[]{'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'};
         String recipeChars = "";
-        
-        Map<Material,Character> recipeShape = new HashMap<>();
-        
-        for(String ingredient : ripRecipe){
+
+        Map<Material, Character> recipeShape = new HashMap<>();
+
+        for (String ingredient : ripRecipe) {
             Character sChar;
-            
-            switch(ingredient) {
+
+            switch (ingredient) {
                 default:
                     ItemStack is = ItemStackConvertor.fromString(ingredient);
 
@@ -164,22 +169,22 @@ public class RareItemPropertiesManager {
                     break;
             }
         }
-        
-        while(recipeChars.length() < 9){
+
+        while (recipeChars.length() < 9) {
             recipeChars += " ";
         }
-        
+
         recipe.shape(
-                recipeChars.substring(0,3),
-                recipeChars.substring(3,6),
+                recipeChars.substring(0, 3),
+                recipeChars.substring(3, 6),
                 recipeChars.substring(6)
         );
-        
-        for(Map.Entry<Material,Character> entry : recipeShape.entrySet()){
-           recipe.setIngredient(entry.getValue(), entry.getKey());
+
+        for (Map.Entry<Material, Character> entry : recipeShape.entrySet()) {
+            recipe.setIngredient(entry.getValue(), entry.getKey());
         }
-        
-        plugin.getServer().addRecipe(recipe);
+
+        Bukkit.getServer().addRecipe(recipe);
     }
 
     public IRareItemProperty getItemProperty(String propertyName) {

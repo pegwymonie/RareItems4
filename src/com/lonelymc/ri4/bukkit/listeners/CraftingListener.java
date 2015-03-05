@@ -2,6 +2,8 @@ package com.lonelymc.ri4.bukkit.listeners;
 
 import com.lonelymc.ri4.api.*;
 import com.lonelymc.ri4.bukkit.RareItems4Plugin;
+import com.lonelymc.ri4.util.FakeInventory;
+import com.lonelymc.ri4.util.MetaStringEncoder;
 import net.minecraft.server.v1_8_R1.EntityPlayer;
 import net.minecraft.server.v1_8_R1.PacketPlayOutSetSlot;
 import org.bukkit.Bukkit;
@@ -12,9 +14,12 @@ import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.inventory.CraftItemEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryType;
+import org.bukkit.event.inventory.PrepareItemCraftEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.Recipe;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.ArrayList;
@@ -30,9 +35,83 @@ public class CraftingListener implements Listener {
         this.plugin = plugin;
         this.api = api;
     }
+    
+    @EventHandler(ignoreCancelled = true)
+    public void onCompletedEssenceRecipe(CraftItemEvent e){
+        ItemStack isResult = e.getInventory().getItem(0);
 
+        if(isResult.getType().equals(Material.DIRT) && isResult.hasItemMeta()){
+            ItemMeta meta = isResult.getItemMeta();
+
+            String propertyName = MetaStringEncoder.decode(meta.getDisplayName(),"rir");
+
+            if(propertyName != null) {
+                IRareItemProperty rip = this.api.getItemProperty(propertyName);
+
+                if(rip != null){
+                    IEssence essence = this.api.generateDummyEssence(rip);
+                    
+                    ItemStack isDummyEssence = new ItemStack(Material.valueOf(essence.getMaterial()));
+
+                    ItemMeta dummyMeta = isDummyEssence.getItemMeta();
+
+                    dummyMeta.setDisplayName(RI4Strings.getDisplayName(essence));
+                    dummyMeta.setLore(RI4Strings.getItemLore(essence));
+                    
+                    isDummyEssence.setItemMeta(meta);
+                    
+                    FakeInventory.fakeClientInventorySlot(
+                            this.plugin,
+                            e.getViewers(),
+                            isDummyEssence, 
+                            0
+                    );
+                    
+                    return;
+                }
+            }
+
+            e.getInventory().setResult(null);
+        }
+    }
+    
     @EventHandler(ignoreCancelled=true)
-    public void onCraftingInteract(InventoryClickEvent e){
+    public void onCraftRareEssence(PrepareItemCraftEvent e){
+        ItemStack result = e.getRecipe().getResult();
+        
+        if(result.getType().equals(Material.DIRT) && result.hasItemMeta()){
+            ItemMeta meta = result.getItemMeta();
+
+            String propertyName = MetaStringEncoder.decode(meta.getDisplayName(),"rir");
+
+            if(propertyName != null) {
+                IRareItemProperty rip = this.api.getItemProperty(propertyName);
+                
+                if(rip != null){
+                    IEssence essence = this.api.createEssence(e.getViewers().get(0).getUniqueId(),rip);
+                    
+                    ItemStack isEssence = new ItemStack(Material.valueOf(essence.getMaterial()));
+
+                    ItemMeta essenceMeta = isEssence.getItemMeta();
+
+                    essenceMeta.setDisplayName(RI4Strings.getDisplayName(essence));
+                    
+                    essenceMeta.setLore(RI4Strings.getItemLore(essence));
+
+                    isEssence.setItemMeta(essenceMeta);
+                    
+                    e.getInventory().setResult(isEssence);
+                    
+                    return;
+                }
+            }
+
+            e.getInventory().setResult(null);
+        }
+    }
+    
+    @EventHandler(ignoreCancelled=true)
+    public void onCraftingEssenceClick(InventoryClickEvent e){
         if(e.getInventory().getType().equals(InventoryType.WORKBENCH)){
 
             if(e.getRawSlot() < 10) {
@@ -98,7 +177,7 @@ public class CraftingListener implements Listener {
 
                             e.getInventory().setItem(i,isAir);
 
-                            fakeClientInventorySlot(e.getViewers(), isAir, i);
+                            FakeInventory.fakeClientInventorySlot(this.plugin,e.getViewers(), isAir, i);
                         }
                     }
 
@@ -122,7 +201,7 @@ public class CraftingListener implements Listener {
 
                     e.setCurrentItem(isRareItem);
 
-                    fakeClientInventorySlot(e.getViewers(), isRareItem, 0);
+                    FakeInventory.fakeClientInventorySlot(this.plugin,e.getViewers(), isRareItem, 0);
                 }
                 // Recipe click
                 else {
@@ -138,32 +217,8 @@ public class CraftingListener implements Listener {
 
                     isDummyRareItem.setItemMeta(meta);
 
-                    fakeClientInventorySlot(e.getViewers(), isDummyRareItem, 0);
+                    FakeInventory.fakeClientInventorySlot(this.plugin,e.getViewers(), isDummyRareItem, 0);
                 }
-            }
-        }
-    }
-
-    public void fakeClientInventorySlot(List<HumanEntity> viewers, ItemStack is, int slot) {
-        // Generally it's just the one player
-        for(HumanEntity viewer : viewers) {
-            if (viewer instanceof CraftPlayer) {
-                Bukkit.getServer().getScheduler().runTaskLater(this.plugin, new Runnable() {
-                    @Override
-                    public void run() {
-                        EntityPlayer handle = ((CraftPlayer) viewer).getHandle();
-
-                        if (handle.activeContainer != null) {
-                            handle.playerConnection.sendPacket(
-                                    new PacketPlayOutSetSlot(
-                                            handle.activeContainer.windowId,
-                                            slot,
-                                            CraftItemStack.asNMSCopy(is)
-                                    )
-                            );
-                        }
-                    }
-                }, 1);
             }
         }
     }

@@ -248,6 +248,16 @@ public class RareItemsManager implements IRareItems4API {
     }
 
     @Override
+    public IEssence generateDummyEssence(ItemPropertyRarity rarity) {
+        return new Essence(-1,EssenceStatus.DUMMY,null,null,null,null,rarity,null);
+    }
+
+    @Override
+    public IEssence generateDummyEssence(IRareItemProperty rip) {
+        return new Essence(-1,EssenceStatus.DUMMY,null,null,null,null,null,rip);
+    }
+    
+    @Override
     public void setEssenceStatus(int id, UUID modifier, EssenceStatus status) {
         this.persistence.setEssenceStatus(id, modifier, status);
     }

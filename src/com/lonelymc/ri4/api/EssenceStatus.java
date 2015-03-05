@@ -4,5 +4,6 @@ public enum EssenceStatus {
     EMPTY,
     FILLED,
     USED,
+    DUMMY, 
     REVOKED
 }

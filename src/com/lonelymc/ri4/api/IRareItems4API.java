@@ -24,6 +24,8 @@ public interface IRareItems4API {
 
     IEssence createEssence(UUID creator, IRareItemProperty property);
 
+    IEssence generateDummyEssence(IRareItemProperty rip);
+
     void setEssenceStatus(int id, UUID modifier, EssenceStatus status);
 
     // Rare Items
@@ -32,8 +34,11 @@ public interface IRareItems4API {
     void setRareItemProperties(UUID modifier, int rareItemId, Map<IRareItemProperty, Integer> riProperties);
 
     // For recipes, displays, etc.
+    IEssence generateDummyEssence(ItemPropertyRarity rarity);
+    
     IRareItem generateDummyRareItem(Map<IRareItemProperty, Integer> properties);
 
+    //Active effects
     Map<IRareItemProperty,Integer> getActiveEffects(UUID uniqueId);
 
     // Bukkit specific methods
