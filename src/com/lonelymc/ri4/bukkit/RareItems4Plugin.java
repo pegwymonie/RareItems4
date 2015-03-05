@@ -21,10 +21,7 @@ import java.util.logging.Level;
 
 /* TODO: 
 * Before launch here's what needs to be done:
-* Add crafting
-* Add recipe loading from YML
-* Add recipe editing in game*
-* Add default recipes for stock rare items*
+* Add recipe editing in game
 * Add /ri wi [property_name]
 * Add /ri revoke <rid>
 * Add /ri clone <rid>
