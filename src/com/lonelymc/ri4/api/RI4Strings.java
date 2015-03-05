@@ -1,5 +1,6 @@
 package com.lonelymc.ri4.api;
 
+import com.lonelymc.ri4.util.MetaStringEncoder;
 import com.lonelymc.ri4.util.RomanNumeral;
 import org.bukkit.ChatColor;
 
@@ -9,25 +10,6 @@ import java.util.Map;
 
 // Utility class to route all strings through
 public class RI4Strings {
-    /* So the point of these is to allow you to
-    *  identify data in items regardless of the localization / location in string
-    *  Just find the pass, then look backward until you hit a color character
-    *  then go two forward and you have beg/end indexs for your data substring
-    *
-    * That looks like:
-    *
-            int ccPassEnd = str.indexOf(Strings.RAREITEM_CCPASS);
-
-            if (ccPassEnd != -1) {
-                int ccPassStart = str.substring(0, ccPassEnd).lastIndexOf(ChatColor.COLOR_CHAR) + 2;
-                String data = str.substring(ccPassStart,ccPassEnd);
-    *
-    *  By abusing minecraft color codes you can use COLOR_CHAR+<YOUR CHAR>
-    *  to create an invisible ColorCodePass*/
-    public static String RAREITEM_CCPASS;
-    public static String ESSENCE_CCPASS;
-
-    // The rest of these are just plain strings
     // Note: color codes in the format &DARK_RED will be translated,
     // however you are responsible for translating any variables
     // which should be in the format !variable
@@ -80,7 +62,7 @@ public class RI4Strings {
             );
         }
 
-        lore.add(ESSENCE_FOOTER_1.replace("!id",ChatColor.COLOR_CHAR+"#"+String.valueOf(essence.getId())+RI4Strings.RAREITEM_CCPASS));
+        lore.add(ESSENCE_FOOTER_1.replace("!id", MetaStringEncoder.encode(String.valueOf(essence.getId()),"es")));
 
         lore.add(ESSENCE_FOOTER_2);
 
@@ -90,7 +72,7 @@ public class RI4Strings {
     public static List<String> getLore(IRareItem ri) {
         List<String> lore = new ArrayList<>();
 
-        lore.add(RAREITEM_HEADER.replace("!id", ChatColor.COLOR_CHAR+"#"+String.valueOf(ri.getId()))+RI4Strings.RAREITEM_CCPASS);
+        lore.add(RAREITEM_HEADER.replace("!id", MetaStringEncoder.encode(String.valueOf(ri.getId()),"ri")));
 
         for (Map.Entry<IRareItemProperty, Integer> entry : ri.getProperties().entrySet()) {
             switch (entry.getKey().getRarity()) {

@@ -2,6 +2,7 @@ package com.lonelymc.ri4.bukkit.rareitems;
 
 import com.lonelymc.ri4.api.*;
 import com.lonelymc.ri4.bukkit.RareItems4Plugin;
+import com.lonelymc.ri4.util.MetaStringEncoder;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -131,22 +132,14 @@ public class RareItemsManager implements IRareItems4API {
 
     public IRareItem getRareItem(List<String> lore) {
         if (lore != null && lore.size() > 0) {
-            String sIdLine = lore.get(0);
+            String sId = MetaStringEncoder.decode(lore.get(0),"ri");
 
-            int ccPassEnd = sIdLine.indexOf(RI4Strings.RAREITEM_CCPASS);
+            try {
+                int id = Integer.parseInt(sId);
 
-            if (ccPassEnd != -1) {
-                int ccPassStart = sIdLine.substring(0, ccPassEnd).lastIndexOf(ChatColor.COLOR_CHAR) + 2;
-
-                String sId = sIdLine.substring(ccPassStart, ccPassEnd);
-
-                try {
-                    int id = Integer.parseInt(sId);
-
-                    return this.persistence.getRareItem(id);
-                } catch (NumberFormatException ex) {
-                    return null;
-                }
+                return this.persistence.getRareItem(id);
+            } catch (NumberFormatException ex) {
+                return null;
             }
         }
         return null;
@@ -280,22 +273,15 @@ public class RareItemsManager implements IRareItems4API {
 
     public IEssence getEssence(List<String> lore) {
         if (lore != null && lore.size() > 1) {
-            String sIdLine = lore.get(1);
+            String sId = MetaStringEncoder.decode(lore.get(1),"es");
+            
+            try {
+                int id = Integer.parseInt(sId);
 
-            int ccPassEnd = sIdLine.indexOf(RI4Strings.ESSENCE_CCPASS);
-
-            if (ccPassEnd != -1) {
-                int ccPassStart = sIdLine.substring(0, ccPassEnd).lastIndexOf(ChatColor.COLOR_CHAR) + 2;
-
-                String sId = sIdLine.substring(ccPassStart, ccPassEnd);
-
-                try {
-                    int id = Integer.parseInt(sId);
-
-                    return this.persistence.getEssence(id);
-                } catch (NumberFormatException ex) {
-                    return null;
-                }
+                return this.persistence.getEssence(id);
+            } 
+            catch (NumberFormatException ex) {
+                return null;
             }
         }
 

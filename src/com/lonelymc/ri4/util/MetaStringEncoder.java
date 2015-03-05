@@ -23,7 +23,7 @@ public class MetaStringEncoder {
         int end = str.indexOf(getEncodedKey(key));
         
         if(end != -1){
-            int begin = str.substring(0,end).lastIndexOf(ChatColor.COLOR_CHAR)+2;
+            int begin = str.substring(0,end).lastIndexOf(ChatColor.COLOR_CHAR+"#")+2;
             
             return str.substring(begin,end);
         }
@@ -33,7 +33,6 @@ public class MetaStringEncoder {
 
     /**
      * @param val Value to encode
-     * @param color Color the text should appear as
      * @param key Ideally a 2 character string that uses characters outside of:
      *            0-9, abcdef, klmnor
      *            You can use these, however in theory you might get false positives
@@ -41,8 +40,8 @@ public class MetaStringEncoder {
      *            Outside of the above range
      * @return A string that appears as color but can be retrieved with decode
      */
-    public static String encode(String val, String key, ChatColor color){
-        return color + val + getEncodedKey(key);
+    public static String encode(String val, String key){
+        return ChatColor.COLOR_CHAR + "#" + val + getEncodedKey(key);
     }
 
     /**

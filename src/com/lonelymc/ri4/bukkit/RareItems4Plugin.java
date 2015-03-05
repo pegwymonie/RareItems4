@@ -3,6 +3,7 @@ package com.lonelymc.ri4.bukkit;
 import com.lonelymc.ri4.api.IRareItems4API;
 import com.lonelymc.ri4.api.RI4Strings;
 import com.lonelymc.ri4.bukkit.commands.*;
+import com.lonelymc.ri4.bukkit.listeners.CraftingListener;
 import com.lonelymc.ri4.bukkit.listeners.PlayerListener;
 import com.lonelymc.ri4.bukkit.rareitems.RareItemsManager;
 import com.lonelymc.ri4.bukkit.rareitems.RareItemsYMLPersistence;
@@ -77,6 +78,7 @@ public class RareItems4Plugin extends JavaPlugin {
 
 // Register listeners
         this.getServer().getPluginManager().registerEvents(new PlayerListener(this, this.api), this);
+        this.getServer().getPluginManager().registerEvents(new CraftingListener(this, this.api), this);
     }
 
     @Override
@@ -142,9 +144,6 @@ public class RareItems4Plugin extends JavaPlugin {
     }
 
     public void loadLanguageStrings(File stringsFile) {
-        RI4Strings.RAREITEM_CCPASS = ChatColor.COLOR_CHAR + "r" + ChatColor.COLOR_CHAR + "i";
-        RI4Strings.ESSENCE_CCPASS = ChatColor.COLOR_CHAR + "e" + ChatColor.COLOR_CHAR + "s";
-
         YamlConfiguration yml = YamlConfiguration.loadConfiguration(stringsFile);
 
         for (String ri4StrKey : yml.getKeys(false)) {
