@@ -36,6 +36,8 @@ public class RareItemPropertiesManager {
     }
 
     public void addItemProperty(IRareItemProperty rip) {
+        this.customizationsDirty = true;
+        
         ConfigurationSection riSection = customizationsYml.getConfigurationSection(rip.getName());
 
         if (riSection == null) {
@@ -43,14 +45,13 @@ public class RareItemPropertiesManager {
             customizationsYml.set(rip.getName() + ".displayName", rip.getDisplayName());
             customizationsYml.set(rip.getName() + ".description", rip.getDescription());
             customizationsYml.set(rip.getName() + ".cost", rip.getCost());
-            customizationsYml.set(rip.getName() + ".costType", rip.getCostType());
+            customizationsYml.set(rip.getName() + ".costType", rip.getCostType().name());
 
             if (rip.getRecipe() != null) {
                 customizationsYml.set(rip.getName() + ".recipe", rip.getRecipe());
             }
-
-            this.customizationsDirty = true;
-        } else {
+        } 
+        else {
             if (!riSection.getBoolean("enabled")) {
                 plugin.getLogger().log(Level.INFO,
                         RI4Strings.LOG_RAREITEM_DISABLED.replace("!property", rip.getName()));
@@ -112,6 +113,11 @@ public class RareItemPropertiesManager {
                 }
             }
         }
+        
+        if(rip.getRecipe() == null){
+            return;
+        }
+        
         ItemStack isPlaceholder = new ItemStack(Material.DIRT);
 
         ItemMeta meta = isPlaceholder.getItemMeta();
@@ -139,7 +145,9 @@ public class RareItemPropertiesManager {
                     sChar = recipeShape.get(is.getType());
 
                     if (sChar == null) {
-                        recipeShape.put(is.getType(), availableRecipeChars[recipeShape.size()]);
+                        sChar = availableRecipeChars[recipeShape.size()];
+                        
+                        recipeShape.put(is.getType(), sChar);
                     }
 
                     recipeChars += sChar;
@@ -161,7 +169,9 @@ public class RareItemPropertiesManager {
                     sChar = recipeShape.get(m);
 
                     if (sChar == null) {
-                        recipeShape.put(m, availableRecipeChars[recipeShape.size()]);
+                        sChar = availableRecipeChars[recipeShape.size()];
+                        
+                        recipeShape.put(m, sChar);
                     }
 
                     recipeChars += sChar;
