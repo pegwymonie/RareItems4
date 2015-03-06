@@ -20,7 +20,25 @@ ESSENCE_STRANGE:    "&LIGHT_PURPLEStrange Essence"
 ESSENCE_FOOTER_1:   "&DARK_GRAYAn essence of power &BLACK!id"
 ESSENCE_FOOTER_2:   "&GRAY/ri about &DARK_GRAYfor more info"
 
+# Command responses
+COMMAND_NOT_FROM_CONSOLE: "&REDCannot be used from the console"
+COMMAND_HAT_EQUIPPED: "&GREENEnjoy your new hat!"
+COMMAND_INVALID_HAT: "&REDYou can't wear that! It would look horrible and clash with your outfit"
+COMMAND_MUST_HOLD_ITEM: "&REDYou must be holding an item!"
+COMMAND_ADDED_PROPERTY_TO_ITEM: "&GREENAdded !property to the item in your hand"
+COMMAND_INVALID_LEVEL: "&RED'!value' is not a valid level!"
+COMMAND_VALUE_NOT_FOUND: "&RED'!value' not found!"
+COMMAND_PLAYER_NOT_FOUND: "Player '!player' not found!"
 
+
+# Command names & descriptions
+COM_CRAFT: "craft"
+COM_CRAFT_USAGE: "<property_name> [level]"
+COM_CRAFT_DESC: "Add a rare item property to the item in your hand"
+
+COM_ESSENCE: "essence",
+COM_ESSENCE_USAGE: "<essence_type> [playerName]",
+COM_ESSENCE_DESC: "create a rare essence",
 
 # Log messages
 LOG_RAREITEM_DISABLED: "!property not loaded because enable=false in rareitems.yml"

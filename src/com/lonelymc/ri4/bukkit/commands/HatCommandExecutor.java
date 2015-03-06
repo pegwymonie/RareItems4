@@ -1,6 +1,7 @@
 package com.lonelymc.ri4.bukkit.commands;
 
 import com.lonelymc.ri4.api.IRareItems4API;
+import com.lonelymc.ri4.api.RI4Strings;
 import com.lonelymc.ri4.bukkit.RareItems4Plugin;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -21,7 +22,7 @@ public class HatCommandExecutor implements CommandExecutor{
     @Override
     public boolean onCommand(CommandSender cs, Command command, String label, String[] args) {
         if (!(cs instanceof Player)) {
-            cs.sendMessage(ChatColor.RED + "Cannot be used from the console.");
+            cs.sendMessage(RI4Strings.COMMAND_NOT_FROM_CONSOLE);
 
             return true;
         }
@@ -46,12 +47,12 @@ public class HatCommandExecutor implements CommandExecutor{
 
             this.api.unEquipRareItem(p, isToUnequip);
 
-            p.sendMessage(ChatColor.GREEN + "Enjoy your new hat!");
+            p.sendMessage(RI4Strings.COMMAND_HAT_EQUIPPED);
 
             return true;
         }
 
-        p.sendMessage(ChatColor.RED + "You can't wear that! It would look horrible and clash with your outfit.");
+        p.sendMessage(RI4Strings.COMMAND_INVALID_HAT);
 
         return true;
     }

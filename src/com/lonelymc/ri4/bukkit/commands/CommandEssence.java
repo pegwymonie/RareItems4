@@ -14,9 +14,9 @@ public class CommandEssence extends BasicCommand {
     
     public CommandEssence(IRareItems4API api) {
         super(
-            "essence", 
-            "<essence_type> [playerName]",
-            "create a rare essence", 
+            RI4Strings.COM_ESSENCE,
+            RI4Strings.COM_ESSENCE_USAGE,
+            RI4Strings.COM_ESSENCE_DESC,
             "rih.admin.essence"
         );
         
@@ -47,7 +47,7 @@ public class CommandEssence extends BasicCommand {
             player = Bukkit.getPlayer(playerName);
 
             if(player == null){
-                this.sendError(cs,"Player '"+playerName+"' not found!");
+                this.sendError(cs,RI4Strings.COMMAND_PLAYER_NOT_FOUND.replace("!player",playerName));
 
                 return true;
             }

@@ -18,9 +18,9 @@ public class CommandCraft extends BasicCommand {
 
     public CommandCraft(IRareItems4API api) {
         super(
-            "craft",
-            "<property_name> [level]",
-            "add a rare item property to the item in your hand",
+            RI4Strings.COM_CRAFT, 
+            RI4Strings.COM_CRAFT_USAGE,
+            RI4Strings.COM_CRAFT_DESC,
             "rih.admin.craft"
         );
         
@@ -36,7 +36,7 @@ public class CommandCraft extends BasicCommand {
         }
 
         if(!(cs instanceof Player)){
-            this.sendError(cs,"This commands cannot be used from the console!");
+            this.sendError(cs,RI4Strings.COMMAND_NOT_FROM_CONSOLE);
 
             return true;
         }
@@ -48,7 +48,7 @@ public class CommandCraft extends BasicCommand {
         IRareItemProperty property = this.api.getItemPropertyByDisplayName(propertyName);
 
         if(property == null){
-            this.sendError(cs,propertyName + " is not a valid rare item type!");
+            this.sendError(cs,RI4Strings.COMMAND_VALUE_NOT_FOUND.replace("!value",propertyName));
 
             return true;
         }
@@ -62,7 +62,7 @@ public class CommandCraft extends BasicCommand {
                 level = Integer.parseInt(sLevel);
             }
             catch(NumberFormatException ex){
-                this.sendError(cs,sLevel+" is not a valid level!");
+                this.sendError(cs, RI4Strings.COMMAND_INVALID_LEVEL.replace("!value", sLevel));
 
                 return true;
             }
@@ -71,7 +71,7 @@ public class CommandCraft extends BasicCommand {
         ItemStack isInHand = player.getItemInHand();
 
         if(isInHand == null || isInHand.getType().equals(Material.AIR)){
-            this.sendError(cs,"You must be holding an item!");
+            this.sendError(cs,RI4Strings.COMMAND_MUST_HOLD_ITEM);
 
             return true;
         }
@@ -97,7 +97,8 @@ public class CommandCraft extends BasicCommand {
 
         isInHand.setItemMeta(meta);
 
-        this.send(cs,"Added "+property.getDisplayName()+" to the item in your hand!");
+        this.send(cs,RI4Strings.COMMAND_ADDED_PROPERTY_TO_ITEM
+                .replace("!property", property.getDisplayName()));
 
         return true;
     }

@@ -35,6 +35,23 @@ public class RI4Strings {
 
     public static String ESSENCE_FOOTER_1;
     public static String ESSENCE_FOOTER_2;
+    
+    public static String COMMAND_NOT_FROM_CONSOLE;
+    public static String COMMAND_HAT_EQUIPPED;
+    public static String COMMAND_INVALID_HAT;
+    public static String COMMAND_MUST_HOLD_ITEM;
+    public static String COMMAND_ADDED_PROPERTY_TO_ITEM;
+    public static String COMMAND_INVALID_LEVEL;
+    public static String COMMAND_VALUE_NOT_FOUND;
+    public static String COMMAND_PLAYER_NOT_FOUND;
+    
+    public static String COM_CRAFT;
+    public static String COM_CRAFT_USAGE;
+    public static String COM_CRAFT_DESC;
+    
+    public static String COM_ESSENCE;
+    public static String COM_ESSENCE_USAGE;
+    public static String COM_ESSENCE_DESC;
 
     public static String getDisplayName(IEssence essence) {
         switch (essence.getRarity()) {
