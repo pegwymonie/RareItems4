@@ -34,7 +34,7 @@ public class CommandEssence extends BasicCommand {
             }
             sTypes = sTypes.substring(2);
 
-            cs.sendMessage("Valid types are: "+sTypes);
+            cs.sendMessage(RI4Strings.COMMAND_VALID_TYPES_ARE.replace("!types",sTypes));
 
             return true;
         }
@@ -56,7 +56,7 @@ public class CommandEssence extends BasicCommand {
             player = (Player) cs;
         }
         else {
-            this.sendError(cs,"If used from console you must specify a player!");
+            this.sendError(cs,RI4Strings.COMMAND_IF_CONSOLE_REQUIRES_PLAYER);
 
             return true;
         }
@@ -88,7 +88,7 @@ public class CommandEssence extends BasicCommand {
                 essence = this.api.createEssence(creator.getUniqueId(), rip);
             }
             else {
-                this.sendError(cs,essenceType + " is not a valid essence or item property type!");
+                this.sendError(cs,RI4Strings.COMMAND_INVALID_ESSENCE_OR_PROPERTY.replace("!property",essenceType));
 
                 return true;
             }
@@ -105,18 +105,23 @@ public class CommandEssence extends BasicCommand {
         isEssence.setItemMeta(meta);
 
         if (!player.getInventory().addItem(new ItemStack[] { isEssence }).isEmpty()) {
-            this.sendError(player,"Tried to give you a "+ RI4Strings.getDisplayName(essence)+ ChatColor.RED+" essence but your inventory was full, so it was dropped on the ground");
+            this.sendError(player,RI4Strings.COMMAND_INVENTORY_WAS_FULL_ON_GROUND_NOW
+            .replace("!item",RI4Strings.getDisplayName(essence)));
 
             player.getWorld().dropItemNaturally(player.getLocation(), isEssence);
         }
 
         if(player == cs){
-            this.send(cs,"You got "+ RI4Strings.getDisplayName(essence)+ChatColor.RESET+"!");
+            this.send(cs,RI4Strings.COMMAND_GAVE_ESSENCE_RECEIVER
+                    .replace("!essence", RI4Strings.getDisplayName(essence)));
         }
         else {
-            this.send(cs,"Gave "+player.getName()+" "+ RI4Strings.getDisplayName(essence)+ChatColor.RESET+"!");
+            this.send(cs,RI4Strings.COMMAND_GAVE_ESSENCE_RECEIVER
+                    .replace("!essence",RI4Strings.getDisplayName(essence))
+                    .replace("!player",player.getName()));
 
-            this.send(player,"You got "+ RI4Strings.getDisplayName(essence)+ChatColor.RESET+"!");
+            this.send(cs,RI4Strings.COMMAND_GAVE_ESSENCE_RECEIVER
+                    .replace("!essence",RI4Strings.getDisplayName(essence)));
         }
 
         return true;

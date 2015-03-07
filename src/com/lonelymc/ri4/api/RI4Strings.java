@@ -44,6 +44,8 @@ public class RI4Strings {
     public static String COMMAND_INVALID_LEVEL;
     public static String COMMAND_VALUE_NOT_FOUND;
     public static String COMMAND_PLAYER_NOT_FOUND;
+    public static String COMMAND_IF_CONSOLE_REQUIRES_PLAYER;
+    public static String COMMAND_GAVE_ESSENCE_RECEIVER;
     
     public static String COM_CRAFT;
     public static String COM_CRAFT_USAGE;
@@ -52,8 +54,15 @@ public class RI4Strings {
     public static String COM_ESSENCE;
     public static String COM_ESSENCE_USAGE;
     public static String COM_ESSENCE_DESC;
+    public static String COMMAND_VALID_TYPES_ARE;
+    public static String COMMAND_INVALID_ESSENCE_OR_PROPERTY;
+    public static String COMMAND_INVENTORY_WAS_FULL_ON_GROUND_NOW;
 
     public static String getDisplayName(IEssence essence) {
+        if(essence.hasProperty()){
+            return essence.getProperty().getDisplayName();
+        }
+        
         switch (essence.getRarity()) {
             default: //case COMMON:
                 return ESSENCE_COMMON;

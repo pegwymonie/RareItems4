@@ -29,6 +29,12 @@ COMMAND_ADDED_PROPERTY_TO_ITEM: "&GREENAdded !property to the item in your hand"
 COMMAND_INVALID_LEVEL: "&RED'!value' is not a valid level!"
 COMMAND_VALUE_NOT_FOUND: "&RED'!value' not found!"
 COMMAND_PLAYER_NOT_FOUND: "Player '!player' not found!"
+COMMAND_IF_CONSOLE_REQUIRES_PLAYER: "If used from console you must specify a player!"
+COMMAND_VALID_TYPES_ARE: "Valid types are: !types"
+COMMAND_INVALID_ESSENCE_OR_PROPERTY: "!property is not a valid essence or item property type!"
+COMMAND_GAVE_ESSENCE_SENDER: "&GREENGave &RESET!player &GREENa &RESET!essence &GREENessence!"
+COMMAND_GAVE_ESSENCE_RECEIVER: "&GREENYou got a &RESET!essence &GREENessence!"
+COMMAND_INVENTORY_WAS_FULL_ON_GROUND_NOW: "Tried to give you !item but your inventory was full so it was dropped on the ground"
 
 
 # Command names & descriptions
