@@ -30,7 +30,7 @@ public class CommandEssence extends BasicCommand {
 
             String sTypes = "";
             for(ItemPropertyRarity rarity : ItemPropertyRarity.values()){
-                sTypes += ", "+rarity.name();
+                sTypes += ", "+rarity.name().toLowerCase();
             }
             sTypes = sTypes.substring(2);
 

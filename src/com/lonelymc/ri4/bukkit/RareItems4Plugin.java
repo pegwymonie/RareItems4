@@ -8,6 +8,7 @@ import com.lonelymc.ri4.bukkit.listeners.PlayerListener;
 import com.lonelymc.ri4.bukkit.rareitems.RareItemsManager;
 import com.lonelymc.ri4.bukkit.rareitems.RareItemsYMLPersistence;
 import com.lonelymc.ri4.bukkit.rareitems.properties.*;
+import com.lonelymc.ri4.util.MetaStringEncoder;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -35,6 +36,7 @@ public class RareItems4Plugin extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        
         this.getDataFolder().mkdirs();
 
 // Load default config w/ comments
@@ -156,7 +158,7 @@ public class RareItems4Plugin extends JavaPlugin {
                 field.set(null, ri4Str);
             } catch (IllegalAccessException | NoSuchFieldException e) {
                 System.out.println("Invalid RI4 String: " + ri4StrKey);
-                e.printStackTrace();
+ //Not really necessary               e.printStackTrace();
             }
         }
     }

@@ -31,8 +31,9 @@ public class HatCommandExecutor implements CommandExecutor{
 
         ItemStack isToEquip = p.getItemInHand();
 
-        if ((isToEquip != null) && (isToEquip.getType() != Material.AIR))
+        if ((isToEquip != null) && (isToEquip.getType() != Material.AIR) && !this.isBelowNeckArmor(isToEquip))
         {
+            
             PlayerInventory inv = p.getInventory();
 
             ItemStack isToUnequip = inv.getHelmet();
@@ -43,9 +44,9 @@ public class HatCommandExecutor implements CommandExecutor{
 
             inv.setItemInHand(isToUnequip);
 
-            this.api.equipRareItem(p, isToEquip);
-
             this.api.unEquipRareItem(p, isToUnequip);
+
+            this.api.equipRareItem(p, isToEquip);
 
             p.sendMessage(RI4Strings.COMMAND_HAT_EQUIPPED);
 
@@ -55,5 +56,23 @@ public class HatCommandExecutor implements CommandExecutor{
         p.sendMessage(RI4Strings.COMMAND_INVALID_HAT);
 
         return true;
+    }
+
+    // Not concerned with gold & leather armor
+    private boolean isBelowNeckArmor(ItemStack is) {
+        switch(is.getType()){
+            default:
+                return false;
+            case DIAMOND_LEGGINGS:
+            case DIAMOND_CHESTPLATE:
+            case DIAMOND_BOOTS:
+            case IRON_LEGGINGS:
+            case IRON_CHESTPLATE:
+            case IRON_BOOTS:
+            case CHAINMAIL_LEGGINGS:
+            case CHAINMAIL_CHESTPLATE:
+            case CHAINMAIL_BOOTS:
+                return true;
+        }
     }
 }

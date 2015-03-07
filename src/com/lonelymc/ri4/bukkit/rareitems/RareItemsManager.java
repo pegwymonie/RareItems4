@@ -132,7 +132,7 @@ public class RareItemsManager implements IRareItems4API {
 
     public IRareItem getRareItem(List<String> lore) {
         if (lore != null && lore.size() > 0) {
-            String sId = MetaStringEncoder.decode(lore.get(0),"ri");
+            String sId = MetaStringEncoder.decodeHidden(lore.get(0),"ri");
 
             try {
                 int id = Integer.parseInt(sId);
@@ -160,7 +160,7 @@ public class RareItemsManager implements IRareItems4API {
             if (playerActiveEffects == null) {
                 playerActiveEffects = new HashMap<>();
 
-                this.activeEffects.put(player.getUniqueId(), ri.getProperties());
+                this.activeEffects.put(player.getUniqueId(), playerActiveEffects);
             }
 
             for (Map.Entry<IRareItemProperty, Integer> entry : ri.getProperties().entrySet()) {
@@ -267,7 +267,6 @@ public class RareItemsManager implements IRareItems4API {
         return this.persistence.createFilledEssence(creator, property);
     }
 
-
     @Override
     public IEssence getEssence(ItemStack is) {
         if (is != null && is.hasItemMeta()) {
@@ -283,7 +282,7 @@ public class RareItemsManager implements IRareItems4API {
 
     public IEssence getEssence(List<String> lore) {
         if (lore != null && lore.size() > 1) {
-            String sId = MetaStringEncoder.decode(lore.get(1),"es");
+            String sId = MetaStringEncoder.decodeHidden(lore.get(1),"es");
             
             try {
                 int id = Integer.parseInt(sId);

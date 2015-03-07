@@ -17,7 +17,7 @@ ESSENCE_RARE:       "&GREENRare Essence"
 ESSENCE_LEGENDARY:  "&GOLDLegendary Essence"
 ESSENCE_STRANGE:    "&LIGHT_PURPLEStrange Essence"
 
-ESSENCE_FOOTER_1:   "&DARK_GRAYAn essence of power &BLACK!id"
+ESSENCE_FOOTER_1:   "&DARK_GRAYAn essence of power"
 ESSENCE_FOOTER_2:   "&GRAY/ri about &DARK_GRAYfor more info"
 
 # Command responses
@@ -35,16 +35,16 @@ COMMAND_INVALID_ESSENCE_OR_PROPERTY: "!property is not a valid essence or item p
 COMMAND_GAVE_ESSENCE_SENDER: "&GREENGave &RESET!player &GREENa &RESET!essence &GREENessence!"
 COMMAND_GAVE_ESSENCE_RECEIVER: "&GREENYou got a &RESET!essence &GREENessence!"
 COMMAND_INVENTORY_WAS_FULL_ON_GROUND_NOW: "Tried to give you !item but your inventory was full so it was dropped on the ground"
-
+COMMAND_YOU_CAN_USE: "Commands you have access to:"
 
 # Command names & descriptions
 COM_CRAFT: "craft"
 COM_CRAFT_USAGE: "<property_name> [level]"
 COM_CRAFT_DESC: "Add a rare item property to the item in your hand"
 
-COM_ESSENCE: "essence",
-COM_ESSENCE_USAGE: "<essence_type> [playerName]",
-COM_ESSENCE_DESC: "create a rare essence",
+COM_ESSENCE: "essence"
+COM_ESSENCE_USAGE: "<essence_type> [playerName]"
+COM_ESSENCE_DESC: "create a rare essence"
 
 # Log messages
 LOG_RAREITEM_DISABLED: "!property not loaded because enable=false in rareitems.yml"

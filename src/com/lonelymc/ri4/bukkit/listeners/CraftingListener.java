@@ -43,7 +43,7 @@ public class CraftingListener implements Listener {
         if(isResult.getType().equals(Material.DIRT) && isResult.hasItemMeta()){
             ItemMeta meta = isResult.getItemMeta();
 
-            String propertyName = MetaStringEncoder.decode(meta.getDisplayName(),"rir");
+            String propertyName = MetaStringEncoder.decodeHidden(meta.getDisplayName(),"rir");
 
             if(propertyName != null) {
                 IRareItemProperty rip = this.api.getItemProperty(propertyName);
@@ -82,7 +82,7 @@ public class CraftingListener implements Listener {
         if(result.getType().equals(Material.DIRT) && result.hasItemMeta()){
             ItemMeta meta = result.getItemMeta();
 
-            String propertyName = MetaStringEncoder.decode(meta.getDisplayName(),"rir");
+            String propertyName = MetaStringEncoder.decodeHidden(meta.getDisplayName(),"rir");
 
             if(propertyName != null) {
                 IRareItemProperty rip = this.api.getItemProperty(propertyName);

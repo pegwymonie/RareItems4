@@ -14,6 +14,9 @@ public class RI4Strings {
     // however you are responsible for translating any variables
     // which should be in the format !variable
 
+    tomorrow's goal: move defaults to here, delete strings.yml, create and load any missing
+    strings to strings.yml in plugin folder everytime the plugin is loaded
+    
     // Rare Items
     public static String RAREITEM_HEADER;
 
@@ -46,6 +49,7 @@ public class RI4Strings {
     public static String COMMAND_PLAYER_NOT_FOUND;
     public static String COMMAND_IF_CONSOLE_REQUIRES_PLAYER;
     public static String COMMAND_GAVE_ESSENCE_RECEIVER;
+    public static String COMMAND_GAVE_ESSENCE_SENDER;
     
     public static String COM_CRAFT;
     public static String COM_CRAFT_USAGE;
@@ -54,9 +58,11 @@ public class RI4Strings {
     public static String COM_ESSENCE;
     public static String COM_ESSENCE_USAGE;
     public static String COM_ESSENCE_DESC;
+    
     public static String COMMAND_VALID_TYPES_ARE;
     public static String COMMAND_INVALID_ESSENCE_OR_PROPERTY;
     public static String COMMAND_INVENTORY_WAS_FULL_ON_GROUND_NOW;
+    public static String COMMAND_YOU_CAN_USE;
 
     public static String getDisplayName(IEssence essence) {
         if(essence.hasProperty()){
@@ -88,7 +94,7 @@ public class RI4Strings {
             );
         }
 
-        lore.add(ESSENCE_FOOTER_1.replace("!id", MetaStringEncoder.encode(String.valueOf(essence.getId()),"es")));
+        lore.add(ESSENCE_FOOTER_1.replace("!id", essence.getId()+"")+MetaStringEncoder.encodeHidden(String.valueOf(essence.getId()),"es"));
 
         lore.add(ESSENCE_FOOTER_2);
 
@@ -98,7 +104,7 @@ public class RI4Strings {
     public static List<String> getLore(IRareItem ri) {
         List<String> lore = new ArrayList<>();
 
-        lore.add(RAREITEM_HEADER.replace("!id", MetaStringEncoder.encode(String.valueOf(ri.getId()),"ri")));
+        lore.add(RAREITEM_HEADER.replace("!id", ri.getId()+"")+MetaStringEncoder.encodeHidden(String.valueOf(ri.getId()),"ri"));
 
         for (Map.Entry<IRareItemProperty, Integer> entry : ri.getProperties().entrySet()) {
             switch (entry.getKey().getRarity()) {

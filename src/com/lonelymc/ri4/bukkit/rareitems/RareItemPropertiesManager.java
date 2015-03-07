@@ -96,7 +96,7 @@ public class RareItemPropertiesManager {
     public static void refreshServerRecipe(IRareItemProperty rip) {
         Iterator<Recipe> it = Bukkit.getServer().recipeIterator();
 
-        String recipeName = MetaStringEncoder.encode(rip.getName(), "rir");
+        String recipeName = MetaStringEncoder.encodeHidden(rip.getName(), "rir");
 
         while (it.hasNext()) {
             Recipe r = it.next();
@@ -201,7 +201,7 @@ public class RareItemPropertiesManager {
         propertyName = propertyName.toLowerCase();
 
         for (IRareItemProperty rip : this.properties.values()) {
-            if (rip.getName().equals(propertyName)) {
+            if (rip.getName().toLowerCase().equals(propertyName)) {
                 return rip;
             }
         }

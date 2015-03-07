@@ -1,5 +1,6 @@
 package com.lonelymc.ri4.bukkit.commands;
 
+import com.lonelymc.ri4.api.RI4Strings;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -39,6 +40,8 @@ public class BasicCommandExecutor implements CommandExecutor {
             command.send(cs, new String[]{
                     ChatColor.RED + "You do not have permission to " + command.getAction(), ChatColor.RED + "Required node: " + ChatColor.WHITE + command.getPermissionNode()
             });
+            
+            return true;
         }
 
         cs.sendMessage(ChatColor.RED + "Invalid subcommand: " + args[0]);
@@ -49,7 +52,7 @@ public class BasicCommandExecutor implements CommandExecutor {
     private void sendUsage(CommandSender cs) {
         cs.sendMessage(ChatColor.GRAY + "---" + ChatColor.DARK_GREEN + " " + this.pluginName + " " + ChatColor.GRAY + "---");
 
-        cs.sendMessage("Here are the commands you have access to:");
+        cs.sendMessage(RI4Strings.COMMAND_YOU_CAN_USE);
 
         for (BasicCommand lc : this.commands.values()) {
             if ((cs.hasPermission(lc.getPermissionNode())) && (!lc.getName().equals("hat"))) {
