@@ -8,15 +8,11 @@ import com.lonelymc.ri4.bukkit.listeners.PlayerListener;
 import com.lonelymc.ri4.bukkit.rareitems.RareItemsManager;
 import com.lonelymc.ri4.bukkit.rareitems.RareItemsYMLPersistence;
 import com.lonelymc.ri4.bukkit.rareitems.properties.*;
-import com.lonelymc.ri4.util.MetaStringEncoder;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.*;
 import java.lang.reflect.Field;
 import java.util.logging.Level;
 
@@ -36,7 +32,7 @@ public class RareItems4Plugin extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        
+
         this.getDataFolder().mkdirs();
 
 // Load default config w/ comments
@@ -47,13 +43,7 @@ public class RareItems4Plugin extends JavaPlugin {
         }
 
 // Load localized strings w/ comments
-        File stringsFile = new File(this.getDataFolder(), "strings.yml");
-
-        if (!stringsFile.exists()) {
-            this.copy(this.getResource("strings.yml"), stringsFile);
-        }
-
-        this.loadLanguageStrings(stringsFile);
+        this.loadLanguageStrings();
 
 // Create a persistence manager        
         RareItemsYMLPersistence persistence = new RareItemsYMLPersistence(this, this.getDataFolder());
@@ -142,24 +132,40 @@ public class RareItems4Plugin extends JavaPlugin {
         this.api.addItemProperty(new WitchFX());
     }
 
-    public void loadLanguageStrings(File stringsFile) {
+    public void loadLanguageStrings() {
+        File stringsFile = new File(this.getDataFolder(), "strings.yml");
+
         YamlConfiguration yml = YamlConfiguration.loadConfiguration(stringsFile);
 
-        for (String ri4StrKey : yml.getKeys(false)) {
+        for (Field field : RI4Strings.class.getDeclaredFields()) {
+            String ymlFieldValue = yml.getString(field.getName(), null);
+
+            //This makes me think I don't understand how reflection works under the hood.
+            String instance = new String();
+
+            // If it's not in the YML copy to the YML
+            // Otherwise if it is in the YML and the value is different then update it
             try {
-                Field field = RI4Strings.class.getField(ri4StrKey);
-
-                String ri4Str = yml.getString(ri4StrKey);
-
-                for (ChatColor cc : ChatColor.values()) {
-                    ri4Str = ri4Str.replace("&" + cc.name().toUpperCase(), cc.toString());
+                if (ymlFieldValue == null) {
+                    yml.set(field.getName(), field.get(instance));
+                } else if (!ymlFieldValue.equals(field.get(instance))) {
+                    field.set(instance, ymlFieldValue);
                 }
 
-                field.set(null, ri4Str);
-            } catch (IllegalAccessException | NoSuchFieldException e) {
-                System.out.println("Invalid RI4 String: " + ri4StrKey);
- //Not really necessary               e.printStackTrace();
+                // Replace color markup with color codes
+                for (ChatColor cc : ChatColor.values()) {
+                    field.set(instance, ((String) field.get(instance)).replace("&" + cc.name().toUpperCase(), cc.toString()));
+                }
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
             }
+        }
+
+        try {
+            yml.save(stringsFile);
+        } catch (IOException e) {
+            this.getLogger().log(Level.WARNING, "Unable to save changes to strings.yml!");
+            e.printStackTrace();
         }
     }
 
