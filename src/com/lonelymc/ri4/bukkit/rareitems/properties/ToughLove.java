@@ -17,15 +17,15 @@ public class ToughLove extends RareItemProperty {
                 0,//Cost
                 1,//Max level
                 new String[]{
-                        "type=CAKE;amount=1;",
-                        "type=ANVIL;amount=1;",
-                        "type=CAKE;amount=1;",
-                        "type=ANVIL;amount=1;",
+                        "type=CAKE;",
+                        "type=ANVIL;",
+                        "type=CAKE;",
+                        "type=ANVIL;",
                         "!STRANGE_ESSENCE",
-                        "type=ANVIL;amount=1;",
-                        "type=CAKE;amount=1;",
-                        "type=ANVIL;amount=1;",
-                        "type=CAKE;amount=1;"
+                        "type=ANVIL;",
+                        "type=CAKE;",
+                        "type=ANVIL;",
+                        "type=CAKE;"
                 }
         );
     }

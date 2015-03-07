@@ -17,15 +17,15 @@ public class Durability extends RareItemProperty {
                 10.0D,
                 8,
                 new String[]{
-                        "type=POTION;dura=8257;amount=1;",
-                        "type=IRON_BLOCK;amount=1;",
-                        "type=POTION;dura=8257;amount=1;",
-                        "type=IRON_BLOCK;amount=1;",
+                        "type=POTION;dura=8257;",
+                        "type=IRON_BLOCK;",
+                        "type=POTION;dura=8257;",
+                        "type=IRON_BLOCK;",
                         "!RARE_ESSENCE",
-                        "type=IRON_BLOCK;amount=1;",
-                        "type=POTION;dura=8257;amount=1;",
-                        "type=IRON_BLOCK;amount=1;",
-                        "type=POTION;dura=8257;amount=1;"
+                        "type=IRON_BLOCK;",
+                        "type=POTION;dura=8257;",
+                        "type=IRON_BLOCK;",
+                        "type=POTION;dura=8257;"
                 }
         );
     }

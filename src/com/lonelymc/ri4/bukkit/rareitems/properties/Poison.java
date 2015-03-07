@@ -21,15 +21,15 @@ public class Poison extends RareItemProperty {
                 2.0D,
                 6,
                 new String[]{
-                        "type=POTION;dura=16420;amount=1;",
-                        "type=POISONOUS_POTATO;amount=1;",
-                        "type=POTION;dura=16420;amount=1;",
-                        "type=POISONOUS_POTATO;amount=1;",
+                        "type=POTION;dura=16420;",
+                        "type=POISONOUS_POTATO;",
+                        "type=POTION;dura=16420;",
+                        "type=POISONOUS_POTATO;",
                         "!UNCOMMON_ESSENCE",
-                        "type=POISONOUS_POTATO;amount=1;",
-                        "type=POTION;dura=16420;amount=1;",
-                        "type=POISONOUS_POTATO;amount=1;",
-                        "type=POTION;dura=16420;amount=1;"
+                        "type=POISONOUS_POTATO;",
+                        "type=POTION;dura=16420;",
+                        "type=POISONOUS_POTATO;",
+                        "type=POTION;dura=16420;"
                 }
         );
     }

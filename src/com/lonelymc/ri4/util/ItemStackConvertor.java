@@ -18,7 +18,10 @@ public class ItemStackConvertor {
         f.append("type=").append(is.getType()).append(";");
         if (is.getDurability() != 0)
             f.append("dura=").append(is.getDurability()).append(";");
-        f.append("amount=").append(is.getAmount()).append(";");
+        
+        if(is.getAmount() != 1) {
+            f.append("amount=").append(is.getAmount()).append(";");
+        }
 
         if (!is.getEnchantments().isEmpty()) {
             f.append("enchantments=");

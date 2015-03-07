@@ -16,15 +16,15 @@ public class Strength extends RareItemProperty {
                 0.0D,
                 3,
                 new String[]{
-                        "type=POTION;dura=8265;amount=1;",
-                        "type=IRON_BLOCK;amount=1;",
-                        "type=POTION;dura=8265;amount=1;",
-                        "type=IRON_BLOCK;amount=1;",
+                        "type=POTION;dura=8265;",
+                        "type=IRON_BLOCK;",
+                        "type=POTION;dura=8265;",
+                        "type=IRON_BLOCK;",
                         "!LEGENDARY_ESSENCE",
-                        "type=IRON_BLOCK;amount=1;",
-                        "type=POTION;dura=8265;amount=1;",
-                        "type=NETHER_STAR;amount=1;",
-                        "type=POTION;dura=8265;amount=1;"
+                        "type=IRON_BLOCK;",
+                        "type=POTION;dura=8265;",
+                        "type=NETHER_STAR;",
+                        "type=POTION;dura=8265;"
                 }
         );
     }

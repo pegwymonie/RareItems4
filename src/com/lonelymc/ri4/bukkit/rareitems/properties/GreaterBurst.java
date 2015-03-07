@@ -27,15 +27,15 @@ public class GreaterBurst extends RareItemProperty {
                 5.0D,
                 5,
                 new String[]{
-                        "type=TNT;amount=1;",
-                        "type=EYE_OF_ENDER;amount=1;",
-                        "type=TNT;amount=1;",
-                        "type=EYE_OF_ENDER;amount=1;",
+                        "type=TNT;",
+                        "type=EYE_OF_ENDER;",
+                        "type=TNT;",
+                        "type=EYE_OF_ENDER;",
                         "!UNCOMMON_ESSENCE",
-                        "type=EYE_OF_ENDER;amount=1;",
-                        "type=TNT;amount=1;",
-                        "type=SKULL_ITEM;dura=1;amount=1;",
-                        "type=TNT;amount=1;"
+                        "type=EYE_OF_ENDER;",
+                        "type=TNT;",
+                        "type=SKULL_ITEM;dura=1;",
+                        "type=TNT;"
                 }
         );
 

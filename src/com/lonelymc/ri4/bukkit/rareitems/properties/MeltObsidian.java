@@ -17,15 +17,15 @@ public class MeltObsidian extends RareItemProperty {
                 1.0D,
                 1,
                 new String[]{
-                        "type=OBSIDIAN;amount=1;",
-                        "type=LAVA_BUCKET;amount=1;",
-                        "type=OBSIDIAN;amount=1;",
-                        "type=LAVA_BUCKET;amount=1;",
+                        "type=OBSIDIAN;",
+                        "type=LAVA_BUCKET;",
+                        "type=OBSIDIAN;",
+                        "type=LAVA_BUCKET;",
                         "!COMMON_ESSENCE",
-                        "type=LAVA_BUCKET;amount=1;",
-                        "type=OBSIDIAN;amount=1;",
-                        "type=LAVA_BUCKET;amount=1;",
-                        "type=OBSIDIAN;amount=1;"
+                        "type=LAVA_BUCKET;",
+                        "type=OBSIDIAN;",
+                        "type=LAVA_BUCKET;",
+                        "type=OBSIDIAN;"
                 }
         );
     }

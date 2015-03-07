@@ -16,15 +16,15 @@ public class WaterBreathing extends RareItemProperty {
                 0.0D,
                 1,
                 new String[]{
-                        "type=POTION;dura=8266;amount=1;",
-                        "type=WATER_LILY;amount=1;",
-                        "type=POTION;dura=8266;amount=1;",
-                        "type=WATER_LILY;amount=1;",
+                        "type=POTION;dura=8266;",
+                        "type=WATER_LILY;",
+                        "type=POTION;dura=8266;",
+                        "type=WATER_LILY;",
                         "!UNCOMMON_ESSENCE",
-                        "type=WATER_LILY;amount=1;",
-                        "type=POTION;dura=8266;amount=1;",
-                        "type=WATER_LILY;amount=1;",
-                        "type=POTION;dura=8266;amount=1;"
+                        "type=WATER_LILY;",
+                        "type=POTION;dura=8266;",
+                        "type=WATER_LILY;",
+                        "type=POTION;dura=8266;"
                 }
         );
     }

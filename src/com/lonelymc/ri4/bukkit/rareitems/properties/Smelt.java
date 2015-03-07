@@ -17,15 +17,15 @@ public class Smelt extends RareItemProperty {
                 1.0D,
                 1,
                 new String[]{
-                        "type=FURNACE;amount=1;",
-                        "type=FURNACE;amount=1;",
-                        "type=FURNACE;amount=1;",
-                        "type=FURNACE;amount=1;",
+                        "type=FURNACE;",
+                        "type=FURNACE;",
+                        "type=FURNACE;",
+                        "type=FURNACE;",
                         "!COMMON_ESSENCE",
-                        "type=FURNACE;amount=1;",
-                        "type=FURNACE;amount=1;",
-                        "type=FURNACE;amount=1;",
-                        "type=FURNACE;amount=1;"
+                        "type=FURNACE;",
+                        "type=FURNACE;",
+                        "type=FURNACE;",
+                        "type=FURNACE;"
                 }
         );
     }

@@ -20,15 +20,15 @@ public class CatsFeet extends RareItemProperty {
                 1.0D,
                 30,
                 new String[]{
-                        "type=POTION;dura=8258;amount=1;",
-                        "type=FEATHER;amount=1;",
-                        "type=POTION;dura=8258;amount=1;",
-                        "type=GLOWSTONE;amount=1;",
+                        "type=POTION;dura=8258;",
+                        "type=FEATHER;",
+                        "type=POTION;dura=8258;",
+                        "type=GLOWSTONE;",
                         "!UNCOMMON_ESSENCE",
-                        "type=GLOWSTONE;amount=1;",
-                        "type=POTION;dura=8258;amount=1;",
-                        "type=FEATHER;amount=1;",
-                        "type=POTION;dura=8258;amount=1;"
+                        "type=GLOWSTONE;",
+                        "type=POTION;dura=8258;",
+                        "type=FEATHER;",
+                        "type=POTION;dura=8258;"
                 }
         );
     }

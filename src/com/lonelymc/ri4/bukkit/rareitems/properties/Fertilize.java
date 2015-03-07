@@ -17,15 +17,15 @@ public class Fertilize extends RareItemProperty {
                 0.5,//Cost
                 1,//Max level
                 new String[]{
-                        "type=SEEDS;amount=1;",
-                        "type=DIRT;amount=1;",
-                        "type=SEEDS;amount=1;",
-                        "type=DIRT;amount=1;",
+                        "type=SEEDS;",
+                        "type=DIRT;",
+                        "type=SEEDS;",
+                        "type=DIRT;",
                         "!COMMON_ESSENCE",
-                        "type=DIRT;amount=1;",
-                        "type=SEEDS;amount=1;",
-                        "type=DIRT;amount=1;",
-                        "type=SEEDS;amount=1;"
+                        "type=DIRT;",
+                        "type=SEEDS;",
+                        "type=DIRT;",
+                        "type=SEEDS;"
                 }
         );
     }

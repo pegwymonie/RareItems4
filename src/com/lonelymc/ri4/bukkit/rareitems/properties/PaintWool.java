@@ -18,15 +18,15 @@ public class PaintWool extends RareItemProperty {
                 0.5D,
                 1,
                 new String[]{
-                    "type=WOOL;dura=11;amount=1;",
-                    "type=WOOL;amount=1;",
-                    "type=WOOL;amount=1;",
-                    "type=WOOL;dura=11;amount=1;",
+                    "type=WOOL;dura=11;",
+                    "type=WOOL;",
+                    "type=WOOL;",
+                    "type=WOOL;dura=11;",
                     "!COMMON_ESSENCE",
-                    "type=WOOL;dura=14;amount=1;",
-                    "type=WOOL;dura=15;amount=1;",
-                    "type=WOOL;dura=15;amount=1;",
-                    "type=WOOL;dura=14;amount=1;"
+                    "type=WOOL;dura=14;",
+                    "type=WOOL;dura=15;",
+                    "type=WOOL;dura=15;",
+                    "type=WOOL;dura=14;"
                 }
         );
     }

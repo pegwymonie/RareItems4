@@ -21,14 +21,14 @@ public class Multishot extends RareItemProperty {
                 8,
                 new String[]{
                         "type=ARROW;amount=64;",
-                        "type=POTION;dura=16425;amount=1;",
+                        "type=POTION;dura=16425;",
                         "type=ARROW;amount=64;",
-                        "type=TRIPWIRE_HOOK;amount=1;",
+                        "type=TRIPWIRE_HOOK;",
                         "!RARE_ESSENCE",
-                        "type=TRIPWIRE_HOOK;amount=1;",
-                        "type=LEASH;amount=1;",
-                        "type=POTION;dura=16425;amount=1;",
-                        "type=LEASH;amount=1;"
+                        "type=TRIPWIRE_HOOK;",
+                        "type=LEASH;",
+                        "type=POTION;dura=16425;",
+                        "type=LEASH;"
                 }
         );
     }

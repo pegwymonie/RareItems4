@@ -16,15 +16,15 @@ public class Hardy extends RareItemProperty {
                 0.0D,
                 3,
                 new String[]{
-                        "type=DIAMOND_BLOCK;amount=1;",
-                        "type=ANVIL;amount=1;",
-                        "type=DIAMOND_BLOCK;amount=1;",
-                        "type=ANVIL;amount=1;",
+                        "type=DIAMOND_BLOCK;",
+                        "type=ANVIL;",
+                        "type=DIAMOND_BLOCK;",
+                        "type=ANVIL;",
                         "!LEGENDARY_ESSENCE",
-                        "type=ANVIL;amount=1;",
-                        "type=DIAMOND_BLOCK;amount=1;",
-                        "type=NETHER_STAR;amount=1;",
-                        "type=DIAMOND_BLOCK;amount=1;"
+                        "type=ANVIL;",
+                        "type=DIAMOND_BLOCK;",
+                        "type=NETHER_STAR;",
+                        "type=DIAMOND_BLOCK;"
                 }
         );
     }

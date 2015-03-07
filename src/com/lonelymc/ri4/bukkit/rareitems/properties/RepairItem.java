@@ -18,15 +18,15 @@ public class RepairItem extends RareItemProperty {
                 1.0D,
                 100,
                 new String[]{
-                        "type=POTION;dura=8225;amount=1;",
-                        "type=ANVIL;amount=1;",
-                        "type=POTION;dura=8225;amount=1;",
-                        "type=ANVIL;amount=1;",
+                        "type=POTION;dura=8225;",
+                        "type=ANVIL;",
+                        "type=POTION;dura=8225;",
+                        "type=ANVIL;",
                         "!RARE_ESSENCE",
-                        "type=ANVIL;amount=1;",
-                        "type=POTION;dura=8225;amount=1;",
-                        "type=IRON_BLOCK;amount=1;",
-                        "type=POTION;dura=8225;amount=1;"
+                        "type=ANVIL;",
+                        "type=POTION;dura=8225;",
+                        "type=IRON_BLOCK;",
+                        "type=POTION;dura=8225;"
                 }
         );
     }
