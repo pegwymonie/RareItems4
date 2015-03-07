@@ -19,6 +19,7 @@ public class RI4Strings {
     public static String RAREITEM_RARE = "&RED!property &DARK_RED!level";
     public static String RAREITEM_LEGENDARY = "&GOLD!property &DARK_RED!level";
     public static String RAREITEM_STRANGE = "&LIGHT_PURPLE!property &DARK_PURPLE!level";
+
     public static String ESSENCE_BLANK = "&DARK_GRAY(Empty)";
     public static String ESSENCE_FILLED = "&DARK_GRAY(Filled with !property&DARK_GRAY)";
     public static String ESSENCE_COMMON = "&GRAYCommon Essence";
@@ -56,10 +57,6 @@ public class RI4Strings {
     public static String LOG_UNABLE_TO_SAVE_FILE = "!file could not be saved!";
 
     public static String getDisplayName(IEssence essence) {
-        if(essence.hasProperty()){
-            return essence.getProperty().getDisplayName();
-        }
-        
         switch (essence.getRarity()) {
             default: //case COMMON:
                 return ESSENCE_COMMON;

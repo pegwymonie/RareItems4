@@ -151,7 +151,7 @@ public class RareItemsYMLPersistence implements IRareItemsPersistence {
 
         this.saveYml.set(section + "created", ri.getCreated().getTime());
         this.saveYml.set(section + "creator", ri.getCreator().toString());
-        this.saveYml.set(section + "modified", ri.getCreated().getTime());
+        this.saveYml.set(section + "modified", ri.getModified().getTime());
         this.saveYml.set(section + "modifier", ri.getModifier().toString());
 
         this.saveYml.set(section + "status", ri.getStatus().name());

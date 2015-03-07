@@ -80,7 +80,7 @@ public class CommandCraft extends BasicCommand {
 
         Map<IRareItemProperty,Integer> properties = new HashMap<>();
 
-        properties.put(property,1);
+        properties.put(property,level);
 
         if(rareItem == null){
             rareItem = this.api.createRareItem(player.getUniqueId(),properties);
