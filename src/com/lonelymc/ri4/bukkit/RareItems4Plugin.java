@@ -64,6 +64,7 @@ public class RareItems4Plugin extends JavaPlugin {
 
         this.registerSubCommand(new CommandEssence(this.api));
         this.registerSubCommand(new CommandCraft(this.api));
+        this.registerSubCommand(new CommandWI(this.api));
 
 // Register listeners
         this.getServer().getPluginManager().registerEvents(new PlayerListener(this, this.api), this);

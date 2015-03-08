@@ -21,7 +21,7 @@ public class CommandCraft extends BasicCommand {
             RI4Strings.COM_CRAFT, 
             RI4Strings.COM_CRAFT_USAGE,
             RI4Strings.COM_CRAFT_DESC,
-            "rih.admin.craft"
+            "ri4.admin.craft"
         );
         
         this.api = api;
@@ -66,6 +66,14 @@ public class CommandCraft extends BasicCommand {
 
                 return true;
             }
+        }
+
+        if(level > property.getMaxLevel()){
+            this.sendError(cs,RI4Strings.COMMAND_MAX_LEVEL
+            .replace("!level",String.valueOf(property.getMaxLevel()))
+            .replace("!property",property.getDisplayName()));
+
+            return true;
         }
 
         ItemStack isInHand = player.getItemInHand();

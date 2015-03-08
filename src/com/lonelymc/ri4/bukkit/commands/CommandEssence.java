@@ -17,7 +17,7 @@ public class CommandEssence extends BasicCommand {
             RI4Strings.COM_ESSENCE,
             RI4Strings.COM_ESSENCE_USAGE,
             RI4Strings.COM_ESSENCE_DESC,
-            "rih.admin.essence"
+            "ri4.admin.essence"
         );
         
         this.api = api;

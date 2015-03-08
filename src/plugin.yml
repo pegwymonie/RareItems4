@@ -10,11 +10,7 @@ commands:
       description: RareItems commands
     hat:
       description: put an item on your head
-permissions: 
-# All
-  ri4.tester:
-    description: Permission to test ALL the things
-    default: false
+permissions:
   ri4.admin.logs:
     description: Will see error summaries in-game
     default: false

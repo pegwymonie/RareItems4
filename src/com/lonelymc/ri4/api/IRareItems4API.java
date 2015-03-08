@@ -4,6 +4,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import java.io.File;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -57,4 +58,6 @@ public interface IRareItems4API {
     void unEquipRareItem(Player player, IRareItem ri);
 
     void removeActiveEffects(Player player);
+
+    Collection<IRareItemProperty> getAllItemProperties();
 }

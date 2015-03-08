@@ -237,6 +237,11 @@ public class RareItemsManager implements IRareItems4API {
     }
 
     @Override
+    public Collection<IRareItemProperty> getAllItemProperties() {
+        return this.propertiesManager.getAllProperties();
+    }
+
+    @Override
     public void save() {
         this.persistence.save();
         this.propertiesManager.save();

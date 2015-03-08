@@ -41,6 +41,7 @@ public class RI4Strings {
     public static String COMMAND_IF_CONSOLE_REQUIRES_PLAYER = "If used from console you must specify a player!";
     public static String COMMAND_VALID_TYPES_ARE = "Valid types are: !types";
     public static String COMMAND_INVALID_ESSENCE_OR_PROPERTY = "!property is not a valid essence or item property type!";
+    public static String COMMAND_INVALID_PROPERTY = "!property is not a valid item property type!";
     public static String COMMAND_GAVE_ESSENCE_SENDER = "&GREENGave &RESET!player &GREENa &RESET!essence &GREENessence!";
     public static String COMMAND_GAVE_ESSENCE_RECEIVER = "&GREENYou got a &RESET!essence &GREENessence!";
     public static String COMMAND_INVENTORY_WAS_FULL_ON_GROUND_NOW = "Tried to give you !item but your inventory was full so it was dropped on the ground";
@@ -49,9 +50,14 @@ public class RI4Strings {
     public static String COM_CRAFT = "craft";
     public static String COM_CRAFT_USAGE = "<property_name> [level]";
     public static String COM_CRAFT_DESC = "Add a rare item property to the item in your hand";
+    
     public static String COM_ESSENCE = "essence";
     public static String COM_ESSENCE_USAGE = "<essence_type> [playerName]";
     public static String COM_ESSENCE_DESC = "create a rare essence";
+    
+    public static String COM_WI = "wi";
+    public static String COM_WI_USAGE = "[property_name]";
+    public static String COM_WI_DESC = "List or view available properties";
 
     public static String LOG_RAREITEM_DISABLED = "!property not loaded because enable=false in rareitems.yml";
     public static String LOG_UNABLE_TO_SAVE_FILE = "!file could not be saved!";
@@ -60,6 +66,9 @@ public class RI4Strings {
     public static String RIP_NEED_MORE_EXPERIENCE = "&REDYou need !experience more experience to use !property!";
     public static String RIP_NEED_MORE_FOOD = "&REDYou need !food more food to use !property!";
     public static String CRAFTING_ESSENCE_ALREADY_USED = "!essence essence has already been used!";
+    public static String COMMAND_AVAILABLE_PROPERTIES = "Available properties:";
+    public static String CRAFTING_RARE_ITEM_RECIPE = "Rare Item Recipe";
+    public static String COMMAND_MAX_LEVEL = "&REDThe max level for !property is !level!";
 
     public static String getDisplayName(IEssence essence) {
         switch (essence.getRarity()) {

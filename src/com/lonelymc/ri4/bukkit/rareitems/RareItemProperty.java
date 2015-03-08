@@ -4,7 +4,6 @@ import com.lonelymc.ri4.api.IRareItemProperty;
 import com.lonelymc.ri4.api.ItemPropertyRarity;
 import com.lonelymc.ri4.api.PropertyCostType;
 import com.lonelymc.ri4.api.RI4Strings;
-import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
@@ -155,7 +154,7 @@ public class RareItemProperty implements IRareItemProperty {
                     player.sendMessage(RI4Strings.RIP_NEED_MORE_FOOD
                             .replace("!food", String.valueOf(this.getCost() - player.getFoodLevel()))
                             .replace("!property", this.getDisplayName()));
-                    
+
                     return false;
                 }
 
