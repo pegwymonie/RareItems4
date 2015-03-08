@@ -69,6 +69,13 @@ public class RI4Strings {
     public static String COMMAND_AVAILABLE_PROPERTIES = "Available properties:";
     public static String CRAFTING_RARE_ITEM_RECIPE = "Rare Item Recipe";
     public static String COMMAND_MAX_LEVEL = "&REDThe max level for !property is !level!";
+    public static String COST_FOOD = "Costs !cost food / use";
+    public static String COST_HEALTH = "Costs !cost HP / use";
+    public static String COST_EXPERIENCE = "Costs !cost XP / use";
+    public static String COST_AUTOMATIC = "Automatic while worn";
+    public static String COST_PASSIVE = "Automatic while worn";
+    public static String COST_COOLDOWN = "!cost second cooldown";
+    public static String COMMAND_MULTILINE_RI_DESCRIPTION = "&GRAY!property (!rarity)\n&GRAYMax: &RESET!maxLevel\n&GRAYCost: &RESET!costMsg\n!description";
 
     public static String getDisplayName(IEssence essence) {
         switch (essence.getRarity()) {
@@ -139,5 +146,24 @@ public class RI4Strings {
         }
 
         return lore;
+    }
+
+    public static String getCostMessage(double cost, PropertyCostType costType) {
+        switch(costType){
+            case FOOD:
+                return RI4Strings.COST_FOOD.replace("!cost",String.valueOf(cost));
+            case HEALTH:
+                return RI4Strings.COST_HEALTH.replace("!cost",String.valueOf(cost));
+            case EXPERIENCE:
+                return RI4Strings.COST_EXPERIENCE.replace("!cost",String.valueOf(cost));
+            case AUTOMATIC:
+                return RI4Strings.COST_AUTOMATIC.replace("!cost",String.valueOf(cost));
+            case PASSIVE:
+                return RI4Strings.COST_PASSIVE.replace("!cost",String.valueOf(cost));
+            case COOLDOWN:
+                return RI4Strings.COST_COOLDOWN.replace("!cost",String.valueOf(cost));
+        }
+
+        return null;
     }
 }
