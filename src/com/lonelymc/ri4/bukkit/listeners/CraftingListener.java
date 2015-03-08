@@ -105,6 +105,13 @@ public class CraftingListener implements Listener {
 
     @EventHandler(ignoreCancelled = true)
     public void onCraftingEssenceClick(InventoryClickEvent e) {
+        // Viewing a recipe in a read-only GUI
+        if(e.getInventory().getTitle().equals(RI4Strings.CRAFTING_VIEW_RARE_ITEM_RECIPE)){
+            e.setCancelled(true);
+
+            return;
+        }
+
         if (e.getInventory().getType().equals(InventoryType.WORKBENCH)) {
             if (e.getRawSlot() < 10) {
                 ItemStack itemToAddTo = null;

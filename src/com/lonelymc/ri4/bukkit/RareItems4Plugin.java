@@ -19,7 +19,6 @@ import java.util.logging.Level;
 /* TODO: 
 * Before launch here's what needs to be done:
 * Add recipe editing in game
-* Add /ri wi [property_name]
 * Add /ri revoke <rid>
 * Add /ri clone <rid>
 * Add /ri rinfo <rid>
@@ -64,7 +63,7 @@ public class RareItems4Plugin extends JavaPlugin {
 
         this.registerSubCommand(new CommandEssence(this.api));
         this.registerSubCommand(new CommandCraft(this.api));
-        this.registerSubCommand(new CommandWI(this.api));
+        this.registerSubCommand(new CommandWI(this));
 
 // Register listeners
         this.getServer().getPluginManager().registerEvents(new PlayerListener(this, this.api), this);

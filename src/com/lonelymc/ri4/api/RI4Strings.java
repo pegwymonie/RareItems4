@@ -9,8 +9,8 @@ import java.util.Map;
 
 // Utility class to route all strings through
 public class RI4Strings {
-    // Note: color codes in the format &DARK_RED will be translated,
-    // however you are responsible for translating any variables
+    // Note: color codes in the format &DARK_RED will be translated automatically,
+    // code using the strings is responsible for translating any variables
     // which should be in the format !variable
 
     public static String RAREITEM_HEADER = "&DARK_GRAYRare Item &GRAY#!id";
@@ -67,7 +67,7 @@ public class RI4Strings {
     public static String RIP_NEED_MORE_FOOD = "&REDYou need !food more food to use !property!";
     public static String CRAFTING_ESSENCE_ALREADY_USED = "!essence essence has already been used!";
     public static String COMMAND_AVAILABLE_PROPERTIES = "Available properties:";
-    public static String CRAFTING_RARE_ITEM_RECIPE = "Rare Item Recipe";
+    public static String CRAFTING_VIEW_RARE_ITEM_RECIPE = "Rare Item Recipe";
     public static String COMMAND_MAX_LEVEL = "&REDThe max level for !property is !level!";
     public static String COST_FOOD = "Costs !cost food / use";
     public static String COST_HEALTH = "Costs !cost HP / use";
@@ -76,6 +76,7 @@ public class RI4Strings {
     public static String COST_PASSIVE = "Automatic while worn";
     public static String COST_COOLDOWN = "!cost second cooldown";
     public static String COMMAND_MULTILINE_RI_DESCRIPTION = "&GRAY!property (!rarity)\n&GRAYMax: &RESET!maxLevel\n&GRAYCost: &RESET!costMsg\n!description";
+    public static String COMMAND_NO_RIP_RECIPE_EXISTS = "No recipe exists for !property!";
 
     public static String getDisplayName(IEssence essence) {
         switch (essence.getRarity()) {
@@ -116,36 +117,35 @@ public class RI4Strings {
         lore.add(RAREITEM_HEADER.replace("!id", ri.getId() + "") + MetaStringEncoder.encodeHidden(String.valueOf(ri.getId()), "ri"));
 
         for (Map.Entry<IRareItemProperty, Integer> entry : ri.getProperties().entrySet()) {
-            switch (entry.getKey().getRarity()) {
-                default: //case COMMON:
-                    lore.add(RAREITEM_COMMON
-                            .replace("!property", entry.getKey().getDisplayName())
-                            .replace("!level", RomanNumeral.convertToRoman(entry.getValue())));
-                    break;
-                case UNCOMMON:
-                    lore.add(RAREITEM_UNCOMMON
-                            .replace("!property", entry.getKey().getDisplayName())
-                            .replace("!level", RomanNumeral.convertToRoman(entry.getValue())));
-                    break;
-                case RARE:
-                    lore.add(RAREITEM_RARE
-                            .replace("!property", entry.getKey().getDisplayName())
-                            .replace("!level", RomanNumeral.convertToRoman(entry.getValue())));
-                    break;
-                case LEGENDARY:
-                    lore.add(RAREITEM_LEGENDARY
-                            .replace("!property", entry.getKey().getDisplayName())
-                            .replace("!level", RomanNumeral.convertToRoman(entry.getValue())));
-                    break;
-                case STRANGE:
-                    lore.add(RAREITEM_STRANGE
-                            .replace("!property", entry.getKey().getDisplayName())
-                            .replace("!level", RomanNumeral.convertToRoman(entry.getValue())));
-                    break;
-            }
+            lore.add(RI4Strings.getRareItemLoreString(entry.getKey(),entry.getValue()));
         }
 
         return lore;
+    }
+
+    public static String getRareItemLoreString(IRareItemProperty rip,int level){
+        switch (rip.getRarity()) {
+            default: //case COMMON:
+                return RAREITEM_COMMON
+                        .replace("!property", rip.getDisplayName())
+                        .replace("!level", RomanNumeral.convertToRoman(level));
+            case UNCOMMON:
+                return RAREITEM_UNCOMMON
+                        .replace("!property", rip.getDisplayName())
+                        .replace("!level", RomanNumeral.convertToRoman(level));
+            case RARE:
+                return RAREITEM_RARE
+                        .replace("!property", rip.getDisplayName())
+                        .replace("!level", RomanNumeral.convertToRoman(level));
+            case LEGENDARY:
+                return RAREITEM_LEGENDARY
+                        .replace("!property", rip.getDisplayName())
+                        .replace("!level", RomanNumeral.convertToRoman(level));
+            case STRANGE:
+                return RAREITEM_STRANGE
+                        .replace("!property", rip.getDisplayName())
+                        .replace("!level", RomanNumeral.convertToRoman(level));
+        }
     }
 
     public static String getCostMessage(double cost, PropertyCostType costType) {
