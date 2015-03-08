@@ -3,6 +3,7 @@ package com.lonelymc.ri4.bukkit.rareitems;
 import com.lonelymc.ri4.api.IRareItemProperty;
 import com.lonelymc.ri4.api.ItemPropertyRarity;
 import com.lonelymc.ri4.api.PropertyCostType;
+import com.lonelymc.ri4.api.RI4Strings;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
@@ -14,7 +15,6 @@ import org.bukkit.event.player.PlayerInteractEvent;
 
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 
 public class RareItemProperty implements IRareItemProperty {
@@ -41,12 +41,12 @@ public class RareItemProperty implements IRareItemProperty {
         } else {
             this.cooldowns = null;
         }
-        
+
         this.recipe = defaultRecipe;
     }
-    
+
     public RareItemProperty(String name, String description, ItemPropertyRarity rarity, PropertyCostType defaultCostType, double defaultCost, int maxLevel) {
-        this(name,description,rarity,defaultCostType,defaultCost,maxLevel,null);
+        this(name, description, rarity, defaultCostType, defaultCost, maxLevel, null);
     }
 
     @Override
@@ -56,7 +56,7 @@ public class RareItemProperty implements IRareItemProperty {
 
     @Override
     public String getDisplayName() {
-        if(this.displayName == null){
+        if (this.displayName == null) {
             return this.name;
         }
         return this.displayName;
@@ -105,7 +105,7 @@ public class RareItemProperty implements IRareItemProperty {
     public void setRecipe(String[] recipe) {
         this.recipe = recipe;
     }
-    
+
     @Override
     public boolean onInteracted(Player pInteracted, PlayerInteractEvent e, int level) {
         return false;
@@ -152,8 +152,10 @@ public class RareItemProperty implements IRareItemProperty {
 
             case FOOD:
                 if (player.getFoodLevel() < this.getCost()) {
-                    player.sendMessage(ChatColor.RED + "You need " + (this.getCost() - player.getFoodLevel()) + " more food to use " + this.getName() + "!");
-
+                    player.sendMessage(RI4Strings.RIP_NEED_MORE_FOOD
+                            .replace("!food", String.valueOf(this.getCost() - player.getFoodLevel()))
+                            .replace("!property", this.getDisplayName()));
+                    
                     return false;
                 }
 
@@ -161,7 +163,9 @@ public class RareItemProperty implements IRareItemProperty {
 
             case EXPERIENCE:
                 if (player.getTotalExperience() < this.getCost()) {
-                    player.sendMessage(ChatColor.RED + "You need " + (this.getCost() - player.getTotalExperience()) + " more experience to use " + this.getName() + "!");
+                    player.sendMessage(RI4Strings.RIP_NEED_MORE_EXPERIENCE
+                            .replace("!experience", String.valueOf(this.getCost() - player.getTotalExperience()))
+                            .replace("!property", this.getDisplayName()));
 
                     return false;
                 }
@@ -170,7 +174,9 @@ public class RareItemProperty implements IRareItemProperty {
 
             case HEALTH:
                 if (player.getHealth() < this.getCost()) {
-                    player.sendMessage(ChatColor.RED + "You need " + (this.getCost() - player.getFoodLevel()) + " more health to use " + this.getName() + "!");
+                    player.sendMessage(RI4Strings.RIP_NEED_MORE_HEALTH
+                            .replace("!health", String.valueOf(this.getCost() - player.getFoodLevel()))
+                            .replace("!property", this.getDisplayName()));
 
                     return false;
                 }
@@ -181,10 +187,12 @@ public class RareItemProperty implements IRareItemProperty {
                 Long cooldown = this.cooldowns.get(player.getUniqueId().toString());
 
                 if (cooldown != null) {
-                    if (System.currentTimeMillis() > cooldown) {
+                    if (System.currentTimeMillis() < cooldown) {
                         int secondsLeft = (int) ((System.currentTimeMillis() - cooldown) / 1000);
 
-                        player.sendMessage(ChatColor.RED + "You need to wait " + secondsLeft + " more seconds to use " + this.getName() + "!");
+                        player.sendMessage(RI4Strings.RIP_NEED_MORE_COOLDOWN
+                                .replace("!seconds", String.valueOf(secondsLeft))
+                                .replace("!property", this.getDisplayName()));
 
                         return false;
                     }
@@ -252,7 +260,9 @@ public class RareItemProperty implements IRareItemProperty {
     }
 
     @Override
-    public boolean onArrowHitEntity(Player shooter, EntityDamageByEntityEvent e, int level) {return false;}
+    public boolean onArrowHitEntity(Player shooter, EntityDamageByEntityEvent e, int level) {
+        return false;
+    }
 
     @Override
     public boolean onArrowHitGround(Player shooter, ProjectileHitEvent e, int level) {
