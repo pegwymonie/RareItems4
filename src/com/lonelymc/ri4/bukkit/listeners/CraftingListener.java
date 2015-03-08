@@ -107,13 +107,12 @@ public class CraftingListener implements Listener {
     @EventHandler(ignoreCancelled = true)
     public void onCraftingEssenceClick(InventoryClickEvent e) {
         // Viewing a recipe in a read-only GUI
-        if(e.getInventory().getTitle().equals(RI4Strings.CRAFTING_VIEW_RARE_ITEM_RECIPE)){
+        if (e.getInventory().getTitle().equals(RI4Strings.CRAFTING_VIEW_RARE_ITEM_RECIPE)) {
             e.setCancelled(true);
 
             return;
-        }
-        else if(e.getInventory().getTitle().equals(RI4Strings.CRAFTING_RECIPE_EDITOR)){
-            if(e.getRawSlot() == 0){
+        } else if (e.getInventory().getTitle().equals(RI4Strings.CRAFTING_RECIPE_EDITOR)) {
+            if (e.getRawSlot() == 0) {
                 ItemStack isSave = e.getInventory().getItem(0);
 
                 ItemMeta meta = isSave.getItemMeta();
@@ -126,29 +125,26 @@ public class CraftingListener implements Listener {
 
                 String[] recipe = new String[9];
 
-                for(int i=1;i<10;i++){
+                for (int i = 1; i < 10; i++) {
                     ItemStack is = e.getInventory().getItem(i);
 
-                    if(is == null || is.getType().equals(Material.AIR)){
-                        recipe[i-1] = "AIR";
-                    }
-                    else if(this.api.isDummyEssence(is)){
-                        recipe[i-1] = "!"+rip.getRarity().name()+"_ESSENCE";
-                    }
-                    else {
-                        recipe[i-1] = ItemStackConvertor.fromItemStack(is,false);
+                    if (is == null || is.getType().equals(Material.AIR)) {
+                        recipe[i - 1] = "AIR";
+                    } else if (this.api.isDummyEssence(is)) {
+                        recipe[i - 1] = "!" + rip.getRarity().name() + "_ESSENCE";
+                    } else {
+                        recipe[i - 1] = ItemStackConvertor.fromItemStack(is, false);
                     }
                 }
 
                 e.getWhoClicked().closeInventory();
 
-                e.getWhoClicked().sendMessage(RI4Strings.RECIPE_UPDATED.replace("!property",rip.getDisplayName()));
+                e.getWhoClicked().sendMessage(RI4Strings.RECIPE_UPDATED.replace("!property", rip.getDisplayName()));
 
-                this.api.setRecipeForProperty(rip.getName(),recipe);
-            }
-            else{
+                this.api.setRecipeForProperty(rip.getName(), recipe);
+            } else {
                 // refresh the save button
-                FakeInventory.fakeClientInventorySlot(this.plugin,e.getViewers(),e.getInventory().getItem(0),0);
+                FakeInventory.fakeClientInventorySlot(this.plugin, e.getViewers(), e.getInventory().getItem(0), 0);
             }
 
             return;
