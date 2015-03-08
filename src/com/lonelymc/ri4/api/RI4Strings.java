@@ -70,7 +70,7 @@ public class RI4Strings {
     public static String RIP_NEED_MORE_HEALTH = "&REDYou need !health more health to use !property!";
     public static String RIP_NEED_MORE_EXPERIENCE = "&REDYou need !experience more experience to use !property!";
     public static String RIP_NEED_MORE_FOOD = "&REDYou need !food more food to use !property!";
-    public static String CRAFTING_ESSENCE_ALREADY_USED = "!essence essence has already been used!";
+    public static String CRAFTING_ESSENCE_ALREADY_USED = "!property essence has already been used!";
     public static String COMMAND_AVAILABLE_PROPERTIES = "Available properties:";
     public static String COMMAND_MAX_LEVEL = "&REDThe max level for !property is !level!";
     public static String COST_FOOD = "Costs !cost food / use";

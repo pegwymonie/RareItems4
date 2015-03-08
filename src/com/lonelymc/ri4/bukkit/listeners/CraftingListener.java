@@ -169,13 +169,16 @@ public class CraftingListener implements Listener {
 
                         // Allow essences and one item to add the essences to
                         if (essence != null) {
-
                             if (essence.getProperty() != null) {
                                 // We know it's not empty because it has a property
-                                if (!essence.getStatus().equals(EssenceStatus.FILLED)) {
+                                System.out.println(essence.getStatus() + " " + essence.getId());
+
+                                if (essence.getStatus().equals(EssenceStatus.USED) || essence.getStatus().equals(EssenceStatus.REVOKED)) {
                                     e.getWhoClicked().sendMessage(RI4Strings.CRAFTING_ESSENCE_ALREADY_USED
                                             .replace("!property", essence.getProperty().getDisplayName()));
 
+                                    return;
+                                } else if (!essence.getStatus().equals(EssenceStatus.FILLED)) {
                                     return;
                                 }
 
