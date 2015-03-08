@@ -244,17 +244,17 @@ public class RareItemsManager implements IRareItems4API {
 
     @Override
     public IRareItem generateDummyRareItem(Map<IRareItemProperty, Integer> properties) {
-        return new RareItem(-1, null, null, null, null, properties, RareItemStatus.DUMMY);
+        return new RareItem(0, null, null, null, null, properties, RareItemStatus.DUMMY);
     }
 
     @Override
     public IEssence generateDummyEssence(ItemPropertyRarity rarity) {
-        return new Essence(-1,EssenceStatus.DUMMY,null,null,null,null,rarity,null);
+        return new Essence(0,EssenceStatus.DUMMY,null,null,null,null,rarity,null);
     }
 
     @Override
     public IEssence generateDummyEssence(IRareItemProperty rip) {
-        return new Essence(-1,EssenceStatus.DUMMY,null,null,null,null,null,rip);
+        return new Essence(0,EssenceStatus.DUMMY,null,null,null,null,null,rip);
     }
     
     @Override
@@ -283,7 +283,7 @@ public class RareItemsManager implements IRareItems4API {
     public IEssence getEssence(List<String> lore) {
         if (lore != null && lore.size() > 1) {
             String sId = MetaStringEncoder.decodeHidden(lore.get(1),"es");
-            
+
             try {
                 int id = Integer.parseInt(sId);
 

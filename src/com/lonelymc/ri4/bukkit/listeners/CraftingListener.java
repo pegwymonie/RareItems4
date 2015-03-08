@@ -43,7 +43,7 @@ public class CraftingListener implements Listener {
         if(isResult.getType().equals(Material.DIRT) && isResult.hasItemMeta()){
             ItemMeta meta = isResult.getItemMeta();
 
-            String propertyName = MetaStringEncoder.decodeHidden(meta.getDisplayName(),"rir");
+            String propertyName = MetaStringEncoder.decodeHidden(meta.getDisplayName(), "rir");
 
             if(propertyName != null) {
                 IRareItemProperty rip = this.api.getItemProperty(propertyName);
@@ -78,11 +78,11 @@ public class CraftingListener implements Listener {
     @EventHandler(ignoreCancelled=true)
     public void onCraftRareEssence(PrepareItemCraftEvent e){
         ItemStack result = e.getRecipe().getResult();
-        
+
         if(result.getType().equals(Material.DIRT) && result.hasItemMeta()){
             ItemMeta meta = result.getItemMeta();
 
-            String propertyName = MetaStringEncoder.decodeHidden(meta.getDisplayName(),"rir");
+            String propertyName = MetaStringEncoder.decodeHidden(meta.getDisplayName(), "rir");
 
             if(propertyName != null) {
                 IRareItemProperty rip = this.api.getItemProperty(propertyName);
@@ -113,12 +113,10 @@ public class CraftingListener implements Listener {
     @EventHandler(ignoreCancelled=true)
     public void onCraftingEssenceClick(InventoryClickEvent e){
         if(e.getInventory().getType().equals(InventoryType.WORKBENCH)){
-
             if(e.getRawSlot() < 10) {
                 ItemStack itemToAddTo = null;
                 Map<IRareItemProperty,Integer> properties = new HashMap<>();
                 List<IEssence> essences = new ArrayList<IEssence>();
-                int iAddItemToSlot = -1;
 
                 for(int i=1;i<10;i++){
                     ItemStack is = e.getInventory().getItem(i);
@@ -154,18 +152,16 @@ public class CraftingListener implements Listener {
                         }
                         else if(itemToAddTo == null){
                             itemToAddTo = is;
-                            iAddItemToSlot = i;
                         }
                         else {
                             return;
                         }
                     }
                 }
-
+                
                 if(properties.isEmpty() || itemToAddTo == null){
                     return;
                 }
-
 
                 // Result click
                 if (e.getRawSlot() == 0) {

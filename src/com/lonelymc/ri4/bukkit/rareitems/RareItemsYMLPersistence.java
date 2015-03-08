@@ -47,7 +47,17 @@ public class RareItemsYMLPersistence implements IRareItemsPersistence {
 
         this.saveYml.set(this.essencesIndexLocation, essenceId + 1);
 
-        IEssence essence = new Essence(essenceId, EssenceStatus.EMPTY, creator, new Date(), null, null, rarity, null);
+        IEssence essence = new Essence(essenceId, EssenceStatus.EMPTY, creator, new Date(), creator, new Date(), rarity, null);
+
+        this.saveYml.set("essences."+essenceId+".rarity",essence.getRarity().name());
+
+        this.saveYml.set("essences."+essenceId+".creator",essence.getCreator().toString());
+        this.saveYml.set("essences."+essenceId+".modified",essence.getModified());
+
+        this.saveYml.set("essences."+essenceId+".modifier",essence.getModifier().toString());
+        this.saveYml.set("essences."+essenceId+".created",essence.getCreated());
+
+        this.saveYml.set("essences."+essenceId+".status",essence.getStatus().name());
 
         this.saveIsDirty = true;
 
@@ -60,8 +70,20 @@ public class RareItemsYMLPersistence implements IRareItemsPersistence {
 
         this.saveYml.set(this.rareItemsIndexLocation, essenceId + 1);
 
-        IEssence essence = new Essence(essenceId, EssenceStatus.FILLED, creator, new Date(), null, null, null, property);
+        IEssence essence = new Essence(essenceId, EssenceStatus.FILLED, creator, new Date(), creator, new Date(), null, property);
 
+        this.saveYml.set("essences."+essenceId+".property",essence.getProperty().getName());
+        
+        this.saveYml.set("essences."+essenceId+".rarity",essence.getRarity().name());
+        
+        this.saveYml.set("essences."+essenceId+".creator",essence.getCreator().toString());
+        this.saveYml.set("essences."+essenceId+".created",essence.getModified());
+        
+        this.saveYml.set("essences."+essenceId+".modifier",essence.getModifier().toString());
+        this.saveYml.set("essences."+essenceId+".modified",essence.getCreated());
+        
+        this.saveYml.set("essences."+essenceId+".status",essence.getStatus().name());
+        
         this.saveIsDirty = true;
 
         return essence;

@@ -2,6 +2,7 @@ package com.lonelymc.ri4.api;
 
 import com.lonelymc.ri4.util.MetaStringEncoder;
 import com.lonelymc.ri4.util.RomanNumeral;
+import org.bukkit.ChatColor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,6 +56,10 @@ public class RI4Strings {
     
     public static String LOG_RAREITEM_DISABLED = "!property not loaded because enable=false in rareitems.yml";
     public static String LOG_UNABLE_TO_SAVE_FILE = "!file could not be saved!";
+    public static String RIP_NEED_MORE_COOLDOWN = "&REDYou need to wait !seconds more seconds to use !property!";
+    public static String RIP_NEED_MORE_HEALTH = "&REDYou need !health more health to use !property!";
+    public static String RIP_NEED_MORE_EXPERIENCE = "&REDYou need !experience more experience to use !property!";
+    public static String RIP_NEED_MORE_FOOD = "&REDYou need !food more food to use !property!";
 
     public static String getDisplayName(IEssence essence) {
         switch (essence.getRarity()) {

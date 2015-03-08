@@ -21,12 +21,12 @@ public class MetaStringEncoder {
      * @return The original unencoded value
      */
     public static String decodeHidden(String str,String key){
-        int end = str.lastIndexOf(getEncodedKey(key))+1;
+        int end = str.lastIndexOf(getEncodedKey(key));
 
         if(end != -1){
-            int begin = str.substring(0,end).lastIndexOf(ChatColor.COLOR_CHAR+"#")+2;
+            int begin = str.substring(0,end+1).lastIndexOf(ChatColor.COLOR_CHAR+"#")+2;
             
-            return str.substring(begin,end).replace(String.valueOf(ChatColor.COLOR_CHAR), "");
+            return str.substring(begin,end+1).replace(String.valueOf(ChatColor.COLOR_CHAR), "");
         }
 
         return null;
