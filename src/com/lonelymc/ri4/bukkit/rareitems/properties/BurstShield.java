@@ -6,8 +6,11 @@ import com.lonelymc.ri4.api.PropertyCostType;
 import com.lonelymc.ri4.util.FireworkVisualEffect;
 import org.bukkit.Color;
 import org.bukkit.FireworkEffect;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.util.Vector;
 
 import java.util.Random;
@@ -31,14 +34,26 @@ public class BurstShield extends RareItemProperty {
     }
 
     @Override
-    public boolean onDamagedOther(Player pAttacker, EntityDamageByEntityEvent e, int level){
+    public boolean onDamaged(Player pDamaged, EntityDamageEvent e, int level){
+        if(!(e instanceof EntityDamageByEntityEvent)){
+            return false;
+        }
+
+        EntityDamageByEntityEvent ed = (EntityDamageByEntityEvent) e;
+
+        Entity eAttacker = ed.getDamager();
+        
+        if(!(eAttacker instanceof LivingEntity)){
+           return false;
+        }
+
         if(new Random().nextInt(100) > level * 10){
             return false;
         }
 
         try {
-            this.fireworks.playFirework(pAttacker
-                            .getWorld(), pAttacker.getLocation(),
+            this.fireworks.playFirework(eAttacker
+                            .getWorld(), eAttacker.getLocation(),
 
                     FireworkEffect.builder()
                             .with(FireworkEffect.Type.BURST)
@@ -48,17 +63,17 @@ public class BurstShield extends RareItemProperty {
             Logger.getLogger(BurstShield.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        Vector unitVector = e.getEntity().getLocation().toVector().subtract(e.getDamager().getLocation().toVector()).normalize();
+        Vector unitVector = eAttacker.getLocation().toVector().subtract(pDamaged.getLocation().toVector()).normalize();
 
         unitVector.setY(0.55D / level);
 
-        pAttacker.setVelocity(unitVector.multiply(level * 2));
+        eAttacker.setVelocity(unitVector.multiply(level * 2));
 
         e.setCancelled(true);
 
-        pAttacker.sendMessage("You were knocked back by burst shield!");
+        eAttacker.sendMessage("You were knocked back by burst shield!");
 
-        ((Player) e.getEntity()).sendMessage("Burst shield activated!");
+        pDamaged.sendMessage("Burst shield activated!");
 
         return true;
     }

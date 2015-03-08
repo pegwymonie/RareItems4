@@ -1,8 +1,8 @@
 package com.lonelymc.ri4.bukkit.rareitems.properties;
 
-import com.lonelymc.ri4.bukkit.rareitems.RareItemProperty;
 import com.lonelymc.ri4.api.ItemPropertyRarity;
 import com.lonelymc.ri4.api.PropertyCostType;
+import com.lonelymc.ri4.bukkit.rareitems.RareItemProperty;
 import com.lonelymc.ri4.util.FireworkVisualEffect;
 import org.bukkit.Color;
 import org.bukkit.FireworkEffect;
@@ -43,7 +43,7 @@ public class GreaterBurst extends RareItemProperty {
     }
 
     @Override
-    public boolean onDamagedOther(Player pAttacker, EntityDamageByEntityEvent e, int level){
+    public boolean onDamagedOther(Player pAttacker, EntityDamageByEntityEvent e, int level) {
         return activate(pAttacker, level);
     }
 
@@ -77,8 +77,8 @@ public class GreaterBurst extends RareItemProperty {
                                     .with(FireworkEffect.Type.BALL_LARGE)
                                     .withColor(Color.WHITE)
                                     .build());
+                } catch (Exception ex) {
                 }
-                catch (Exception ex) {}
             } else {
                 return false;
             }
