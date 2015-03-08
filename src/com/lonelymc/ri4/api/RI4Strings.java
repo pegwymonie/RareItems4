@@ -2,7 +2,6 @@ package com.lonelymc.ri4.api;
 
 import com.lonelymc.ri4.util.MetaStringEncoder;
 import com.lonelymc.ri4.util.RomanNumeral;
-import org.bukkit.ChatColor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +12,7 @@ public class RI4Strings {
     // Note: color codes in the format &DARK_RED will be translated,
     // however you are responsible for translating any variables
     // which should be in the format !variable
-    
+
     public static String RAREITEM_HEADER = "&DARK_GRAYRare Item &GRAY#!id";
     public static String RAREITEM_COMMON = "&AQUA!property &DARK_AQUA!level";
     public static String RAREITEM_UNCOMMON = "&GREEN!property &DARK_GREEN!level";
@@ -30,7 +29,7 @@ public class RI4Strings {
     public static String ESSENCE_STRANGE = "&LIGHT_PURPLEStrange Essence";
     public static String ESSENCE_FOOTER_1 = "&DARK_GRAYAn essence of power";
     public static String ESSENCE_FOOTER_2 = "&GRAY/ri about &DARK_GRAYfor more info";
-    
+
     public static String COMMAND_NOT_FROM_CONSOLE = "&REDCannot be used from the console";
     public static String COMMAND_HAT_EQUIPPED = "&GREENEnjoy your new hat!";
     public static String COMMAND_INVALID_HAT = "&REDYou can't wear that! It would look horrible and clash with your outfit";
@@ -46,20 +45,21 @@ public class RI4Strings {
     public static String COMMAND_GAVE_ESSENCE_RECEIVER = "&GREENYou got a &RESET!essence &GREENessence!";
     public static String COMMAND_INVENTORY_WAS_FULL_ON_GROUND_NOW = "Tried to give you !item but your inventory was full so it was dropped on the ground";
     public static String COMMAND_YOU_CAN_USE = "Commands you have access to:";
-    
+
     public static String COM_CRAFT = "craft";
     public static String COM_CRAFT_USAGE = "<property_name> [level]";
     public static String COM_CRAFT_DESC = "Add a rare item property to the item in your hand";
     public static String COM_ESSENCE = "essence";
     public static String COM_ESSENCE_USAGE = "<essence_type> [playerName]";
     public static String COM_ESSENCE_DESC = "create a rare essence";
-    
+
     public static String LOG_RAREITEM_DISABLED = "!property not loaded because enable=false in rareitems.yml";
     public static String LOG_UNABLE_TO_SAVE_FILE = "!file could not be saved!";
     public static String RIP_NEED_MORE_COOLDOWN = "&REDYou need to wait !seconds more seconds to use !property!";
     public static String RIP_NEED_MORE_HEALTH = "&REDYou need !health more health to use !property!";
     public static String RIP_NEED_MORE_EXPERIENCE = "&REDYou need !experience more experience to use !property!";
     public static String RIP_NEED_MORE_FOOD = "&REDYou need !food more food to use !property!";
+    public static String CRAFTING_ESSENCE_ALREADY_USED = "!essence essence has already been used!";
 
     public static String getDisplayName(IEssence essence) {
         switch (essence.getRarity()) {
@@ -87,7 +87,7 @@ public class RI4Strings {
             );
         }
 
-        lore.add(ESSENCE_FOOTER_1.replace("!id", essence.getId()+"")+MetaStringEncoder.encodeHidden(String.valueOf(essence.getId()),"es"));
+        lore.add(ESSENCE_FOOTER_1.replace("!id", essence.getId() + "") + MetaStringEncoder.encodeHidden(String.valueOf(essence.getId()), "es"));
 
         lore.add(ESSENCE_FOOTER_2);
 
@@ -97,7 +97,7 @@ public class RI4Strings {
     public static List<String> getLore(IRareItem ri) {
         List<String> lore = new ArrayList<>();
 
-        lore.add(RAREITEM_HEADER.replace("!id", ri.getId()+"")+MetaStringEncoder.encodeHidden(String.valueOf(ri.getId()),"ri"));
+        lore.add(RAREITEM_HEADER.replace("!id", ri.getId() + "") + MetaStringEncoder.encodeHidden(String.valueOf(ri.getId()), "ri"));
 
         for (Map.Entry<IRareItemProperty, Integer> entry : ri.getProperties().entrySet()) {
             switch (entry.getKey().getRarity()) {
