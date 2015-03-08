@@ -15,8 +15,8 @@ public class RepairItem extends RareItemProperty {
                 "Repairs the #1 hotbar slot item",
                 ItemPropertyRarity.RARE,
                 PropertyCostType.EXPERIENCE,
-                1.0D,
                 100,
+                5,
                 new String[]{
                         "type=POTION;dura=8225;",
                         "type=ANVIL;",

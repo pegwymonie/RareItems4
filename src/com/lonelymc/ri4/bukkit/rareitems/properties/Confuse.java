@@ -18,7 +18,7 @@ public class Confuse extends RareItemProperty {
                 "25% chance on hit to severely confuse a target for 5 seconds/level",
                 ItemPropertyRarity.UNCOMMON,
                 PropertyCostType.FOOD,
-                1.0D,
+                1,
                 4
         );
     }

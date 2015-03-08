@@ -17,18 +17,18 @@ public class CatsFeet extends RareItemProperty {
                 "Lets you or a clicked target jump higher for 60 seconds per level",
                 ItemPropertyRarity.UNCOMMON,
                 PropertyCostType.EXPERIENCE,
-                1.0D,
-                30,
+                30.0,
+                5,
                 new String[]{
-                        "type=POTION;dura=8258;",
-                        "type=FEATHER;",
-                        "type=POTION;dura=8258;",
-                        "type=GLOWSTONE;",
-                        "!UNCOMMON_ESSENCE",
-                        "type=GLOWSTONE;",
-                        "type=POTION;dura=8258;",
-                        "type=FEATHER;",
-                        "type=POTION;dura=8258;"
+                    "type=POTION;dura=8258;",
+                    "type=FEATHER;",
+                    "type=POTION;dura=8258;",
+                    "type=GLOWSTONE;",
+                    "!UNCOMMON_ESSENCE",
+                    "type=GLOWSTONE;",
+                    "type=POTION;dura=8258;",
+                    "type=FEATHER;",
+                    "type=POTION;dura=8258;"
                 }
         );
     }

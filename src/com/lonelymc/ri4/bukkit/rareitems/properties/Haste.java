@@ -18,7 +18,7 @@ public class Haste extends RareItemProperty {
                 ItemPropertyRarity.UNCOMMON,
                 PropertyCostType.EXPERIENCE,
                 1.0D,
-                25
+                5
         );
     }
 
