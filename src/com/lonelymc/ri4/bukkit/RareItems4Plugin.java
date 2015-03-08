@@ -14,6 +14,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.*;
 import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 import java.util.logging.Level;
 
 /* TODO: 
@@ -31,7 +32,6 @@ public class RareItems4Plugin extends JavaPlugin {
 
     @Override
     public void onEnable() {
-
         this.getDataFolder().mkdirs();
 
 // Load default config w/ comments
@@ -64,6 +64,7 @@ public class RareItems4Plugin extends JavaPlugin {
         this.registerSubCommand(new CommandEssence(this.api));
         this.registerSubCommand(new CommandCraft(this.api));
         this.registerSubCommand(new CommandWI(this));
+        this.registerSubCommand(new CommandRecipe(this));
 
 // Register listeners
         this.getServer().getPluginManager().registerEvents(new PlayerListener(this, this.api), this);
@@ -138,6 +139,11 @@ public class RareItems4Plugin extends JavaPlugin {
         YamlConfiguration yml = YamlConfiguration.loadConfiguration(stringsFile);
 
         for (Field field : RI4Strings.class.getDeclaredFields()) {
+            // Skip final fields
+            if(Modifier.isFinal(field.getModifiers())){
+                continue;
+            }
+
             String ymlFieldValue = yml.getString(field.getName(), null);
 
             //This makes me think I don't understand how reflection works under the hood.

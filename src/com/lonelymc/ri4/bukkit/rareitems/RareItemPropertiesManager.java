@@ -77,14 +77,16 @@ public class RareItemPropertiesManager {
             String sCostType = riSection.getString("costType", rip.getCostType().name());
 
             PropertyCostType costType = PropertyCostType.valueOf(sCostType);
-
             if (costType != rip.getCostType()) {
                 rip.setCostType(PropertyCostType.valueOf(sCostType));
             }
 
             List<String> recipe = riSection.getStringList("recipe");
-            if (recipe != null) {
-                customizationsYml.set(rip.getName() + ".recipe", recipe);
+            if (recipe == null || recipe.isEmpty()) {
+                rip.setRecipe(null);
+            }
+            else{
+                rip.setRecipe(recipe.toArray(new String[9]));
             }
         }
 
@@ -227,5 +229,17 @@ public class RareItemPropertiesManager {
                 );
             }
         }
+    }
+
+    public void setRecipeForProperty(String propertyName, String[] recipe) {
+        IRareItemProperty rip = this.getItemProperty(propertyName);
+
+        rip.setRecipe(recipe);
+
+        this.customizationsYml.set(rip.getName()+".recipe",recipe);
+
+        this.customizationsDirty = true;
+
+        this.refreshServerRecipe(rip);
     }
 }

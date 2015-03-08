@@ -60,4 +60,8 @@ public interface IRareItems4API {
     void removeActiveEffects(Player player);
 
     Collection<IRareItemProperty> getAllItemProperties();
+
+    void setRecipeForProperty(String propertyName, String[] recipe);
+
+    boolean isDummyEssence(ItemStack is);
 }

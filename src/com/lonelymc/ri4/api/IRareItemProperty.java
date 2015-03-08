@@ -33,8 +33,6 @@ public interface IRareItemProperty {
 
     boolean onDamagedOther(Player pAttacker, EntityDamageByEntityEvent e, int level);
 
-    void setRecipe(String[] recipe);
-
     boolean onInteracted(Player pInteracted, PlayerInteractEvent e, int level);
 
     boolean onInteractEntity(Player pInteracted, PlayerInteractEntityEvent e, int level);
@@ -58,4 +56,6 @@ public interface IRareItemProperty {
     String getDisplayName();
 
     void setDisplayName(String sDisplayName);
+
+    void setRecipe(String[] recipe);
 }

@@ -2,6 +2,7 @@ package com.lonelymc.ri4.api;
 
 import com.lonelymc.ri4.util.MetaStringEncoder;
 import com.lonelymc.ri4.util.RomanNumeral;
+import org.bukkit.command.CommandSender;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,6 +60,10 @@ public class RI4Strings {
     public static String COM_WI_USAGE = "[property_name]";
     public static String COM_WI_DESC = "List or view available properties";
 
+    public static String COM_RECIPE = "recipe";
+    public static String COM_RECIPE_USAGE = "<property_name>";
+    public static String COM_RECIPE_DESC = "Edit the recipe for a property";
+
     public static String LOG_RAREITEM_DISABLED = "!property not loaded because enable=false in rareitems.yml";
     public static String LOG_UNABLE_TO_SAVE_FILE = "!file could not be saved!";
     public static String RIP_NEED_MORE_COOLDOWN = "&REDYou need to wait !seconds more seconds to use !property!";
@@ -67,7 +72,6 @@ public class RI4Strings {
     public static String RIP_NEED_MORE_FOOD = "&REDYou need !food more food to use !property!";
     public static String CRAFTING_ESSENCE_ALREADY_USED = "!essence essence has already been used!";
     public static String COMMAND_AVAILABLE_PROPERTIES = "Available properties:";
-    public static String CRAFTING_VIEW_RARE_ITEM_RECIPE = "Rare Item Recipe";
     public static String COMMAND_MAX_LEVEL = "&REDThe max level for !property is !level!";
     public static String COST_FOOD = "Costs !cost food / use";
     public static String COST_HEALTH = "Costs !cost HP / use";
@@ -77,6 +81,12 @@ public class RI4Strings {
     public static String COST_COOLDOWN = "!cost second cooldown";
     public static String COMMAND_MULTILINE_RI_DESCRIPTION = "&GRAY!property (!rarity)\n&GRAYMax: &RESET!maxLevel\n&GRAYCost: &RESET!costMsg\n!description";
     public static String COMMAND_NO_RIP_RECIPE_EXISTS = "No recipe exists for !property!";
+    public static String COMMAND_RECIPE_REMOVED = "Recipe for !property was removed!";
+    public static String RECIPE_UPDATED = "Recipe for !property was updated!";
+
+    // These aren't actually displayed as it turns out, but are necessary to statelessly identify certain GUI elements
+    public final static String CRAFTING_VIEW_RARE_ITEM_RECIPE = "RIPVIEWER";
+    public final static String CRAFTING_RECIPE_EDITOR = "RIPEDITTOR";
 
     public static String getDisplayName(IEssence essence) {
         switch (essence.getRarity()) {

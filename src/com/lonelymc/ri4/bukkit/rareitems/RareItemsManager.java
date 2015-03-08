@@ -242,6 +242,11 @@ public class RareItemsManager implements IRareItems4API {
     }
 
     @Override
+    public void setRecipeForProperty(String propertyName, String[] recipe) {
+        this.propertiesManager.setRecipeForProperty(propertyName,recipe);
+    }
+
+    @Override
     public void save() {
         this.persistence.save();
         this.propertiesManager.save();
@@ -260,6 +265,34 @@ public class RareItemsManager implements IRareItems4API {
     @Override
     public IEssence generateDummyEssence(IRareItemProperty rip) {
         return new Essence(0,EssenceStatus.DUMMY,null,null,null,null,null,rip);
+    }
+
+    @Override
+    public boolean isDummyEssence(ItemStack is) {
+        if (is != null && is.hasItemMeta()) {
+            ItemMeta meta = is.getItemMeta();
+
+            if (meta.hasLore()) {
+                List<String> lore = meta.getLore();
+
+                if (lore != null && lore.size() > 1) {
+                    String sId = MetaStringEncoder.decodeHidden(lore.get(1),"es");
+
+                    try {
+                        int id = Integer.parseInt(sId);
+
+                        return id == 0;
+                    }
+                    catch (NumberFormatException ex) {
+                        return false;
+                    }
+                }
+
+                return false;
+            }
+        }
+
+        return false;
     }
     
     @Override
