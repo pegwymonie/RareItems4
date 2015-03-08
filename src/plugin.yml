@@ -11,6 +11,18 @@ commands:
     hat:
       description: put an item on your head
 permissions:
+  ri4.wi:
+    description: Can view properties and their recipes
+    default: true
   ri4.admin.logs:
     description: Will see error summaries in-game
+    default: false
+  ri4.admin.recipe:
+    description: Can edit property recipes
+    default: false
+  ri4.admin.craft:
+    description: Can add item properties to items
+    default: false
+  ri4.admin.essence:
+    description: Can create essences
     default: false
