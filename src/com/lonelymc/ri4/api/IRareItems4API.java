@@ -3,9 +3,7 @@ package com.lonelymc.ri4.api;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-import java.io.File;
 import java.util.Collection;
-import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -20,34 +18,38 @@ public interface IRareItems4API {
 
     IRareItemProperty getItemPropertyByDisplayName(String propertyName);
 
+    void saveItemProperty(IRareItemProperty rip);
+
     // Essences
     IEssence createEssence(UUID creator, ItemPropertyRarity rarity);
 
     IEssence createEssence(UUID creator, IRareItemProperty property);
 
+    IEssence getEssence(ItemStack is);
+
+    IEssence getEssence(int id);
+
+    void saveEssence(IEssence essence);
+
     IEssence generateDummyEssence(IRareItemProperty rip);
 
-    void setEssenceStatus(int id, UUID modifier, EssenceStatus status);
+    IEssence generateDummyEssence(ItemPropertyRarity rarity);
+
+    boolean isDummyEssence(ItemStack is);
 
     // Rare Items
     IRareItem createRareItem(UUID creator, Map<IRareItemProperty,Integer> riProperties);
 
-    void setRareItemProperties(UUID modifier, int rareItemId, Map<IRareItemProperty, Integer> riProperties);
-
-    // For recipes, displays, etc.
-    IEssence generateDummyEssence(ItemPropertyRarity rarity);
-    
-    IRareItem generateDummyRareItem(Map<IRareItemProperty, Integer> properties);
-
-    //Active effects
-    Map<IRareItemProperty,Integer> getActiveEffects(UUID uniqueId);
-
-    // Bukkit specific methods
-    IEssence getEssence(ItemStack is);
-
     IRareItem getRareItem(ItemStack is);
 
     IRareItem getRareItem(int rareItemId);
+
+    void saveRareItem(IRareItem ri);
+
+    IRareItem generateDummyRareItem(Map<IRareItemProperty, Integer> properties);
+
+    //Effects management
+    Map<IRareItemProperty,Integer> getActiveEffects(UUID uniqueId);
 
     void equipRareItem(Player player, ItemStack is);
 
@@ -60,8 +62,4 @@ public interface IRareItems4API {
     void removeActiveEffects(Player player);
 
     Collection<IRareItemProperty> getAllItemProperties();
-
-    void setRecipeForProperty(String propertyName, String[] recipe);
-
-    boolean isDummyEssence(ItemStack is);
 }

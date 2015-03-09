@@ -2,7 +2,6 @@ package com.lonelymc.ri4.bukkit.commands;
 
 import com.lonelymc.ri4.api.*;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;

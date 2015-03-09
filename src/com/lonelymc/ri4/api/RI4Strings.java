@@ -2,7 +2,6 @@ package com.lonelymc.ri4.api;
 
 import com.lonelymc.ri4.util.MetaStringEncoder;
 import com.lonelymc.ri4.util.RomanNumeral;
-import org.bukkit.command.CommandSender;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,8 +60,8 @@ public class RI4Strings {
     public static String COM_WI_DESC = "List or view available properties";
 
     public static String COM_RECIPE = "recipe";
-    public static String COM_RECIPE_USAGE = "<property_name>";
-    public static String COM_RECIPE_DESC = "Edit the recipe for a property";
+    public static String COM_RECIPE_USAGE = "<property_name> [remove]";
+    public static String COM_RECIPE_DESC = "Edit or remove the recipe for a property";
 
     public static String LOG_RAREITEM_DISABLED = "!property not loaded because enable=false in rareitems.yml";
     public static String LOG_UNABLE_TO_SAVE_FILE = "!file could not be saved!";
@@ -83,6 +82,7 @@ public class RI4Strings {
     public static String COMMAND_NO_RIP_RECIPE_EXISTS = "No recipe exists for !property!";
     public static String COMMAND_RECIPE_REMOVED = "Recipe for !property was removed!";
     public static String RECIPE_UPDATED = "Recipe for !property was updated!";
+    public static String CRAFTING_NEED_ESSENCE = "&REDEach recipe must have a single essence!";
 
     // These aren't actually displayed as it turns out, but are necessary to statelessly identify certain GUI elements
     public final static String CRAFTING_VIEW_RARE_ITEM_RECIPE = "RIPVIEWER";

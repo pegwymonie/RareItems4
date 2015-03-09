@@ -1,7 +1,6 @@
 package com.lonelymc.ri4.api;
 
 import java.util.Date;
-import java.util.List;
 import java.util.UUID;
 
 public interface IEssence {
@@ -17,11 +16,7 @@ public interface IEssence {
 
     EssenceStatus getStatus();
 
-    Date getCreated();
+    void setProperty(IRareItemProperty rip);
 
-    UUID getCreator();
-
-    Date getModified();
-
-    UUID getModifier();
+    void setStatus(EssenceStatus status);
 }

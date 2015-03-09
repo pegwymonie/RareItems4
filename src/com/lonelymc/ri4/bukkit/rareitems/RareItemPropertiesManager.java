@@ -37,7 +37,7 @@ public class RareItemPropertiesManager {
 
     public void addItemProperty(IRareItemProperty rip) {
         this.customizationsDirty = true;
-        
+
         ConfigurationSection riSection = customizationsYml.getConfigurationSection(rip.getName());
 
         if (riSection == null) {
@@ -50,8 +50,7 @@ public class RareItemPropertiesManager {
             if (rip.getRecipe() != null) {
                 customizationsYml.set(rip.getName() + ".recipe", rip.getRecipe());
             }
-        } 
-        else {
+        } else {
             if (!riSection.getBoolean("enabled")) {
                 plugin.getLogger().log(Level.INFO,
                         RI4Strings.LOG_RAREITEM_DISABLED.replace("!property", rip.getName()));
@@ -84,8 +83,7 @@ public class RareItemPropertiesManager {
             List<String> recipe = riSection.getStringList("recipe");
             if (recipe == null || recipe.isEmpty()) {
                 rip.setRecipe(null);
-            }
-            else{
+            } else {
                 rip.setRecipe(recipe.toArray(new String[9]));
             }
         }
@@ -115,11 +113,11 @@ public class RareItemPropertiesManager {
                 }
             }
         }
-        
-        if(rip.getRecipe() == null){
+
+        if (rip.getRecipe() == null) {
             return;
         }
-        
+
         ItemStack isPlaceholder = new ItemStack(Material.DIRT);
 
         ItemMeta meta = isPlaceholder.getItemMeta();
@@ -148,7 +146,7 @@ public class RareItemPropertiesManager {
 
                     if (sChar == null) {
                         sChar = availableRecipeChars[recipeShape.size()];
-                        
+
                         recipeShape.put(is.getType(), sChar);
                     }
 
@@ -172,7 +170,7 @@ public class RareItemPropertiesManager {
 
                     if (sChar == null) {
                         sChar = availableRecipeChars[recipeShape.size()];
-                        
+
                         recipeShape.put(m, sChar);
                     }
 
@@ -231,15 +229,19 @@ public class RareItemPropertiesManager {
         }
     }
 
-    public void setRecipeForProperty(String propertyName, String[] recipe) {
+    public void setRecipeForProperty_remove_this(String propertyName, String[] recipe) {
         IRareItemProperty rip = this.getItemProperty(propertyName);
 
         rip.setRecipe(recipe);
 
-        this.customizationsYml.set(rip.getName()+".recipe",recipe);
+        this.customizationsYml.set(rip.getName() + ".recipe", recipe);
 
         this.customizationsDirty = true;
 
         this.refreshServerRecipe(rip);
+    }
+
+    public void saveItemProperty(IRareItemProperty rip) {
+        asdflkjaslkdfj;asdfja
     }
 }

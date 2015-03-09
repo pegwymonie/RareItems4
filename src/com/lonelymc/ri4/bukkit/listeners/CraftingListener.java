@@ -82,21 +82,35 @@ public class CraftingListener implements Listener {
                 IRareItemProperty rip = this.api.getItemProperty(propertyName);
 
                 if (rip != null) {
-                    IEssence essence = this.api.createEssence(e.getViewers().get(0).getUniqueId(), rip);
+                    IEssence essence = null;
 
-                    ItemStack isEssence = new ItemStack(Material.valueOf(essence.getMaterial()));
+                    for(int i=1;i<10;i++){
+                        essence = this.api.getEssence(e.getInventory().getItem(i));
 
-                    ItemMeta essenceMeta = isEssence.getItemMeta();
+                        if(essence != null){
+                            break;
+                        }
+                    }
 
-                    essenceMeta.setDisplayName(RI4Strings.getDisplayName(essence));
+                    if(essence != null){
+                        essence.setProperty(rip);
 
-                    essenceMeta.setLore(RI4Strings.getItemLore(essence));
+                        this.api.saveEssence(essence);
 
-                    isEssence.setItemMeta(essenceMeta);
+                        ItemStack isEssence = new ItemStack(Material.valueOf(essence.getMaterial()));
 
-                    e.getInventory().setResult(isEssence);
+                        ItemMeta essenceMeta = isEssence.getItemMeta();
 
-                    return;
+                        essenceMeta.setDisplayName(RI4Strings.getDisplayName(essence));
+
+                        essenceMeta.setLore(RI4Strings.getItemLore(essence));
+
+                        isEssence.setItemMeta(essenceMeta);
+
+                        e.getInventory().setResult(isEssence);
+
+                        return;
+                    }
                 }
             }
 
@@ -125,23 +139,41 @@ public class CraftingListener implements Listener {
 
                 String[] recipe = new String[9];
 
+                boolean foundEssence = false;
+
                 for (int i = 1; i < 10; i++) {
                     ItemStack is = e.getInventory().getItem(i);
 
                     if (is == null || is.getType().equals(Material.AIR)) {
                         recipe[i - 1] = "AIR";
                     } else if (this.api.isDummyEssence(is)) {
+                        if(foundEssence){
+                            e.getWhoClicked().sendMessage(RI4Strings.CRAFTING_NEED_ESSENCE);
+
+                            return;
+                        }
+
                         recipe[i - 1] = "!" + rip.getRarity().name() + "_ESSENCE";
+
+                        foundEssence = true;
                     } else {
                         recipe[i - 1] = ItemStackConvertor.fromItemStack(is, false);
                     }
+                }
+
+                if(!foundEssence){
+                    e.getWhoClicked().sendMessage(RI4Strings.CRAFTING_NEED_ESSENCE);
+
+                    return;
                 }
 
                 e.getWhoClicked().closeInventory();
 
                 e.getWhoClicked().sendMessage(RI4Strings.RECIPE_UPDATED.replace("!property", rip.getDisplayName()));
 
-                this.api.setRecipeForProperty(rip.getName(), recipe);
+                rip.setRecipe(recipe);
+
+                this.api.saveItemProperty(rip);
             } else {
                 // refresh the save button
                 FakeInventory.fakeClientInventorySlot(this.plugin, e.getViewers(), e.getInventory().getItem(0), 0);
@@ -171,8 +203,6 @@ public class CraftingListener implements Listener {
                         if (essence != null) {
                             if (essence.getProperty() != null) {
                                 // We know it's not empty because it has a property
-                                System.out.println(essence.getStatus() + " " + essence.getId());
-
                                 if (essence.getStatus().equals(EssenceStatus.USED) || essence.getStatus().equals(EssenceStatus.REVOKED)) {
                                     e.getWhoClicked().sendMessage(RI4Strings.CRAFTING_ESSENCE_ALREADY_USED
                                             .replace("!property", essence.getProperty().getDisplayName()));
@@ -238,7 +268,9 @@ public class CraftingListener implements Listener {
                     isRareItem.setItemMeta(meta);
 
                     for (IEssence essence : essences) {
-                        this.api.setEssenceStatus(essence.getId(), creator.getUniqueId(), EssenceStatus.USED);
+                        essence.setStatus(EssenceStatus.USED);
+
+                        this.api.saveEssence(essence);
                     }
 
                     e.setCurrentItem(isRareItem);

@@ -1,7 +1,6 @@
 package com.lonelymc.ri4.api;
 
 import java.util.Date;
-import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -10,13 +9,9 @@ public interface IRareItem {
 
     Map<IRareItemProperty,Integer> getProperties();
 
-    UUID getCreator();
-
-    UUID getModifier();
-
-    Date getCreated();
-
-    Date getModified();
+    void setProperties(Map<IRareItemProperty,Integer> properties);
 
     RareItemStatus getStatus();
+
+    void setStatus(RareItemStatus status);
 }

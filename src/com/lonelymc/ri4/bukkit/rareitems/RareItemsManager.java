@@ -3,20 +3,13 @@ package com.lonelymc.ri4.bukkit.rareitems;
 import com.lonelymc.ri4.api.*;
 import com.lonelymc.ri4.bukkit.RareItems4Plugin;
 import com.lonelymc.ri4.util.MetaStringEncoder;
-import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
-import org.bukkit.configuration.ConfigurationSection;
-import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.plugin.java.JavaPlugin;
 
-import java.io.File;
-import java.lang.reflect.Field;
 import java.util.*;
-import java.util.logging.Level;
 
 public class RareItemsManager implements IRareItems4API {
     private final HashMap<UUID, Map<IRareItemProperty, Integer>> activeEffects;
@@ -25,8 +18,8 @@ public class RareItemsManager implements IRareItems4API {
 
     public RareItemsManager(RareItems4Plugin plugin, IRareItemsPersistence persistence) {
         this.activeEffects = new HashMap<>();
-        
-        this.propertiesManager = new RareItemPropertiesManager(plugin,this);
+
+        this.propertiesManager = new RareItemPropertiesManager(plugin, this);
 
         this.persistence = persistence;
         this.persistence.setAPI(this);
@@ -38,7 +31,7 @@ public class RareItemsManager implements IRareItems4API {
                 save();
             }
         }, plugin.getConfig().getInt("save-interval"), plugin.getConfig().getInt("save-interval"));
-        
+
         // Garbage collection
         plugin.getServer().getScheduler().runTaskTimer(plugin, new Runnable() {
             @Override
@@ -113,8 +106,8 @@ public class RareItemsManager implements IRareItems4API {
     }
 
     @Override
-    public IEssence createEssence(UUID creator, ItemPropertyRarity rarity) {
-        return this.persistence.createEmptyEssence(creator, rarity);
+    public void saveItemProperty(IRareItemProperty rip) {
+        this.propertiesManager.saveItemProperty(rip);
     }
 
     @Override
@@ -132,7 +125,7 @@ public class RareItemsManager implements IRareItems4API {
 
     public IRareItem getRareItem(List<String> lore) {
         if (lore != null && lore.size() > 0) {
-            String sId = MetaStringEncoder.decodeHidden(lore.get(0),"ri");
+            String sId = MetaStringEncoder.decodeHidden(lore.get(0), "ri");
 
             try {
                 int id = Integer.parseInt(sId);
@@ -148,6 +141,11 @@ public class RareItemsManager implements IRareItems4API {
     @Override
     public IRareItem getRareItem(int rareItemId) {
         return this.persistence.getRareItem(rareItemId);
+    }
+
+    @Override
+    public void saveRareItem(IRareItem ri) {
+        this.persistence.saveRareItem(ri);
     }
 
     @Override
@@ -242,11 +240,6 @@ public class RareItemsManager implements IRareItems4API {
     }
 
     @Override
-    public void setRecipeForProperty(String propertyName, String[] recipe) {
-        this.propertiesManager.setRecipeForProperty(propertyName,recipe);
-    }
-
-    @Override
     public void save() {
         this.persistence.save();
         this.propertiesManager.save();
@@ -254,17 +247,17 @@ public class RareItemsManager implements IRareItems4API {
 
     @Override
     public IRareItem generateDummyRareItem(Map<IRareItemProperty, Integer> properties) {
-        return new RareItem(0, null, null, null, null, properties, RareItemStatus.DUMMY);
+        return new RareItem(0, properties, RareItemStatus.DUMMY);
     }
 
     @Override
     public IEssence generateDummyEssence(ItemPropertyRarity rarity) {
-        return new Essence(0,EssenceStatus.DUMMY,null,null,null,null,rarity,null);
+        return new Essence(0, EssenceStatus.DUMMY, rarity);
     }
 
     @Override
     public IEssence generateDummyEssence(IRareItemProperty rip) {
-        return new Essence(0,EssenceStatus.DUMMY,null,null,null,null,null,rip);
+        return new Essence(0, EssenceStatus.DUMMY, rip);
     }
 
     @Override
@@ -276,14 +269,13 @@ public class RareItemsManager implements IRareItems4API {
                 List<String> lore = meta.getLore();
 
                 if (lore != null && lore.size() > 1) {
-                    String sId = MetaStringEncoder.decodeHidden(lore.get(1),"es");
+                    String sId = MetaStringEncoder.decodeHidden(lore.get(1), "es");
 
                     try {
                         int id = Integer.parseInt(sId);
 
                         return id == 0;
-                    }
-                    catch (NumberFormatException ex) {
+                    } catch (NumberFormatException ex) {
                         return false;
                     }
                 }
@@ -294,15 +286,15 @@ public class RareItemsManager implements IRareItems4API {
 
         return false;
     }
-    
-    @Override
-    public void setEssenceStatus(int id, UUID modifier, EssenceStatus status) {
-        this.persistence.setEssenceStatus(id, modifier, status);
-    }
 
     @Override
     public IEssence createEssence(UUID creator, IRareItemProperty property) {
         return this.persistence.createFilledEssence(creator, property);
+    }
+
+    @Override
+    public IEssence createEssence(UUID creator, ItemPropertyRarity rarity) {
+        return this.persistence.createEmptyEssence(creator, rarity);
     }
 
     @Override
@@ -320,14 +312,13 @@ public class RareItemsManager implements IRareItems4API {
 
     public IEssence getEssence(List<String> lore) {
         if (lore != null && lore.size() > 1) {
-            String sId = MetaStringEncoder.decodeHidden(lore.get(1),"es");
+            String sId = MetaStringEncoder.decodeHidden(lore.get(1), "es");
 
             try {
                 int id = Integer.parseInt(sId);
 
-                return this.persistence.getEssence(id);
-            } 
-            catch (NumberFormatException ex) {
+                return this.getEssence(id);
+            } catch (NumberFormatException ex) {
                 return null;
             }
         }
@@ -336,12 +327,17 @@ public class RareItemsManager implements IRareItems4API {
     }
 
     @Override
-    public IRareItem createRareItem(UUID creator, Map<IRareItemProperty, Integer> riProperties) {
-        return this.persistence.createRareItem(creator, riProperties);
+    public IEssence getEssence(int id) {
+        return this.persistence.getEssence(id);
     }
 
     @Override
-    public void setRareItemProperties(UUID modifier, int rareItemId, Map<IRareItemProperty, Integer> riProperties) {
-        this.persistence.setRareItemProperties(modifier, rareItemId, riProperties);
+    public void saveEssence(IEssence essence) {
+        this.persistence.saveEssence(essence);
+    }
+
+    @Override
+    public IRareItem createRareItem(UUID creator, Map<IRareItemProperty, Integer> riProperties) {
+        return this.persistence.createRareItem(creator, riProperties);
     }
 }

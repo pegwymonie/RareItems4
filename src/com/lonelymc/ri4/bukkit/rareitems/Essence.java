@@ -13,19 +13,17 @@ public class Essence implements IEssence {
     private IRareItemProperty property;
     private final int id;
     private EssenceStatus status;
-    private final UUID creator;
-    private final Date created;
-    private UUID modifier;
-    private Date modified;
 
-    public Essence(int id, EssenceStatus status, UUID creator, Date created, UUID modifier, Date modified, ItemPropertyRarity rarity, IRareItemProperty property) {
+    public Essence(int id, EssenceStatus status, ItemPropertyRarity rarity) {
         this.id = id;
         this.status = status;
-        this.creator = creator;
-        this.created = created;
-        this.modifier = modifier;
-        this.modified = modified;
         this.rarity = rarity;
+    }
+
+    public Essence(int id, EssenceStatus status, IRareItemProperty property) {
+        this.id = id;
+        this.status = status;
+        this.rarity = property.getRarity();
         this.property = property;
     }
 
@@ -34,17 +32,15 @@ public class Essence implements IEssence {
         return this.id;
     }
 
-    @Override
-    public boolean hasProperty() {
-        return this.property != null;
-    }
 
     @Override
     public ItemPropertyRarity getRarity() {
-        if (this.property != null) {
-            return this.property.getRarity();
-        }
         return this.rarity;
+    }
+
+    @Override
+    public boolean hasProperty() {
+        return this.property != null;
     }
 
     @Override
@@ -53,28 +49,25 @@ public class Essence implements IEssence {
     }
 
     @Override
+    public void setProperty(IRareItemProperty rip) {
+        if(rip != null) {
+            this.property = rip;
+            this.status = EssenceStatus.FILLED;
+        }
+        else{
+            this.property = null;
+            this.status = EssenceStatus.EMPTY;
+        }
+    }
+
+    @Override
     public EssenceStatus getStatus() {
         return this.status;
     }
 
     @Override
-    public Date getCreated() {
-        return this.created;
-    }
-
-    @Override
-    public UUID getCreator() {
-        return this.creator;
-    }
-
-    @Override
-    public Date getModified() {
-        return this.modified;
-    }
-
-    @Override
-    public UUID getModifier() {
-        return this.modifier;
+    public void setStatus(EssenceStatus status) {
+        this.status = status;
     }
 
     @Override
@@ -95,9 +88,5 @@ public class Essence implements IEssence {
             case STRANGE:
                 return "SLIME_BALL";
         }
-    }
-
-    public void setStatus(EssenceStatus status) {
-        this.status = status;
     }
 }

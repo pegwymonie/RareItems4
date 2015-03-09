@@ -47,15 +47,9 @@ public class RareItemsYMLPersistence implements IRareItemsPersistence {
 
         this.saveYml.set(this.essencesIndexLocation, essenceId + 1);
 
-        IEssence essence = new Essence(essenceId, EssenceStatus.EMPTY, creator, new Date(), creator, new Date(), rarity, null);
+        IEssence essence = new Essence(essenceId, EssenceStatus.EMPTY, rarity);
 
         this.saveYml.set("essences."+essenceId+".rarity",essence.getRarity().name());
-
-        this.saveYml.set("essences."+essenceId+".creator",essence.getCreator().toString());
-        this.saveYml.set("essences."+essenceId+".modified",essence.getModified());
-
-        this.saveYml.set("essences."+essenceId+".modifier",essence.getModifier().toString());
-        this.saveYml.set("essences."+essenceId+".created",essence.getCreated());
 
         this.saveYml.set("essences."+essenceId+".status",essence.getStatus().name());
 
@@ -70,17 +64,11 @@ public class RareItemsYMLPersistence implements IRareItemsPersistence {
 
         this.saveYml.set(this.rareItemsIndexLocation, essenceId + 1);
 
-        IEssence essence = new Essence(essenceId, EssenceStatus.FILLED, creator, new Date(), creator, new Date(), null, property);
+        IEssence essence = new Essence(essenceId, EssenceStatus.FILLED, property);
 
         this.saveYml.set("essences."+essenceId+".property",essence.getProperty().getName());
         
         this.saveYml.set("essences."+essenceId+".rarity",essence.getRarity().name());
-        
-        this.saveYml.set("essences."+essenceId+".creator",essence.getCreator().toString());
-        this.saveYml.set("essences."+essenceId+".created",essence.getModified());
-        
-        this.saveYml.set("essences."+essenceId+".modifier",essence.getModifier().toString());
-        this.saveYml.set("essences."+essenceId+".modified",essence.getCreated());
         
         this.saveYml.set("essences."+essenceId+".status",essence.getStatus().name());
         
@@ -121,7 +109,7 @@ public class RareItemsYMLPersistence implements IRareItemsPersistence {
                 }
 
                 if (propertyName == null) {
-                    essence = new Essence(essenceId, status, creator, created, modifier, modified, rarity, null);
+                    essence = new Essence(essenceId, status, rarity);
                 } else {
                     IRareItemProperty property = api.getItemProperty(propertyName);
 
@@ -130,7 +118,7 @@ public class RareItemsYMLPersistence implements IRareItemsPersistence {
                         property = new _Dummy(propertyName);
                     }
 
-                    essence = new Essence(essenceId, status, creator, created, modifier, modified, null, property);
+                    essence = new Essence(essenceId, status, property);
                 }
 
                 this.cachedEssences.put(essenceId, essence);
@@ -141,7 +129,11 @@ public class RareItemsYMLPersistence implements IRareItemsPersistence {
     }
 
     @Override
-    public void setEssenceStatus(int essenceId, UUID modifier, EssenceStatus status) {
+    public void saveEssence(IEssence essence) {
+        asdfadfsadf
+    }
+
+    public void setEssenceStatus_removeme(int essenceId, UUID modifier, EssenceStatus status) {adsf
         ConfigurationSection eSection = this.saveYml.getConfigurationSection("essences." + essenceId);
 
         if (eSection != null) {
@@ -163,18 +155,13 @@ public class RareItemsYMLPersistence implements IRareItemsPersistence {
 
         this.saveYml.set(rareItemsIndexLocation, rareItemId + 1);
 
-        IRareItem ri = new RareItem(rareItemId, creator, new Date(), creator, new Date(), riProperties, RareItemStatus.ACTIVE);
+        IRareItem ri = new RareItem(rareItemId, riProperties, RareItemStatus.ACTIVE);
 
         String section = "rareitems." + ri.getId() + ".";
 
         for (Map.Entry<IRareItemProperty, Integer> entry : ri.getProperties().entrySet()) {
             saveYml.set(section + "properties." + entry.getKey().getName(), entry.getValue());
         }
-
-        this.saveYml.set(section + "created", ri.getCreated().getTime());
-        this.saveYml.set(section + "creator", ri.getCreator().toString());
-        this.saveYml.set(section + "modified", ri.getModified().getTime());
-        this.saveYml.set(section + "modifier", ri.getModifier().toString());
 
         this.saveYml.set(section + "status", ri.getStatus().name());
 
@@ -221,7 +208,7 @@ public class RareItemsYMLPersistence implements IRareItemsPersistence {
 
                 RareItemStatus status = RareItemStatus.valueOf(riSection.getString("status"));
 
-                ri = new RareItem(rareItemId, creator, created, modifier, modified, properties, status);
+                ri = new RareItem(rareItemId, properties, status);
 
                 this.cachedRareItems.put(rareItemId, ri);
             }
@@ -231,7 +218,11 @@ public class RareItemsYMLPersistence implements IRareItemsPersistence {
     }
 
     @Override
-    public void setRareItemProperties(UUID modifier, int rareItemId, Map<IRareItemProperty, Integer> riProperties) {
+    public void saveRareItem(IRareItem ri) {
+asdfsadfsda
+    }
+
+    public void setRareItemProperties_rmeoveme(UUID modifier, int rareItemId, Map<IRareItemProperty, Integer> riProperties) {asdfasdf
         ConfigurationSection riSection = this.saveYml.getConfigurationSection("rareitems." + rareItemId);
 
         if (riSection != null) {
@@ -248,15 +239,12 @@ public class RareItemsYMLPersistence implements IRareItemsPersistence {
 
             if (ri != null) {
                 ri.setProperties(riProperties);
-
-                ri.setModifier(modifier);
-                ri.setModified(new Date());
             }
         }
     }
 
     @Override
-    public void setRareItemStatus(int rareItemId, UUID modifier, RareItemStatus status) {
+    public void setRareItemStatus_removeme(int rareItemId, UUID modifier, RareItemStatus status) {asdf
         ConfigurationSection riSection = this.saveYml.getConfigurationSection("rareitems." + rareItemId);
 
         if (riSection != null) {

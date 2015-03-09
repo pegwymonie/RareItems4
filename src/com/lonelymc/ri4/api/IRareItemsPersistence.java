@@ -14,16 +14,14 @@ public interface IRareItemsPersistence {
 
     IEssence getEssence(int essenceId);
 
-    void setEssenceStatus(int essenceId, UUID modifier, EssenceStatus status);
+    void saveEssence(IEssence essence);
 
     // Rare Items
     IRareItem createRareItem(UUID creator, Map<IRareItemProperty, Integer> riProperties);
 
     IRareItem getRareItem(int rareItemId);
 
-    void setRareItemProperties(UUID modifier, int rareItemId, Map<IRareItemProperty, Integer> riProperties);
-
-    void setRareItemStatus(int rareItemId, UUID modifier, RareItemStatus status);
+    void saveRareItem(IRareItem ri);
 
     void save();
 }

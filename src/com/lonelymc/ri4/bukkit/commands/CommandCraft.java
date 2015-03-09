@@ -71,7 +71,7 @@ public class CommandCraft extends BasicCommand {
         if(level > property.getMaxLevel()){
             this.sendError(cs,RI4Strings.COMMAND_MAX_LEVEL
             .replace("!level",String.valueOf(property.getMaxLevel()))
-            .replace("!property",property.getDisplayName()));
+            .replace("!property", property.getDisplayName()));
 
             return true;
         }

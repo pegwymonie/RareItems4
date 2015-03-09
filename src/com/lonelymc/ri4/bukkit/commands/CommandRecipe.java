@@ -46,6 +46,12 @@ public class CommandRecipe extends BasicCommand {
 
         IRareItemProperty rip = this.api.getItemProperty(sPropertyName);
 
+        if(rip == null){
+            this.sendError(cs,RI4Strings.COMMAND_INVALID_PROPERTY.replace("!property",sPropertyName));
+
+            return true;
+        }
+
         if (args.length > 1) {
             String action = args[1];
 
