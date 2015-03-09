@@ -56,7 +56,9 @@ public class CommandRecipe extends BasicCommand {
             String action = args[1];
 
             if (action.equalsIgnoreCase("remove")) {
-                this.api.setRecipeForProperty(rip.getName(), null);
+                rip.setRecipe(null);
+
+                this.api.saveItemProperty(rip);
 
                 this.send(cs, RI4Strings.COMMAND_RECIPE_REMOVED
                         .replace("!property", rip.getDisplayName()));

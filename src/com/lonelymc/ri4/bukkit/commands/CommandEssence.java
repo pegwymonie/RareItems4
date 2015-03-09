@@ -60,15 +60,6 @@ public class CommandEssence extends BasicCommand {
             return true;
         }
 
-        Player creator;
-
-        if(cs instanceof Player){
-            creator = (Player) cs;
-        }
-        else {
-            creator = player;
-        }
-
         String essenceType = args[0].replace("_"," ");
 
         IEssence essence;
@@ -77,14 +68,14 @@ public class CommandEssence extends BasicCommand {
         try{
             ItemPropertyRarity rarity = ItemPropertyRarity.valueOf(essenceType.toUpperCase());
 
-            essence = this.api.createEssence(creator.getUniqueId(), rarity);
+            essence = this.api.createEssence(rarity);
         }
         catch (IllegalArgumentException e) {
             // essence with an item property
             IRareItemProperty rip = this.api.getItemPropertyByDisplayName(essenceType);
 
             if(rip != null){
-                essence = this.api.createEssence(creator.getUniqueId(), rip);
+                essence = this.api.createEssence(rip);
             }
             else {
                 this.sendError(cs,RI4Strings.COMMAND_INVALID_ESSENCE_OR_PROPERTY.replace("!property",essenceType));

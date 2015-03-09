@@ -288,13 +288,13 @@ public class RareItemsManager implements IRareItems4API {
     }
 
     @Override
-    public IEssence createEssence(UUID creator, IRareItemProperty property) {
-        return this.persistence.createFilledEssence(creator, property);
+    public IEssence createEssence(IRareItemProperty property) {
+        return this.persistence.createFilledEssence(property);
     }
 
     @Override
-    public IEssence createEssence(UUID creator, ItemPropertyRarity rarity) {
-        return this.persistence.createEmptyEssence(creator, rarity);
+    public IEssence createEssence(ItemPropertyRarity rarity) {
+        return this.persistence.createEmptyEssence(rarity);
     }
 
     @Override
@@ -337,7 +337,7 @@ public class RareItemsManager implements IRareItems4API {
     }
 
     @Override
-    public IRareItem createRareItem(UUID creator, Map<IRareItemProperty, Integer> riProperties) {
-        return this.persistence.createRareItem(creator, riProperties);
+    public IRareItem createRareItem(Map<IRareItemProperty, Integer> riProperties) {
+        return this.persistence.createRareItem(riProperties);
     }
 }

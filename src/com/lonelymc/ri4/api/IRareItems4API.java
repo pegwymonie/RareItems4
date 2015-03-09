@@ -21,9 +21,9 @@ public interface IRareItems4API {
     void saveItemProperty(IRareItemProperty rip);
 
     // Essences
-    IEssence createEssence(UUID creator, ItemPropertyRarity rarity);
+    IEssence createEssence(ItemPropertyRarity rarity);
 
-    IEssence createEssence(UUID creator, IRareItemProperty property);
+    IEssence createEssence(IRareItemProperty property);
 
     IEssence getEssence(ItemStack is);
 
@@ -38,7 +38,7 @@ public interface IRareItems4API {
     boolean isDummyEssence(ItemStack is);
 
     // Rare Items
-    IRareItem createRareItem(UUID creator, Map<IRareItemProperty,Integer> riProperties);
+    IRareItem createRareItem(Map<IRareItemProperty,Integer> riProperties);
 
     IRareItem getRareItem(ItemStack is);
 
@@ -49,7 +49,7 @@ public interface IRareItems4API {
     IRareItem generateDummyRareItem(Map<IRareItemProperty, Integer> properties);
 
     //Effects management
-    Map<IRareItemProperty,Integer> getActiveEffects(UUID uniqueId);
+    Map<IRareItemProperty,Integer> getActiveEffects(UUID playerId);
 
     void equipRareItem(Player player, ItemStack is);
 

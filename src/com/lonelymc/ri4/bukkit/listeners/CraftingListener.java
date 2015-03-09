@@ -259,7 +259,7 @@ public class CraftingListener implements Listener {
 
                     Player creator = (Player) e.getWhoClicked();
 
-                    IRareItem ri = this.api.createRareItem(creator.getUniqueId(), properties);
+                    IRareItem ri = this.api.createRareItem(properties);
 
                     ItemMeta meta = isRareItem.getItemMeta();
 

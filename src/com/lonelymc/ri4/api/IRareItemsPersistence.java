@@ -8,16 +8,16 @@ public interface IRareItemsPersistence {
     void setAPI(IRareItems4API api);
 
     // Essences
-    IEssence createEmptyEssence(UUID creator, ItemPropertyRarity rarity);
+    IEssence createEmptyEssence(ItemPropertyRarity rarity);
 
-    IEssence createFilledEssence(UUID creator, IRareItemProperty property);
+    IEssence createFilledEssence(IRareItemProperty property);
 
     IEssence getEssence(int essenceId);
 
     void saveEssence(IEssence essence);
 
     // Rare Items
-    IRareItem createRareItem(UUID creator, Map<IRareItemProperty, Integer> riProperties);
+    IRareItem createRareItem(Map<IRareItemProperty, Integer> riProperties);
 
     IRareItem getRareItem(int rareItemId);
 

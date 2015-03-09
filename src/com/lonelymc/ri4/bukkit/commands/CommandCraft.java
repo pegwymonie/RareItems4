@@ -84,24 +84,26 @@ public class CommandCraft extends BasicCommand {
             return true;
         }
 
-        IRareItem rareItem = this.api.getRareItem(isInHand);
+        IRareItem ri = this.api.getRareItem(isInHand);
 
         Map<IRareItemProperty,Integer> properties = new HashMap<>();
 
         properties.put(property,level);
 
-        if(rareItem == null){
-            rareItem = this.api.createRareItem(player.getUniqueId(),properties);
+        if(ri == null){
+            ri = this.api.createRareItem(properties);
         }
         else{
-            properties.putAll(rareItem.getProperties());
+            properties.putAll(ri.getProperties());
 
-            this.api.setRareItemProperties(player.getUniqueId(), rareItem.getId(), properties);
+            ri.setProperties(properties);
+
+            this.api.saveRareItem(ri);
         }
 
         ItemMeta meta = isInHand.getItemMeta();
 
-        meta.setLore(RI4Strings.getLore(rareItem));
+        meta.setLore(RI4Strings.getLore(ri));
 
         isInHand.setItemMeta(meta);
 
