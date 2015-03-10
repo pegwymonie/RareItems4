@@ -27,28 +27,14 @@ public class IntelligentItem extends RareItemProperty {
                 "Intelligent Item", //Name (.toLowerCase() used as ID)
                 "An item that's never afraid to tell you its opinion",// Description
                 ItemPropertyRarity.STRANGE,
-                PropertyCostType.AUTOMATIC, //Cost type
-                90, // Default cost
+                PropertyCostType.COOLDOWN, //Cost type
+                60, // Default cost
                 1,   // Max level
                 null
         );
 
         this.lastUse = new HashMap<UUID, Long>();
         this.random = new Random();
-    }
-
-
-    String[] applyEffectToPlayer_bored = new String[]{
-            "So uh... Are we going to adventure, or PVP... Or... Something?"
-    };
-
-    @Override
-    public void applyEffectToPlayer(Player p, int level) {
-        if(this.hasCost(p,level)){
-            msg(p,applyEffectToPlayer_bored[random.nextInt(applyEffectToPlayer_bored.length)]);
-
-            this.takeCost(p,level);
-        }
     }
 
     @Override
@@ -69,7 +55,7 @@ public class IntelligentItem extends RareItemProperty {
 
     @Override
     public void takeCost(Player player, int level) {
-        this.lastUse.put(player.getUniqueId(), System.currentTimeMillis() + ((random.nextInt(60) + 1) * 1000));
+        this.lastUse.put(player.getUniqueId(), System.currentTimeMillis() + ((random.nextInt((int) this.getCost()) + 1) * 1000));
     }
 
     // Basically, it's a randomized 1-30 second cooldown with no wait message
@@ -359,12 +345,12 @@ public class IntelligentItem extends RareItemProperty {
 
     @Override
     public boolean onInteractEntity(Player pInteracted, PlayerInteractEntityEvent e, int level) {
-
+e.getRightClicked().getType()
     }
 
     @Override
     public boolean onLaunchProjectile(Player shooter, EntityShootBowEvent e, int level) {
-
+e.getForce()
     }
 
     String[] onArrowHitEntity_almostDead = new String[]{
@@ -510,6 +496,22 @@ public class IntelligentItem extends RareItemProperty {
             "I've got sand in places you don't even know I have."
     };
 
+    String[] msg_time_early_morning = new String[]{
+            "It's too early to be doing things...",
+            "One time I stayed up for three days straight doing nothing but staring at the inside of a chest. Best 60 minutes of my life."
+    };
+    String[] msg_time_morning = new String[]{
+            "The sun is shining and we're off for another adventure!",
+            "I don't eat breakfast, but if I did, I think I'd like waffles."
+    };
+    String[] msg_time_afternoon = new String[]{
+            "I usually take a nap just about now... Can you find me a nice chest to sleep in?"
+    };
+    String[] msg_time_evening = new String[]{
+            "I'm sleepy... Can't we go to bed?",
+            "What do you say we fry up some pork chops for dinner?"
+    };
+
     public void msg(Player player, String msg) {
         // occasionally inject a location/time-based message
         int inject = random.nextInt(100);
@@ -614,9 +616,17 @@ public class IntelligentItem extends RareItemProperty {
         else if(inject < 8){
             long time = player.getWorld().getFullTime();
 
-            midnight, early morning, morning, mid-day, afternoon, evening
-            if(){
-
+            if(time > 18000) {//midnight - 6am
+                msg = msg_time_early_morning[random.nextInt(msg_time_early_morning.length)];
+            }
+            else if(time > 12000){//6pm - midnight
+                msg = msg_time_evening[random.nextInt(msg_time_evening.length)];
+            }
+            else if(time > 6000) {//noon - 6pm
+                msg = msg_time_afternoon[random.nextInt(msg_time_afternoon.length)];
+            }
+            else {//6am - noon
+                msg = msg_time_morning[random.nextInt(msg_time_morning.length)];
             }
         }
 
