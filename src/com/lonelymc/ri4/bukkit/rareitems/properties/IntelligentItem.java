@@ -5,6 +5,8 @@ import com.lonelymc.ri4.api.PropertyCostType;
 import com.lonelymc.ri4.bukkit.rareitems.RareItemProperty;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.World;
+import org.bukkit.WorldType;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
@@ -25,14 +27,28 @@ public class IntelligentItem extends RareItemProperty {
                 "Intelligent Item", //Name (.toLowerCase() used as ID)
                 "An item that's never afraid to tell you its opinion",// Description
                 ItemPropertyRarity.STRANGE,
-                PropertyCostType.PASSIVE, //Cost type
-                0D, // Default cost
+                PropertyCostType.AUTOMATIC, //Cost type
+                90, // Default cost
                 1,   // Max level
                 null
         );
 
         this.lastUse = new HashMap<UUID, Long>();
         this.random = new Random();
+    }
+
+
+    String[] applyEffectToPlayer_bored = new String[]{
+            "So uh... Are we going to adventure, or PVP... Or... Something?"
+    };
+
+    @Override
+    public void applyEffectToPlayer(Player p, int level) {
+        if(this.hasCost(p,level)){
+            msg(p,applyEffectToPlayer_bored[random.nextInt(applyEffectToPlayer_bored.length)]);
+
+            this.takeCost(p,level);
+        }
     }
 
     @Override
@@ -101,12 +117,14 @@ public class IntelligentItem extends RareItemProperty {
                 default:
                     msg(pInteracted, onInteracted_misc[random.nextInt(onInteracted_misc.length)]);
                     break;
+                case MELON_BLOCK:
+                case MELON_STEM:
+                    msg(pInteracted, "When the world gives you melons, make melonaid!");
+                    break;
                 case CARROT:
                 case POTATO:
                 case WATER_LILY:
-                case MELON_BLOCK:
                 case PUMPKIN_STEM:
-                case MELON_STEM:
                 case HUGE_MUSHROOM_1:
                 case HUGE_MUSHROOM_2:
                 case PUMPKIN:
@@ -331,22 +349,22 @@ public class IntelligentItem extends RareItemProperty {
 
     @Override
     public boolean onDamaged(Player pDamaged, EntityDamageEvent e, int level) {
-        return false;
+
     }
 
     @Override
     public boolean onDamagedOther(Player pAttacker, EntityDamageByEntityEvent e, int level) {
-        return false;
+
     }
 
     @Override
     public boolean onInteractEntity(Player pInteracted, PlayerInteractEntityEvent e, int level) {
-        return false;
+
     }
 
     @Override
     public boolean onLaunchProjectile(Player shooter, EntityShootBowEvent e, int level) {
-        return false;
+
     }
 
     String[] onArrowHitEntity_almostDead = new String[]{
@@ -456,7 +474,152 @@ public class IntelligentItem extends RareItemProperty {
         return true;
     }
 
+
+    String[] msg_nether = new String[]{
+            "I once saw a pig with a sword riding a chicken. It caught on fire and I couldn't help but think that bacon-wrapped chicken sounds tasty.",
+            "You ever wonder what ghasts are always crying about?"
+    };
+
+    String[] msg_the_end = new String[]{
+            "This place is like what the other side of a static-screened T.V. must look like.",
+            "End portal, Endstone, enderman, ender dragon, ender chest, ender crystal... I'm seeing a trend here."
+    };
+
+
+    String[] msg_storm = new String[]{
+            "Storms sound like rhinos to me... I hope we don't get trampled.",
+            "You think if you get struck by lightning I'll get superpowers? Let's try it!"
+    };
+
+    String[] msg_flat = new String[]{
+            "I like rolling hills and mountains. This place is boring."
+    };
+
+    String[] msg_cold = new String[]{
+            "Can't we go someplace warmer?",
+            "There is a fell voice on the air...",
+            "Baby it's cold outside...",
+            "Winter is coming.",
+            "Now is the winter of my discontent."
+    };
+
+    String[] msg_desert = new String[]{
+            "What do you call a camel with no hump? Humphrey.",
+            "Can we go someplace cooler?",
+            "It's just too hot here.",
+            "I've got sand in places you don't even know I have."
+    };
+
     public void msg(Player player, String msg) {
+        // occasionally inject a location/time-based message
+        int inject = random.nextInt(100);
+
+        if(inject < 5){
+            World world = player.getLocation().getWorld();
+
+            if(random.nextInt(4) < 1 && world.getWorldType().equals(WorldType.FLAT)){
+                msg = msg_flat[random.nextInt(msg_flat.length)];
+            }
+            else if(random.nextBoolean() && world.isThundering()){
+                msg = msg_storm[random.nextInt(msg_storm.length)];
+            }
+            else{
+                switch (world.getEnvironment()) {
+                    case NORMAL:
+                        switch(player.getLocation().getBlock().getBiome()){
+
+                            case FROZEN_OCEAN:
+                            case FROZEN_RIVER:
+                            case ICE_PLAINS:
+                            case ICE_MOUNTAINS:
+                            case COLD_TAIGA:
+                            case COLD_TAIGA_HILLS:
+                            case COLD_BEACH:
+                            case TAIGA_HILLS:
+                            case TAIGA_MOUNTAINS:
+                            case MEGA_SPRUCE_TAIGA_HILLS:
+                            case COLD_TAIGA_MOUNTAINS:
+                            case ICE_PLAINS_SPIKES:
+                            case TAIGA:
+                            case MEGA_TAIGA:
+                            case MEGA_TAIGA_HILLS:
+                            case MEGA_SPRUCE_TAIGA:
+                                msg = msg_cold[random.nextInt(msg_cold.length)];
+                                break;
+
+                            case DESERT_HILLS:
+                            case DESERT:
+                            case DESERT_MOUNTAINS:
+                                msg = msg_desert[random.nextInt(msg_desert.length)];
+                                break;
+
+                            case MESA:
+                            case MESA_PLATEAU_FOREST:
+                            case MESA_PLATEAU:
+                            case MESA_BRYCE:
+                            case MESA_PLATEAU_FOREST_MOUNTAINS:
+                            case MESA_PLATEAU_MOUNTAINS:
+
+                            case BEACH:
+
+                                break;
+                            case OCEAN:
+                                break;
+
+                            case SWAMPLAND:
+                            case FOREST:
+                            case PLAINS:
+                            case SKY:
+                            case RIVER:
+                            case EXTREME_HILLS:
+                            case MUSHROOM_ISLAND:
+                            case MUSHROOM_SHORE:
+                            case FOREST_HILLS:
+                            case SMALL_MOUNTAINS:
+                            case JUNGLE:
+                            case JUNGLE_HILLS:
+                            case JUNGLE_EDGE:
+                            case DEEP_OCEAN:
+                            case STONE_BEACH:
+                            case BIRCH_FOREST:
+                            case BIRCH_FOREST_HILLS:
+                            case ROOFED_FOREST:
+                            case EXTREME_HILLS_PLUS:
+                            case SAVANNA:
+                            case SAVANNA_PLATEAU:
+                            case SUNFLOWER_PLAINS:
+                            case FLOWER_FOREST:
+                            case SWAMPLAND_MOUNTAINS:
+                            case JUNGLE_MOUNTAINS:
+                            case JUNGLE_EDGE_MOUNTAINS:
+                            case SAVANNA_MOUNTAINS:
+                            case SAVANNA_PLATEAU_MOUNTAINS:
+                            case BIRCH_FOREST_MOUNTAINS:
+                            case BIRCH_FOREST_HILLS_MOUNTAINS:
+                            case ROOFED_FOREST_MOUNTAINS:
+                            case EXTREME_HILLS_MOUNTAINS:
+                            case EXTREME_HILLS_PLUS_MOUNTAINS:
+
+                        }
+                        break;
+                    case NETHER:
+                        msg = msg_nether[random.nextInt(msg_nether.length)];
+                        break;
+                    case THE_END:
+                        msg = msg_the_end[random.nextInt(msg_the_end.length)];
+                        break;
+                }
+            }
+        }
+        else if(inject < 8){
+            long time = player.getWorld().getFullTime();
+
+            midnight, early morning, morning, mid-day, afternoon, evening
+            if(){
+
+            }
+        }
+
         String sItem = player.getItemInHand().getType().name().toLowerCase().replace("_", " ");
 
         player.sendMessage(ChatColor.GOLD + "Your " + sItem + ChatColor.RESET + ": " + msg);
