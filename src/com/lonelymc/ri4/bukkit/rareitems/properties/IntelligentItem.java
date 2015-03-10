@@ -3,6 +3,7 @@ package com.lonelymc.ri4.bukkit.rareitems.properties;
 import com.lonelymc.ri4.api.ItemPropertyRarity;
 import com.lonelymc.ri4.api.PropertyCostType;
 import com.lonelymc.ri4.bukkit.rareitems.RareItemProperty;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -52,7 +53,7 @@ public class IntelligentItem extends RareItemProperty {
 
     @Override
     public void takeCost(Player player, int level) {
-        this.lastUse.put(player.getUniqueId(), System.currentTimeMillis() + ((random.nextInt(29) + 1) * 1000));
+        this.lastUse.put(player.getUniqueId(), System.currentTimeMillis() + ((random.nextInt(60) + 1) * 1000));
     }
 
     // Basically, it's a randomized 1-30 second cooldown with no wait message
@@ -68,7 +69,9 @@ public class IntelligentItem extends RareItemProperty {
             }
         }
 
-        return true;
+        //50% of the time, no msg even if they haven't done anything for a while
+        // Just to add a little pacing
+        return random.nextBoolean();
     }
 
     String[] onInteracted_misc = new String[]{
@@ -129,7 +132,7 @@ public class IntelligentItem extends RareItemProperty {
                     break;
 
                 case COCOA:
-                    msg(pInteracted,"I love chocolate. I mean I've never tried it myself, but people say such good things...");
+                    msg(pInteracted, "I love chocolate. I mean I've never tried it myself, but people say such good things...");
                     break;
 
                 case STONE:
@@ -372,18 +375,68 @@ public class IntelligentItem extends RareItemProperty {
         if (e.getEntity() instanceof LivingEntity) {
             LivingEntity le = (LivingEntity) e.getEntity();
 
-            double remainingHpPercent = le.getHealth() / le.getMaxHealth() * 100;
+            if (random.nextBoolean()) {
+                double remainingHpPercent = le.getHealth() / le.getMaxHealth() * 100;
 
-            if (remainingHpPercent < 25) {
-                msg(shooter, onArrowHitEntity_almostDead[random.nextInt(onArrowHitEntity_almostDead.length)]);
-            } else if (remainingHpPercent < 50) {
-                msg(shooter, onArrowHitEntity_lowHp[random.nextInt(onArrowHitEntity_lowHp.length)]);
-            } else if (remainingHpPercent < 75) {
-                msg(shooter, onArrowHitEntity_decentHP[random.nextInt(onArrowHitEntity_decentHP.length)]);
+                if (remainingHpPercent < 25) {
+                    msg(shooter, onArrowHitEntity_almostDead[random.nextInt(onArrowHitEntity_almostDead.length)]);
+                } else if (remainingHpPercent < 50) {
+                    msg(shooter, onArrowHitEntity_lowHp[random.nextInt(onArrowHitEntity_lowHp.length)]);
+                } else if (remainingHpPercent < 75) {
+                    msg(shooter, onArrowHitEntity_decentHP[random.nextInt(onArrowHitEntity_decentHP.length)]);
+                } else {
+                    msg(shooter, onArrowHitEntity_highHp[random.nextInt(onArrowHitEntity_highHp.length)]);
+                }
             } else {
-                msg(shooter, onArrowHitEntity_highHp[random.nextInt(onArrowHitEntity_highHp.length)]);
+                switch (le.getType()) {
+                    default:
+                        break;
+                    case CREEPER:
+                    case SKELETON:
+                    case SPIDER:
+                    case GIANT:
+                    case ZOMBIE:
+                    case SLIME:
+                    case GHAST:
+                    case PIG_ZOMBIE:
+                    case ENDERMAN:
+                    case CAVE_SPIDER:
+                    case SILVERFISH:
+                    case BLAZE:
+                    case MAGMA_CUBE:
+                    case ENDER_DRAGON:
+                    case WITHER:
+                    case BAT:
+                    case WITCH:
+                    case ENDERMITE:
+                    case GUARDIAN:
+                    case PIG:
+                    case SHEEP:
+                    case COW:
+                    case CHICKEN:
+                    case SQUID:
+                    case WOLF:
+                    case MUSHROOM_COW:
+                    case SNOWMAN:
+                    case OCELOT:
+                    case IRON_GOLEM:
+                    case HORSE:
+                    case RABBIT:
+                    case VILLAGER:
+                    case ENDER_CRYSTAL:
+                    case PLAYER:
+
+                }
+            }
+        } else {
+            if (random.nextBoolean()) {
+                msg(shooter, "Nice! You uh... Hit it, I guess.");
+            } else {
+                msg(shooter, "Did you mean to do that?");
             }
         }
+
+        return true;
     }
 
     String[] onArrowHitGroundMsgs = new String[]{
@@ -392,7 +445,7 @@ public class IntelligentItem extends RareItemProperty {
             "I suppose you meant to leave that there.",
             "Don't worry, lots of people can't use a bow. Actually.. You know, I think maybe it's just you.",
             "You dropped something. Unless you were trying to hit something, in which case you missed.",
-            "I don't quite get what you were going for there, but okay.",
+            "I don't quite get what that was supposed to do, but okay.",
             "Protip: aim before you shoot."
     };
 
@@ -404,6 +457,18 @@ public class IntelligentItem extends RareItemProperty {
     }
 
     public void msg(Player player, String msg) {
-        player.sendMessage(ChatColor.GOLD + "Your " + player.getItemInHand().getType().name().toLowerCase().replace("_", " ") + ChatColor.RESET + ": " + msg);
+        String sItem = player.getItemInHand().getType().name().toLowerCase().replace("_", " ");
+
+        player.sendMessage(ChatColor.GOLD + "Your " + sItem + ChatColor.RESET + ": " + msg);
+
+        String pMsg = player.getDisplayName() + ChatColor.GOLD + "'s " + sItem + ChatColor.RESET + ": " + msg;
+
+        int d2 = 15 * 15;
+
+        for (Player p : Bukkit.getServer().getOnlinePlayers()) {
+            if (player.getWorld().equals(p.getWorld()) && player.getLocation().distanceSquared(p.getLocation()) < d2) {
+                p.sendMessage(pMsg);
+            }
+        }
     }
 }
