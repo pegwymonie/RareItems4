@@ -106,21 +106,6 @@ public class RareItemProperty implements IRareItemProperty {
     }
 
     @Override
-    public boolean onInteracted(Player pInteracted, PlayerInteractEvent e, int level) {
-        return false;
-    }
-
-    @Override
-    public boolean onDamaged(Player pDamaged, EntityDamageEvent e, int level) {
-        return false;
-    }
-
-    @Override
-    public boolean onDamagedOther(Player pAttacker, EntityDamageByEntityEvent e, int level) {
-        return false;
-    }
-
-    @Override
     public void setCost(double cost) {
         this.cost = cost;
     }
@@ -246,6 +231,22 @@ public class RareItemProperty implements IRareItemProperty {
                 }
             }
         }
+    }
+
+
+    @Override
+    public boolean onInteracted(Player pInteracted, PlayerInteractEvent e, int level) {
+        return false;
+    }
+
+    @Override
+    public boolean onDamaged(Player pDamaged, EntityDamageEvent e, int level) {
+        return false;
+    }
+
+    @Override
+    public boolean onDamagedOther(Player pAttacker, EntityDamageByEntityEvent e, int level) {
+        return false;
     }
 
     @Override

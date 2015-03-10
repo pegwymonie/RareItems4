@@ -42,7 +42,7 @@ public class RareItemsYMLPersistence implements IRareItemsPersistence {
     }
 
     @Override
-    public IEssence createEmptyEssence(UUID creator, ItemPropertyRarity rarity) {
+    public IEssence createEmptyEssence(ItemPropertyRarity rarity) {
         int essenceId = this.saveYml.getInt(this.essencesIndexLocation);
 
         this.saveYml.set(this.essencesIndexLocation, essenceId + 1);
@@ -150,7 +150,7 @@ public class RareItemsYMLPersistence implements IRareItemsPersistence {
     }
 
     @Override
-    public IRareItem createRareItem(UUID creator, Map<IRareItemProperty, Integer> riProperties) {
+    public IRareItem createRareItem(Map<IRareItemProperty, Integer> riProperties) {
         int rareItemId = this.saveYml.getInt(rareItemsIndexLocation);
 
         this.saveYml.set(rareItemsIndexLocation, rareItemId + 1);
@@ -219,7 +219,7 @@ public class RareItemsYMLPersistence implements IRareItemsPersistence {
 
     @Override
     public void saveRareItem(IRareItem ri) {
-asdfsadfsda
+        asdfsadfsda
     }
 
     public void setRareItemProperties_rmeoveme(UUID modifier, int rareItemId, Map<IRareItemProperty, Integer> riProperties) {asdfasdf
