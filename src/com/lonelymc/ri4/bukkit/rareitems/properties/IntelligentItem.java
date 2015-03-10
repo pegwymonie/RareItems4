@@ -67,6 +67,8 @@ public class IntelligentItem extends RareItemProperty {
                 return false;
             }
         }
+
+        return true;
     }
 
     String[] onInteracted_misc = new String[]{
