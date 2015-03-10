@@ -22,7 +22,7 @@ public class IntelligentItem extends RareItemProperty {
     public IntelligentItem() {
         super(
                 "Intelligent Item", //Name (.toLowerCase() used as ID)
-                "A weapon that's never afraid to tell you its opinion",// Description
+                "An item that's never afraid to tell you its opinion",// Description
                 ItemPropertyRarity.STRANGE,
                 PropertyCostType.PASSIVE, //Cost type
                 0D, // Default cost
