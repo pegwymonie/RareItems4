@@ -106,14 +106,14 @@ public class RareItemsYMLPersistence implements IRareItemsPersistence {
 
         int id = essence.getId();
 
-        this.saveYml.set(id+".status",essence.getStatus().name());
-        this.saveYml.set(id+".rarity",essence.getRarity().name());
+        this.saveYml.set("essences."+id+".status",essence.getStatus().name());
+        this.saveYml.set("essences."+id+".rarity",essence.getRarity().name());
 
         if(essence.getProperty() != null){
-            this.saveYml.set(id+".property",essence.getProperty().getName());
+            this.saveYml.set("essences."+id+".property",essence.getProperty().getName());
         }
         else{
-            this.saveYml.set(id+".property",null);
+            this.saveYml.set("essences."+id+".property",null);
         }
 
         this.cachedEssences.remove(essence.getId());
@@ -175,10 +175,10 @@ public class RareItemsYMLPersistence implements IRareItemsPersistence {
 
         int id = ri.getId();
 
-        this.saveYml.set(id+".status",ri.getStatus().name());
+        this.saveYml.set("rareitems."+id+".status",ri.getStatus().name());
 
         for(Map.Entry<IRareItemProperty,Integer> rip : ri.getProperties().entrySet()){
-            this.saveYml.set(id+".properties."+rip.getKey().getName(),rip.getValue());
+            this.saveYml.set("rareitems."+id+".properties."+rip.getKey().getName(),rip.getValue());
         }
 
         this.cachedRareItems.remove(ri.getId());

@@ -229,19 +229,11 @@ public class RareItemPropertiesManager {
         }
     }
 
-    public void setRecipeForProperty_remove_this(String propertyName, String[] recipe) {
-        IRareItemProperty rip = this.getItemProperty(propertyName);
-
-        rip.setRecipe(recipe);
-
-        this.customizationsYml.set(rip.getName() + ".recipe", recipe);
-
+    public void saveItemProperty(IRareItemProperty rip) {
         this.customizationsDirty = true;
 
-        this.refreshServerRecipe(rip);
-    }
+        String id = rip.getName();
 
-    public void saveItemProperty(IRareItemProperty rip) {
-        asdflkjaslkdfj;asdfja
+        this.customizationsYml.set(id+".recipe",rip.getRecipe());
     }
 }

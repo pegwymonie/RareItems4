@@ -61,19 +61,21 @@ public class IntelligentItem extends RareItemProperty {
     // Basically, it's a randomized 1-30 second cooldown with no wait message
     @Override
     public boolean hasCost(Player player, int level) {
+        //50% of the time, no msg even if they haven't done anything for a while
+        // Just to add a little pacing
+        if(random.nextBoolean()){
+            return false;
+        }
+
         Long cooldown = this.lastUse.get(player.getUniqueId().toString());
 
         if (cooldown != null) {
             if (System.currentTimeMillis() < cooldown) {
-                int secondsLeft = (int) ((System.currentTimeMillis() - cooldown) / 1000);
-
                 return false;
             }
         }
 
-        //50% of the time, no msg even if they haven't done anything for a while
-        // Just to add a little pacing
-        return random.nextBoolean();
+        return true;
     }
 
     String[] onInteracted_misc = new String[]{
@@ -92,8 +94,7 @@ public class IntelligentItem extends RareItemProperty {
     String[] onInteracted_clickedPlant = new String[]{
             "I once met this birch I really liked, so I gave her some bone meal. Birches love bone meal.",
             "If plants come from seeds, and seeds come from plants... Where'd the first plant come from?",
-            "Thinking about becoming a vegetarian?",
-            ""
+            "Thinking about becoming a vegetarian?"
     };
 
     @Override
@@ -116,14 +117,13 @@ public class IntelligentItem extends RareItemProperty {
                 case PUMPKIN:
                 case CACTUS:
                 case CROPS:
-                case LONG_GRASS:
                 case YELLOW_FLOWER:
                 case RED_ROSE:
                 case BROWN_MUSHROOM:
                 case RED_MUSHROOM:
                 case LEAVES:
                 case SAPLING:
-                    msg(pInteracted, onInteracted_clickedPlant[random.nextInt(onInteracted_noBlock.length)]);
+                    msg(pInteracted, onInteracted_clickedPlant[random.nextInt(onInteracted_clickedPlant.length)]);
                     break;
 
                 case VINE:
@@ -139,6 +139,7 @@ public class IntelligentItem extends RareItemProperty {
                     msg(pInteracted, "I love chocolate. I mean I've never tried it myself, but people say such good things...");
                     break;
 
+                case LONG_GRASS:
                 case STONE:
                 case GRASS:
                 case DIRT:
@@ -332,7 +333,7 @@ public class IntelligentItem extends RareItemProperty {
 
         return true;
     }
-
+/*
     @Override
     public boolean onDamaged(Player pDamaged, EntityDamageEvent e, int level) {
 
@@ -345,13 +346,13 @@ public class IntelligentItem extends RareItemProperty {
 
     @Override
     public boolean onInteractEntity(Player pInteracted, PlayerInteractEntityEvent e, int level) {
-e.getRightClicked().getType()
+        e.getRightClicked().getType()
     }
 
     @Override
     public boolean onLaunchProjectile(Player shooter, EntityShootBowEvent e, int level) {
 e.getForce()
-    }
+    }*/
 
     String[] onArrowHitEntity_almostDead = new String[]{
             "Boom! HEADSHOT",
@@ -513,6 +514,8 @@ e.getForce()
     };
 
     public void msg(Player player, String msg) {
+        this.takeCost(player,1);
+
         // occasionally inject a location/time-based message
         int inject = random.nextInt(100);
 
@@ -639,7 +642,7 @@ e.getForce()
         int d2 = 15 * 15;
 
         for (Player p : Bukkit.getServer().getOnlinePlayers()) {
-            if (player.getWorld().equals(p.getWorld()) && player.getLocation().distanceSquared(p.getLocation()) < d2) {
+            if (player != p && player.getWorld().equals(p.getWorld()) && player.getLocation().distanceSquared(p.getLocation()) < d2) {
                 p.sendMessage(pMsg);
             }
         }

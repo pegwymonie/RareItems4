@@ -14,7 +14,7 @@ public class Spore extends RareItemProperty {
                 "Turns clicked cobblestone into mossy cobblestone.",
                 ItemPropertyRarity.COMMON,
                 PropertyCostType.COOLDOWN,
-                1.0D,
+                0.5D,
                 1,
                 new String[]{
                         "type=SEEDS;",

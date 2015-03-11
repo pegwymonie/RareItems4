@@ -44,10 +44,6 @@ public class PlayerListener implements Listener {
             IRareItem ri = this.api.getRareItem(e.getItem());
 
             if (ri != null && ri.getStatus() != RareItemStatus.REVOKED) {
-                if (e.getAction().equals(Action.RIGHT_CLICK_BLOCK) || e.getAction().equals(Action.RIGHT_CLICK_AIR)) {
-                    e.setCancelled(true);
-                }
-
                 for (Map.Entry<IRareItemProperty, Integer> entry : ri.getProperties().entrySet()) {
                     IRareItemProperty rip = entry.getKey();
                     int level = entry.getValue();
@@ -57,6 +53,10 @@ public class PlayerListener implements Listener {
                             rip.takeCost(p, level);
                         }
                     }
+                }
+
+                if (e.getAction().equals(Action.RIGHT_CLICK_BLOCK) || e.getAction().equals(Action.RIGHT_CLICK_AIR)) {
+                    e.setCancelled(true);
                 }
             }
         }

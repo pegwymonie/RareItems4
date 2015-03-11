@@ -34,7 +34,7 @@ public class CraftingListener implements Listener {
     public void onCompletedEssenceRecipe(CraftItemEvent e) {
         ItemStack isResult = e.getInventory().getItem(0);
 
-        if (isResult.getType().equals(Material.DIRT) && isResult.hasItemMeta()) {
+        if (isResult != null && isResult.getType().equals(Material.DIRT) && isResult.hasItemMeta()) {
             ItemMeta meta = isResult.getItemMeta();
 
             String propertyName = MetaStringEncoder.decodeHidden(meta.getDisplayName(), "rir");

@@ -93,6 +93,7 @@ public class RareItems4Plugin extends JavaPlugin {
         this.api.addItemProperty(new HalfBakedIdea());
         this.api.addItemProperty(new Hardy());
         this.api.addItemProperty(new Haste());
+        this.api.addItemProperty(new IntelligentItem());
         this.api.addItemProperty(new Invisibility());
         this.api.addItemProperty(new MagicBag());
         this.api.addItemProperty(new MeltObsidian());
