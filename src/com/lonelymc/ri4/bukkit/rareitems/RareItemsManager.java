@@ -43,7 +43,7 @@ public class RareItemsManager implements IRareItems4API {
             }
         }, 20 * 60 * 10, 20 * 60 * 10);
 
-        IRareItems4API theApi = this;
+        final IRareItems4API theApi = this;
 
         // Active effects cleaner
         plugin.getServer().getScheduler().runTaskTimer(plugin, new Runnable() {

@@ -10,10 +10,7 @@ import org.bukkit.WorldType;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.event.entity.EntityDamageEvent;
-import org.bukkit.event.entity.EntityShootBowEvent;
 import org.bukkit.event.entity.ProjectileHitEvent;
-import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -63,12 +60,6 @@ public class IntelligentItem extends RareItemProperty {
     // Basically, it's a randomized 1-30 second cooldown with no wait message
     @Override
     public boolean hasCost(Player player, int level) {
-        //50% of the time, no msg even if they haven't done anything for a while
-        // Just to add a little pacing
-        if(random.nextBoolean()){
-            return false;
-        }
-
         Long cooldown = this.lastUse.get(player.getUniqueId().toString());
 
         if (cooldown != null) {
@@ -99,16 +90,22 @@ public class IntelligentItem extends RareItemProperty {
             "Thinking about becoming a vegetarian?"
     };
 
+    private String r(String[] msgs) {
+        return msgs[random.nextInt(msgs.length)];
+    }
+
     @Override
     public boolean onInteracted(Player pInteracted, PlayerInteractEvent e, int level) {
+        String msg = "";
+
         if (e.hasBlock()) {
             switch (e.getClickedBlock().getType()) {
                 default:
-                    msg(pInteracted, onInteracted_misc[random.nextInt(onInteracted_misc.length)]);
+                    msg = r(onInteracted_misc);
                     break;
                 case MELON_BLOCK:
                 case MELON_STEM:
-                    msg(pInteracted, "When the world gives you melons, make melonaid!");
+                    msg = "When the world gives you melons, make melonaid!";
                     break;
                 case CARROT:
                 case POTATO:
@@ -125,20 +122,20 @@ public class IntelligentItem extends RareItemProperty {
                 case RED_MUSHROOM:
                 case LEAVES:
                 case SAPLING:
-                    msg(pInteracted, onInteracted_clickedPlant[random.nextInt(onInteracted_clickedPlant.length)]);
+                    msg = r(onInteracted_clickedPlant);
                     break;
 
                 case VINE:
-                    msg(pInteracted, "A vine is like a ladder tree that grows upside down.");
+                    msg = "Vines are like an upside down trees that grow a ladder.";
                     break;
 
                 case JACK_O_LANTERN:
                 case DEAD_BUSH:
-                    msg(pInteracted, "That's a little spooky.");
+                    msg = "That's a little spooky.";
                     break;
 
                 case COCOA:
-                    msg(pInteracted, "I love chocolate. I mean I've never tried it myself, but people say such good things...");
+                    msg = "I love chocolate. I mean I've never tried it myself, but people say such good things...";
                     break;
 
                 case LONG_GRASS:
@@ -330,10 +327,10 @@ public class IntelligentItem extends RareItemProperty {
                     break;
             }
         } else {
-            msg(pInteracted, onInteracted_noBlock[random.nextInt(onInteracted_noBlock.length)]);
+            msg = r(onInteracted_noBlock);
         }
 
-        return true;
+        return tryMsg(pInteracted, msg);
     }
 /*
     @Override
@@ -354,7 +351,8 @@ public class IntelligentItem extends RareItemProperty {
     @Override
     public boolean onLaunchProjectile(Player shooter, EntityShootBowEvent e, int level) {
 e.getForce()
-    }*/
+    }
+*/
 
     String[] onArrowHitEntity_almostDead = new String[]{
             "Boom! HEADSHOT",
@@ -379,6 +377,8 @@ e.getForce()
 
     @Override
     public boolean onArrowHitEntity(Player shooter, EntityDamageByEntityEvent e, int level) {
+        String msg = "";
+
         if (e.getEntity() instanceof LivingEntity) {
             LivingEntity le = (LivingEntity) e.getEntity();
 
@@ -386,13 +386,16 @@ e.getForce()
                 double remainingHpPercent = le.getHealth() / le.getMaxHealth() * 100;
 
                 if (remainingHpPercent < 25) {
-                    msg(shooter, onArrowHitEntity_almostDead[random.nextInt(onArrowHitEntity_almostDead.length)]);
-                } else if (remainingHpPercent < 50) {
-                    msg(shooter, onArrowHitEntity_lowHp[random.nextInt(onArrowHitEntity_lowHp.length)]);
-                } else if (remainingHpPercent < 75) {
-                    msg(shooter, onArrowHitEntity_decentHP[random.nextInt(onArrowHitEntity_decentHP.length)]);
-                } else {
-                    msg(shooter, onArrowHitEntity_highHp[random.nextInt(onArrowHitEntity_highHp.length)]);
+                    msg = r(onArrowHitEntity_almostDead);
+                }
+                else if (remainingHpPercent < 50) {
+                    msg = r(onArrowHitEntity_lowHp);
+                }
+                else if (remainingHpPercent < 75) {
+                    msg = r(onArrowHitEntity_decentHP);
+                }
+                else {
+                    msg = r(onArrowHitEntity_highHp);
                 }
             } else {
                 switch (le.getType()) {
@@ -437,13 +440,13 @@ e.getForce()
             }
         } else {
             if (random.nextBoolean()) {
-                msg(shooter, "Nice! You uh... Hit it, I guess.");
+                msg = "Nice! You uh... Hit it, I guess.";
             } else {
-                msg(shooter, "Did you mean to do that?");
+                msg = "Did you mean to do that?";
             }
         }
 
-        return true;
+        return tryMsg(shooter, msg);
     }
 
     String[] onArrowHitGroundMsgs = new String[]{
@@ -458,9 +461,7 @@ e.getForce()
 
     @Override
     public boolean onArrowHitGround(Player shooter, ProjectileHitEvent e, int level) {
-        msg(shooter, onArrowHitGroundMsgs[random.nextInt(onArrowHitGroundMsgs.length)]);
-
-        return true;
+        return tryMsg(shooter, r(onArrowHitGroundMsgs));
     }
 
 
@@ -515,25 +516,31 @@ e.getForce()
             "What do you say we fry up some pork chops for dinner?"
     };
 
-    public void msg(Player player, String msg) {
-        this.takeCost(player,1);
+    public boolean tryMsg(Player player, String msg) {
+        this.takeCost(player, 1);
 
         // occasionally inject a location/time-based message
-        int inject = random.nextInt(100);
+        // always do inject if msg is ""
+        int inject;
 
-        if(inject < 5){
+        if(msg.equals("")){
+            inject = random.nextInt(8);
+        }
+        else{
+            inject = random.nextInt(100);
+        }
+
+        if (inject < 5) {
             World world = player.getLocation().getWorld();
 
-            if(random.nextInt(4) < 1 && world.getWorldType().equals(WorldType.FLAT)){
+            if (random.nextInt(4) < 1 && world.getWorldType().equals(WorldType.FLAT)) {
                 msg = msg_flat[random.nextInt(msg_flat.length)];
-            }
-            else if(random.nextBoolean() && world.isThundering()){
+            } else if (random.nextBoolean() && world.isThundering()) {
                 msg = msg_storm[random.nextInt(msg_storm.length)];
-            }
-            else{
+            } else {
                 switch (world.getEnvironment()) {
                     case NORMAL:
-                        switch(player.getLocation().getBlock().getBiome()){
+                        switch (player.getLocation().getBlock().getBiome()) {
 
                             case FROZEN_OCEAN:
                             case FROZEN_RIVER:
@@ -617,31 +624,30 @@ e.getForce()
                         break;
                 }
             }
-        }
-        else if(inject < 8){
+        } else if (inject < 8) {
             long time = player.getWorld().getFullTime();
 
-            if(time > 18000) {//midnight - 6am
-                msg = msg_time_early_morning[random.nextInt(msg_time_early_morning.length)];
+            if (time > 18000) {//midnight - 6am
+                msg = r(msg_time_early_morning);
             }
-            else if(time > 12000){//6pm - midnight
-                msg = msg_time_evening[random.nextInt(msg_time_evening.length)];
+            else if (time > 12000) {//6pm - midnight
+                msg = r(msg_time_evening);
             }
-            else if(time > 6000) {//noon - 6pm
-                msg = msg_time_afternoon[random.nextInt(msg_time_afternoon.length)];
+            else if (time > 6000) {//noon - 6pm
+                msg = r(msg_time_afternoon);
             }
             else {//6am - noon
-                msg = msg_time_morning[random.nextInt(msg_time_morning.length)];
+                msg = r(msg_time_morning);
             }
         }
 
         ItemStack isHand = player.getItemInHand();
         String sItem = isHand.getType().name().toLowerCase().replace("_", " ");
 
-        if(isHand.hasItemMeta()){
+        if (isHand.hasItemMeta()) {
             ItemMeta meta = isHand.getItemMeta();
 
-            if(meta.hasDisplayName()){
+            if (meta.hasDisplayName()) {
                 sItem = meta.getDisplayName();
             }
         }
@@ -657,5 +663,7 @@ e.getForce()
                 p.sendMessage(pMsg);
             }
         }
+
+        return true;
     }
 }

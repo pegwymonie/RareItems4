@@ -12,9 +12,9 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.util.List;
 
 public class FakeInventory {    
-    public static void fakeClientInventorySlot(JavaPlugin plugin,List<HumanEntity> viewers, ItemStack is, int slot) {
+    public static void fakeClientInventorySlot(JavaPlugin plugin,List<HumanEntity> viewers, final ItemStack is, final int slot) {
     // Generally it's just the one player
-    for(HumanEntity viewer : viewers) {
+    for(final HumanEntity viewer : viewers) {
         if (viewer instanceof CraftPlayer) {
             Bukkit.getServer().getScheduler().runTaskLater(plugin, new Runnable() {
                 @Override
