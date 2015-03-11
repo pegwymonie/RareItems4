@@ -15,6 +15,8 @@ import org.bukkit.event.entity.EntityShootBowEvent;
 import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.*;
 
@@ -633,7 +635,16 @@ e.getForce()
             }
         }
 
-        String sItem = player.getItemInHand().getType().name().toLowerCase().replace("_", " ");
+        ItemStack isHand = player.getItemInHand();
+        String sItem = isHand.getType().name().toLowerCase().replace("_", " ");
+
+        if(isHand.hasItemMeta()){
+            ItemMeta meta = isHand.getItemMeta();
+
+            if(meta.hasDisplayName()){
+                sItem = meta.getDisplayName();
+            }
+        }
 
         player.sendMessage(ChatColor.GOLD + "Your " + sItem + ChatColor.RESET + ": " + msg);
 
