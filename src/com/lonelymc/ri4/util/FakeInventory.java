@@ -1,10 +1,10 @@
 package com.lonelymc.ri4.util;
 
-import net.minecraft.server.v1_8_R1.EntityPlayer;
-import net.minecraft.server.v1_8_R1.PacketPlayOutSetSlot;
+import net.minecraft.server.v1_8_R2.EntityPlayer;
+import net.minecraft.server.v1_8_R2.PacketPlayOutSetSlot;
 import org.bukkit.Bukkit;
-import org.bukkit.craftbukkit.v1_8_R1.entity.CraftPlayer;
-import org.bukkit.craftbukkit.v1_8_R1.inventory.CraftItemStack;
+import org.bukkit.craftbukkit.v1_8_R2.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_8_R2.inventory.CraftItemStack;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
