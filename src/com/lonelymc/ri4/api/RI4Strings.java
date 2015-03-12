@@ -86,7 +86,7 @@ public class RI4Strings {
     public static String NMS_CRAFTING_NOT_SUPPORTED = "Crafting is not fully supported under your server version (!version), please check for an update!";
 
     public static String RI_STOLE_HP_GAINER = "&GREENStole !hp hp!";
-    public static String RI_STOLE_HP_LOSER = "&RED!hp stolen from you!";
+    public static String RI_STOLE_HP_LOSER = "&RED!hp was stolen from you!";
 
     // These aren't actually displayed as it turns out, but are necessary to statelessly identify certain GUI elements
     public final static String CRAFTING_VIEW_RARE_ITEM_RECIPE = "RIPVIEWER";
