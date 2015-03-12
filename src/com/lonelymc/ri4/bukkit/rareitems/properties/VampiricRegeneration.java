@@ -1,10 +1,10 @@
 package com.lonelymc.ri4.bukkit.rareitems.properties;
 
 
-import com.lonelymc.ri4.bukkit.rareitems.RareItemProperty;
 import com.lonelymc.ri4.api.ItemPropertyRarity;
 import com.lonelymc.ri4.api.PropertyCostType;
-import org.bukkit.ChatColor;
+import com.lonelymc.ri4.api.RI4Strings;
+import com.lonelymc.ri4.bukkit.rareitems.RareItemProperty;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
@@ -15,39 +15,42 @@ public class VampiricRegeneration extends RareItemProperty {
     public VampiricRegeneration() {
         super(
                 "Vampiric Regeneration",
-                "3% chance/level to steal 5HP from an enemy",
-                ItemPropertyRarity.UNCOMMON,
+                "5% chance/level to steal 1-5HP from an enemy",
+                ItemPropertyRarity.RARE,
                 PropertyCostType.FOOD,
                 1.0D,
-                6
+                5
         );
     }
 
     @Override
-    public boolean onDamagedOther(Player p, EntityDamageByEntityEvent e, int level) {
-        if ((new Random().nextInt(100) < 3 * level) &&
-                ((e.getEntity() instanceof LivingEntity)) && ((e.getDamager() instanceof LivingEntity))) {
+    public boolean onDamagedOther(Player pAttacker, EntityDamageByEntityEvent e, int level) {
+        Random random = new Random();
+
+        if (e.getEntity() instanceof LivingEntity
+                && random.nextInt(100) < 5 * level) {
+
             LivingEntity attacked = (LivingEntity) e.getEntity();
-            LivingEntity attacker = (LivingEntity) e.getDamager();
 
-            int iStolenHP = new Random().nextInt(3 * level) + 1;
+            int hpToSteal = random.nextInt(4) + 1;
 
-            double iNewAttackerHP = attacked.getHealth() - iStolenHP;
-            if (iNewAttackerHP > 20.0D) {
-                iNewAttackerHP = 20.0D;
-            }
-            double iNewAttackedHP = attacker.getHealth() + iStolenHP;
-            if (iNewAttackedHP < 1.0D) {
-                iNewAttackerHP = 1.0D;
-            }
-            attacked.setHealth(iNewAttackedHP);
-            attacker.setHealth(iNewAttackerHP);
+            double attackerNewHP = attacked.getHealth() + hpToSteal;
+            double attackedNewHP = pAttacker.getHealth() - hpToSteal;
 
-            p.sendMessage(ChatColor.RED + "You stole " + iStolenHP + "HP!");
-            if ((attacked instanceof Player)) {
-                Player pAttacked = (Player) attacked;
-                pAttacked.sendMessage(ChatColor.RED + p.getName() + " stole " + iStolenHP + "HP from you!");
+            if (attackedNewHP < 2.0D) {//1 heart
+                return false;
             }
+
+            if (attackerNewHP > 20) {
+                attackerNewHP = 20;
+            }
+
+            attacked.setHealth(attackedNewHP);
+            pAttacker.setHealth(attackerNewHP);
+
+            pAttacker.sendMessage(RI4Strings.RI_STOLE_HP_GAINER.replace("!hp", String.valueOf(hpToSteal)));
+            pAttacker.sendMessage(RI4Strings.RI_STOLE_HP_LOSER.replace("!hp", String.valueOf(hpToSteal)));
+
             return true;
         }
         return false;

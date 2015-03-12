@@ -1,5 +1,6 @@
 package com.lonelymc.ri4.api;
 
+import com.avaje.ebean.enhance.ant.StringReplace;
 import com.lonelymc.ri4.util.MetaStringEncoder;
 import com.lonelymc.ri4.util.RomanNumeral;
 
@@ -84,6 +85,9 @@ public class RI4Strings {
     public static String RECIPE_UPDATED = "Recipe for !property was updated!";
     public static String CRAFTING_NEED_ESSENCE = "&REDEach recipe must have a single essence!";
     public static String NMS_CRAFTING_NOT_SUPPORTED = "Crafting is not fully supported under your server version (!version), please check for an update!";
+
+    public static String RI_STOLE_HP_GAINER = "&GREENStole !hp hp!";
+    public static String RI_STOLE_HP_LOSER = "&RED!hp stolen from you!";
 
     // These aren't actually displayed as it turns out, but are necessary to statelessly identify certain GUI elements
     public final static String CRAFTING_VIEW_RARE_ITEM_RECIPE = "RIPVIEWER";
