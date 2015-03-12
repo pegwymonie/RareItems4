@@ -6,6 +6,7 @@ import org.bukkit.inventory.ItemStack;
 import java.util.Collection;
 import java.util.Map;
 import java.util.UUID;
+import java.util.logging.Level;
 
 public interface IRareItems4API {
     //notification of plugin being shutdown
@@ -62,4 +63,6 @@ public interface IRareItems4API {
     void removeActiveEffects(Player player);
 
     Collection<IRareItemProperty> getAllItemProperties();
+
+    void log(Level logLevel,String msg);
 }

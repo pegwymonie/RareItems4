@@ -10,6 +10,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.*;
+import java.util.logging.Level;
 
 public class RareItemsManager implements IRareItems4API {
     private final HashMap<UUID, Map<IRareItemProperty, Integer>> activeEffects;
@@ -237,6 +238,11 @@ public class RareItemsManager implements IRareItems4API {
     @Override
     public Collection<IRareItemProperty> getAllItemProperties() {
         return this.propertiesManager.getAllProperties();
+    }
+
+    @Override
+    public void log(Level logLevel, String msg) {
+        //TODO: implement API logging + in-game messaging
     }
 
     @Override

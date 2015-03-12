@@ -83,6 +83,7 @@ public class RI4Strings {
     public static String COMMAND_RECIPE_REMOVED = "Recipe for !property was removed!";
     public static String RECIPE_UPDATED = "Recipe for !property was updated!";
     public static String CRAFTING_NEED_ESSENCE = "&REDEach recipe must have a single essence!";
+    public static String NMS_CRAFTING_NOT_SUPPORTED = "Crafting is not fully supported under your server version (!version), please check for an update!";
 
     // These aren't actually displayed as it turns out, but are necessary to statelessly identify certain GUI elements
     public final static String CRAFTING_VIEW_RARE_ITEM_RECIPE = "RIPVIEWER";

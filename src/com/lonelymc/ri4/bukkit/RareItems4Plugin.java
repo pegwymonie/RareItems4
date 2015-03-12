@@ -8,6 +8,7 @@ import com.lonelymc.ri4.bukkit.listeners.PlayerListener;
 import com.lonelymc.ri4.bukkit.rareitems.RareItemsManager;
 import com.lonelymc.ri4.bukkit.rareitems.RareItemsYMLPersistence;
 import com.lonelymc.ri4.bukkit.rareitems.properties.*;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -29,9 +30,15 @@ import java.util.logging.Level;
 public class RareItems4Plugin extends JavaPlugin {
     private BasicCommandExecutor commandExecutor;
     private IRareItems4API api;
+    private String nmsVersion;
 
     @Override
     public void onEnable() {
+//Set NMS version
+        String sPackage = Bukkit.getServer().getClass().getPackage().getName();
+
+        this.nmsVersion = sPackage.substring(sPackage.lastIndexOf(".")+1);
+
         this.getDataFolder().mkdirs();
 
 // Load default config w/ comments
@@ -214,5 +221,9 @@ public class RareItems4Plugin extends JavaPlugin {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public String getNmsVersion(){
+        return this.nmsVersion;
     }
 }
