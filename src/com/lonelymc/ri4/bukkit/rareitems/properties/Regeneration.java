@@ -31,13 +31,17 @@ public class Regeneration extends RareItemProperty {
 
     @Override
     public void applyEffectToPlayer(Player p, int level) {
-        if (p.getHealth() < 20.0D) {
+        if (p.getHealth() < p.getMaxHealth()) {
+
             double iNewHP = p.getHealth() + level;
-            if (iNewHP > 20.0D) {
-                iNewHP = 20.0D;
+
+            if (iNewHP > p.getMaxHealth()) {
+                iNewHP = p.getMaxHealth();
             }
+
             p.setHealth(iNewHP);
 
+            //TODO: Verify this effect works
             p.getLocation().getWorld().playEffect(p.getLocation(), Effect.INSTANT_SPELL, 1);
         }
     }
