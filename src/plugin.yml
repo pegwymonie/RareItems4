@@ -1,6 +1,6 @@
 name: RareItems4
 main: com.lonelymc.ri4.bukkit.RareItems4Plugin
-version: '4.0a'
+version: '4.0.1a'
 load: STARTUP
 database: false
 softdepend: [Vault]
