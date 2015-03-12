@@ -9,28 +9,24 @@ import org.bukkit.inventory.meta.FireworkMeta;
 
 import java.lang.reflect.Method;
 
-public class FireworkVisualEffect
-{
+public class FireworkVisualEffect {
     private Method world_getHandle = null;
     private Method nms_world_broadcastEntityEffect = null;
     private Method firework_getHandle = null;
 
     public void playFirework(World world, Location loc, FireworkEffect fe)
-            throws Exception
-    {
-        Firework fw = (Firework)world.spawnEntity(loc, EntityType.FIREWORK);
-
+            throws Exception {
+        Firework fw = (Firework) world.spawnEntity(loc, EntityType.FIREWORK);
 
 
         Object nms_world = null;
         Object nms_firework = null;
-        if (this.world_getHandle == null)
-        {
+        if (this.world_getHandle == null) {
             this.world_getHandle = getMethod(world.getClass(), "getHandle");
             this.firework_getHandle = getMethod(fw.getClass(), "getHandle");
         }
-        nms_world = this.world_getHandle.invoke(world, (Object[])null);
-        nms_firework = this.firework_getHandle.invoke(fw, (Object[])null);
+        nms_world = this.world_getHandle.invoke(world, (Object[]) null);
+        nms_firework = this.firework_getHandle.invoke(fw, (Object[]) null);
         if (this.nms_world_broadcastEntityEffect == null) {
             this.nms_world_broadcastEntityEffect = getMethod(nms_world.getClass(), "broadcastEntityEffect");
         }
@@ -49,8 +45,7 @@ public class FireworkVisualEffect
         fw.remove();
     }
 
-    private static Method getMethod(Class<?> cl, String method)
-    {
+    private static Method getMethod(Class<?> cl, String method) {
         for (Method m : cl.getMethods()) {
             if (m.getName().equals(method)) {
                 return m;
