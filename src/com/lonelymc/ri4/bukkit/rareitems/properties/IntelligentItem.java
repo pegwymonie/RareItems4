@@ -107,6 +107,7 @@ public class IntelligentItem extends RareItemProperty {
                 case MELON_STEM:
                     msg = "When the world gives you melons, make melonaid!";
                     break;
+
                 case CARROT:
                 case POTATO:
                 case WATER_LILY:
@@ -138,37 +139,112 @@ public class IntelligentItem extends RareItemProperty {
                     msg = "I love chocolate. I mean I've never tried it myself, but people say such good things...";
                     break;
 
-                case LONG_GRASS:
-                case STONE:
-                case GRASS:
-                case DIRT:
-                case COBBLESTONE:
-                case WOOD:
+                case CAKE_BLOCK:
+                    msg = "Is it someone's birthday?";
+                    break;
+
+                case BED_BLOCK:
+                case BED:
+                    msg = "You know I could use a nap.";
+                    break;
+
+                case SPRUCE_FENCE_GATE:
+                case BIRCH_FENCE_GATE:
+                case JUNGLE_FENCE_GATE:
+                case DARK_OAK_FENCE_GATE:
+                case ACACIA_FENCE_GATE:
+                case SPRUCE_FENCE:
+                case BIRCH_FENCE:
+                case JUNGLE_FENCE:
+                case DARK_OAK_FENCE:
+                case ACACIA_FENCE:
+
+
                 case BEDROCK:
+                    msg = "I suspect you wont be able to break this stuff.";
+                    break;
+
+                case DIODE:
+                case REDSTONE_COMPARATOR:
+                case REDSTONE_COMPARATOR_OFF:
+                case REDSTONE_COMPARATOR_ON:
+                case REDSTONE_TORCH_OFF:
+                case REDSTONE_TORCH_ON:
+                case TRIPWIRE_HOOK:
+                case TRIPWIRE:
+                case DIODE_BLOCK_OFF:
+                case DIODE_BLOCK_ON:
+                case RAILS:
+                case REDSTONE_WIRE:
+                case PISTON_BASE:
+                case PISTON_STICKY_BASE:
+                case PISTON_EXTENSION:
+                case POWERED_RAIL:
+                case DETECTOR_RAIL:
+                    msg = "Never took you for an engineer.";
+                    break;
+
+                case DRAGON_EGG:
+                    msg = "Think we can hatch it?";
+                    break;
+
+                case STONE_SLAB2:
+                case SPRUCE_DOOR:
+                case BIRCH_DOOR:
+                case JUNGLE_DOOR:
+                case ACACIA_DOOR:
+                case DARK_OAK_DOOR:
+                case TRAP_DOOR:
+                case WOOD_DOOR:
+                case IRON_DOOR:
+                    msg = "Not the most terrible place I've ever been.";
+                    break;
+
+                case REDSTONE_LAMP_OFF:
+                    msg = "Try clapping let's see if it turns on";
+                    break;
+
+                case REDSTONE_LAMP_ON:
+                    msg = "Try clapping let's see if it turns off";
+                    break;
+
+
+                case GLOWING_REDSTONE_ORE:
+                    msg = "What a creepy glow.";
+                    break;
+
+                case REDSTONE_ORE:
+                case GOLD_ORE:
+                case IRON_ORE:
+                case LAPIS_ORE:
+                case DIAMOND_ORE:
+                case EMERALD_ORE:
+                    msg = "We're gonna share that right?";
+                    break;
+
+                case WEB:
+                    msg = "Ewww you're getting me all gummed up.";
+                    break;
+
+                // TODO: add messages for these
+                /*
+                case COAL_ORE:
+                case EMERALD_BLOCK:
+                case DIAMOND_BLOCK:
+                case LAPIS_BLOCK:
+                case WOOD:
                 case WATER:
                 case STATIONARY_WATER:
                 case LAVA:
                 case STATIONARY_LAVA:
                 case SAND:
                 case GRAVEL:
-                case GOLD_ORE:
-                case IRON_ORE:
-                case COAL_ORE:
                 case LOG:
                 case SPONGE:
                 case GLASS:
-                case LAPIS_ORE:
-                case LAPIS_BLOCK:
                 case DISPENSER:
                 case SANDSTONE:
                 case NOTE_BLOCK:
-                case BED_BLOCK:
-                case POWERED_RAIL:
-                case DETECTOR_RAIL:
-                case PISTON_STICKY_BASE:
-                case WEB:
-                case PISTON_BASE:
-                case PISTON_EXTENSION:
                 case WOOL:
                 case PISTON_MOVING_PIECE:
                 case GOLD_BLOCK:
@@ -185,9 +261,6 @@ public class IntelligentItem extends RareItemProperty {
                 case MOB_SPAWNER:
                 case WOOD_STAIRS:
                 case CHEST:
-                case REDSTONE_WIRE:
-                case DIAMOND_ORE:
-                case DIAMOND_BLOCK:
                 case WORKBENCH:
                 case SOIL:
                 case FURNACE:
@@ -195,17 +268,12 @@ public class IntelligentItem extends RareItemProperty {
                 case SIGN_POST:
                 case WOODEN_DOOR:
                 case LADDER:
-                case RAILS:
                 case COBBLESTONE_STAIRS:
                 case WALL_SIGN:
                 case LEVER:
                 case STONE_PLATE:
                 case IRON_DOOR_BLOCK:
                 case WOOD_PLATE:
-                case REDSTONE_ORE:
-                case GLOWING_REDSTONE_ORE:
-                case REDSTONE_TORCH_OFF:
-                case REDSTONE_TORCH_ON:
                 case STONE_BUTTON:
                 case SNOW:
                 case ICE:
@@ -218,11 +286,7 @@ public class IntelligentItem extends RareItemProperty {
                 case SOUL_SAND:
                 case GLOWSTONE:
                 case PORTAL:
-                case CAKE_BLOCK:
-                case DIODE_BLOCK_OFF:
-                case DIODE_BLOCK_ON:
                 case STAINED_GLASS:
-                case TRAP_DOOR:
                 case MONSTER_EGGS:
                 case SMOOTH_BRICK:
                 case IRON_FENCE:
@@ -241,17 +305,10 @@ public class IntelligentItem extends RareItemProperty {
                 case ENDER_PORTAL:
                 case ENDER_PORTAL_FRAME:
                 case ENDER_STONE:
-                case DRAGON_EGG:
-                case REDSTONE_LAMP_OFF:
-                case REDSTONE_LAMP_ON:
                 case WOOD_DOUBLE_STEP:
                 case WOOD_STEP:
                 case SANDSTONE_STAIRS:
-                case EMERALD_ORE:
                 case ENDER_CHEST:
-                case TRIPWIRE_HOOK:
-                case TRIPWIRE:
-                case EMERALD_BLOCK:
                 case SPRUCE_WOOD_STAIRS:
                 case BIRCH_WOOD_STAIRS:
                 case JUNGLE_WOOD_STAIRS:
@@ -265,8 +322,6 @@ public class IntelligentItem extends RareItemProperty {
                 case TRAPPED_CHEST:
                 case GOLD_PLATE:
                 case IRON_PLATE:
-                case REDSTONE_COMPARATOR_OFF:
-                case REDSTONE_COMPARATOR_ON:
                 case DAYLIGHT_DETECTOR:
                 case REDSTONE_BLOCK:
                 case QUARTZ_ORE:
@@ -298,33 +353,10 @@ public class IntelligentItem extends RareItemProperty {
                 case RED_SANDSTONE:
                 case RED_SANDSTONE_STAIRS:
                 case DOUBLE_STONE_SLAB2:
-                case STONE_SLAB2:
-                case SPRUCE_FENCE_GATE:
-                case BIRCH_FENCE_GATE:
-                case JUNGLE_FENCE_GATE:
-                case DARK_OAK_FENCE_GATE:
-                case ACACIA_FENCE_GATE:
-                case SPRUCE_FENCE:
-                case BIRCH_FENCE:
-                case JUNGLE_FENCE:
-                case DARK_OAK_FENCE:
-                case ACACIA_FENCE:
-                case SPRUCE_DOOR:
-                case BIRCH_DOOR:
-                case JUNGLE_DOOR:
-                case ACACIA_DOOR:
-                case DARK_OAK_DOOR:
                 case SIGN:
-                case WOOD_DOOR:
-                case IRON_DOOR:
-                case BONE:
-                case SUGAR:
-                case CAKE:
-                case BED:
-                case DIODE:
-                case REDSTONE_COMPARATOR:
                 case QUARTZ:
                     break;
+                */
             }
         } else {
             msg = r(onInteracted_noBlock);
@@ -332,6 +364,7 @@ public class IntelligentItem extends RareItemProperty {
 
         return tryMsg(pInteracted, msg);
     }
+    //TODO: Add msgs for these events
 /*
     @Override
     public boolean onDamaged(Player pDamaged, EntityDamageEvent e, int level) {
@@ -387,14 +420,11 @@ e.getForce()
 
                 if (remainingHpPercent < 25) {
                     msg = r(onArrowHitEntity_almostDead);
-                }
-                else if (remainingHpPercent < 50) {
+                } else if (remainingHpPercent < 50) {
                     msg = r(onArrowHitEntity_lowHp);
-                }
-                else if (remainingHpPercent < 75) {
+                } else if (remainingHpPercent < 75) {
                     msg = r(onArrowHitEntity_decentHP);
-                }
-                else {
+                } else {
                     msg = r(onArrowHitEntity_highHp);
                 }
             } else {
@@ -523,10 +553,9 @@ e.getForce()
         // always do inject if msg is ""
         int inject;
 
-        if(msg.equals("")){
+        if (msg.equals("")) {
             inject = random.nextInt(8);
-        }
-        else{
+        } else {
             inject = random.nextInt(100);
         }
 
@@ -629,14 +658,11 @@ e.getForce()
 
             if (time > 18000) {//midnight - 6am
                 msg = r(msg_time_early_morning);
-            }
-            else if (time > 12000) {//6pm - midnight
+            } else if (time > 12000) {//6pm - midnight
                 msg = r(msg_time_evening);
-            }
-            else if (time > 6000) {//noon - 6pm
+            } else if (time > 6000) {//noon - 6pm
                 msg = r(msg_time_afternoon);
-            }
-            else {//6am - noon
+            } else {//6am - noon
                 msg = r(msg_time_morning);
             }
         }
