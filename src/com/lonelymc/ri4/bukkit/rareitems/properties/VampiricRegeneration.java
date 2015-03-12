@@ -41,8 +41,8 @@ public class VampiricRegeneration extends RareItemProperty {
                 return false;
             }
 
-            if (attackerNewHP > 20) {
-                attackerNewHP = 20;
+            if (attackerNewHP > pAttacker.getMaxHealth()) {
+                attackerNewHP = pAttacker.getMaxHealth();
             }
 
             attacked.setHealth(attackedNewHP);
