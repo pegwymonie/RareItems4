@@ -158,6 +158,16 @@ public class PlayerListener implements Listener {
             }
         }
     }
+//TODO: item swapping equip/unequip RIs
+    /*
+    @EventHandler(ignoreCancelled = true)
+    public void onPlayerSwappedRareItem(PlayerItemHeldEvent e){
+        this.api.equipRareItem(e.getPlayer(), e.getPlayer().getInventory().getItem(e.getNewSlot()));
+        this.api.unEquipRareItem(e.getPlayer(),e.getPlayer().getItemInHand());
+
+        System.out.println("equipping: " +e.getPlayer().getInventory().getItem(e.getNewSlot()).toString());
+        System.out.println("unequipping: " +e.getPlayer().getItemInHand().toString());
+    }*/
 
     @EventHandler(ignoreCancelled = true)
     public void onPlayerShootRareItemBow(EntityShootBowEvent e) {
